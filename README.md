@@ -78,7 +78,7 @@ clearmap/
 无需安装任何第三方依赖，克隆后直接运行：
 
 ```bash
-git clone https://github.com/Kaiibye/clearmap.git
+git clone https://github.com/106-official/clearmap.git
 cd clearmap
 ```
 
