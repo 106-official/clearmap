@@ -1,0 +1,40 @@
+{
+  "id": "guest",
+  "created": 1789231473,
+  "profile": {
+    "nature": 5,
+    "culture": 3,
+    "food": 3,
+    "shopping": 3,
+    "nightlife": 3,
+    "family": 3,
+    "photo": 3
+  },
+  "favorites": [],
+  "plans": [
+    {
+      "title": "我的行程 · 9月13日",
+      "budget": "full",
+      "items": [
+        {
+          "id": "juzizhou",
+          "name": "橘子洲",
+          "district": "岳麓区"
+        },
+        {
+          "id": "dufu-jiangge",
+          "name": "杜甫江阁",
+          "district": "天心区"
+        }
+      ],
+      "id": "5087d04d5e",
+      "saved_at": 1789231853
+    }
+  ],
+  "nickname": "长沙旅人",
+  "signature": "把湘江走成自己的诗",
+  "avatar": "",
+  "mbti": "INFP",
+  "checkins": [],
+  "routes": []
+}
