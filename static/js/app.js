@@ -72,69 +72,23 @@
   const VIEWS = ["home", "map", "plan", "discover", "me"];
   function showView(name) {
     document.body.dataset.view = name;
+    const TAB_VIEWS = ["map", "plan", "discover", "me"];
     VIEWS.forEach((v) => {
       const sec = document.getElementById("view-" + v);
       if (sec) sec.hidden = v !== name;
     });
+    // 随笔是子页（不属底部栏），单独收放
+    const ev = document.getElementById("view-essay");
+    if (ev) ev.hidden = name !== "essay";
     document.querySelectorAll(".tab-link").forEach((b) => {
-      b.classList.toggle("is-active", b.getAttribute("data-nav") === name);
+      const nav = b.getAttribute("data-nav");
+      b.classList.toggle("is-active", nav === name && TAB_VIEWS.indexOf(name) !== -1);
     });
+    // 切到地图时，若面板刚可见则校正尺寸并复位视野（修复 SVG 底图不显示）
+    if (name === "map") map.refreshSize();
     if (name === "plan") { renderCheckinSelect(); loadArchive(); }
     if (name === "discover") { loadFeed(); }
-    if (name === "me") { renderCheckinSelect(); refreshServerState(); loadMyEssays(); }
-    if (name === "home") { refreshAuthUi(); }
-  }
-
-  // ---- 首页：登录状态展示 ----
-  function refreshHomeAuth() {
-    const el = document.getElementById("homeAccount");
-    const init = document.getElementById("homeInit");
-    if (!el) return;
-    const t = api.token;
-    if (t) {
-      api.authMe().then((r) => {
-        if (r.ok && r.me && r.me.signed_in) {
-          el.textContent = "已登录 · " + maskedPhone(r.me.phone || "");
-          el.classList.add("is-in");
-          el.title = "已登录，点此进入个人中心";
-        } else {
-          el.textContent = "游客 · 点击登录";
-          el.classList.remove("is-in");
-        }
-      });
-    } else {
-      el.textContent = "游客 · 点击登录";
-      el.classList.remove("is-in");
-    }
-    if (init) init.hidden = true;
-  }
-
-  // ---- 个人中心：服务器 / 后端连接设置 ----
-  function refreshServerState() {
-    const inp = document.getElementById("serverBase");
-    if (inp) inp.value = api.serverBase();
-    testServer();
-  }
-  let serverChecking = false;
-  function testServer() {
-    const st = document.getElementById("serverState");
-    if (!st) return;
-    if (serverChecking) return;
-    serverChecking = true;
-    st.textContent = "检测中…";
-    st.classList.remove("is-err", "is-ok");
-    api.health().then((r) => {
-      serverChecking = false;
-      const ok = r && r.ok === true;
-      st.textContent = ok ? "已连接" : "未连接(检查笔记本/路由器)";
-      st.classList.toggle("is-ok", !!ok);
-      st.classList.toggle("is-err", !ok);
-      if (!ok) toast("后端未连通，地图仍可离线使用");
-    }).catch(() => {
-      serverChecking = false;
-      st.textContent = "未连接(检查笔记本/路由器)";
-      st.classList.add("is-err");
-    });
+    if (name === "me") { renderCheckinSelect(); loadMyEssays(); }
   }
 
   // ---- 地图 ----
@@ -202,25 +156,6 @@
     render.renderSaved(document.getElementById("savedPlans"), plans);
   }
 
-  // ---- 偏好 ----
-  function renderPrefs() {
-    render.renderPrefs(document.getElementById("prefsPanel"), state.profile, function (key, v) {
-      state.profile[key] = v;
-      saveProfileSoon();
-      refreshAffinities();
-    });
-  }
-
-  let prefTimer;
-  function saveProfileSoon() {
-    clearTimeout(prefTimer);
-    prefTimer = setTimeout(() => {
-      api.saveProfile(state.profile).then((r) => {
-        if (r.ok) toast("偏好已存进本地");
-      });
-    }, 400);
-  }
-
   function refreshAffinities() {
     api.pois(cityActive()).then((r) => {
       if (r.ok) {
@@ -279,7 +214,6 @@
       if (r.ok) {
         state.profile = r.profile;
         state.favorites = r.favorites || [];
-        renderPrefs();
         refreshAffinities();
       }
     });
@@ -494,6 +428,8 @@
     document.getElementById("recordStart").disabled = true;
     document.getElementById("recordStop").disabled = false;
     setRouteStatus("正在记录…（GPS 定位中）");
+    const hud = document.getElementById("recHud");
+    if (hud) hud.hidden = false;
     if (navigator.geolocation) {
       routeWatch = navigator.geolocation.watchPosition(
         (pos) => { if (recording) addRoutePoint([pos.coords.latitude, pos.coords.longitude]); },
@@ -510,6 +446,8 @@
     recording = false;
     clickMode = false;
     map.setClickMap(null);
+    const hud = document.getElementById("recHud");
+    if (hud) hud.hidden = true;
     document.getElementById("recordStart").disabled = false;
     document.getElementById("recordStop").disabled = true;
     if (routePoints.length < 2) {
@@ -628,42 +566,21 @@
   }
 
   // ---- 登录 / 注册 ----
-  const authBtn = () => document.getElementById("authBtn");
-  function maskedPhone(phone) {
-    const d = String(phone || "").replace(/\D/g, "");
-    if (d.length >= 8) return d.slice(0, 3) + "****" + d.slice(-4);
-    return phone || "";
-  }
-  function refreshAuthUi() {
-    refreshHomeAuth();
-    const t = api.token;
-    const el = authBtn();
-    if (!el) return;
-    if (t) {
-      api.authMe().then((r) => {
-        if (r.ok && r.me && r.me.signed_in) {
-          state.me.phone = r.me.phone || state.me.phone;
-          el.textContent = maskedPhone(r.me.phone || state.me.phone) || (state.me.nickname || "我的账号");
-          el.classList.add("is-in");
-          el.title = "已登录 · 点击退出";
-        } else {
-          el.textContent = "登录";
-          el.classList.remove("is-in");
-        }
-      });
-    } else {
-      el.textContent = "登录";
-      el.classList.remove("is-in");
-    }
-  }
-  function openAuthModal() {
+  // 强制登录标志：从首页进入地图时若未登录，弹手机验证码登录且不可跳过
+  let authForced = false;
+  let afterAuthView = null;
+  function openAuthModal(forced) {
+    authForced = !!forced;
     document.getElementById("authError").hidden = true;
     document.getElementById("authDev").hidden = true;
     document.getElementById("authModal").hidden = false;
+    const cancel = document.getElementById("authCancel");
+    if (cancel) cancel.style.display = forced ? "none" : "";
     const phone = document.getElementById("authPhone");
     if (phone) phone.focus();
   }
   function closeAuthModal() {
+    if (authForced) return;   // 强制登录：未登录前不准跳过
     document.getElementById("authModal").hidden = true;
   }
   function setAuthErr(msg) {
@@ -713,32 +630,13 @@
       api.token = r.session.token;
       localStorage.setItem("clearmap_token", r.session.token);
       state.me.phone = r.session.phone || phone;
+      authForced = false;   // 登录成功后可正常关闭弹窗
       closeAuthModal();
       toast("登录成功" + (r.session.nickname ? "，你好，" + r.session.nickname : ""));
-      refreshAuthUi();
       loadProfile();
       loadMe();
+      if (afterAuthView) { const v = afterAuthView; afterAuthView = null; showView(v); }
     });
-  }
-  function doLogout() {
-    const t = api.token;
-    api.logout().then(() => {
-      api.token = "";
-      localStorage.removeItem("clearmap_token");
-      state.me.phone = "";
-      toast("已退出登录，数据回到本地游客账号");
-      refreshAuthUi();
-      loadProfile();
-      loadMe();
-    }).catch(() => {
-      api.token = "";
-      localStorage.removeItem("clearmap_token");
-      state.me.phone = "";
-    });
-  }
-  function onAuthBtnClick() {
-    if (api.token) doLogout();
-    else openAuthModal();
   }
 
   // ---- 启动 ----
@@ -751,38 +649,18 @@
       });
     });
 
-    // 首页：进入地图 / 登录状态 / 回首页 logo
+    // ---- 进入地图：未登录则强制手机验证码登录（不准跳过）----
+    function onEnterHome() {
+      if (api.token) { showView("map"); return; }
+      afterAuthView = "map";
+      openAuthModal(true);   // forced：隐藏取消按钮、禁止点背景关闭
+    }
     const homeEnter = document.getElementById("homeEnter");
-    if (homeEnter) homeEnter.addEventListener("click", () => showView("map"));
-    const homeAccount = document.getElementById("homeAccount");
-    if (homeAccount) homeAccount.addEventListener("click", () => {
-      if (api.token) showView("me");
-      else openAuthModal();
-    });
+    if (homeEnter) homeEnter.addEventListener("click", onEnterHome);
     const brandHome = document.getElementById("brandHome");
     if (brandHome) brandHome.addEventListener("click", () => showView("home"));
 
-    // 服务器 / 后端连接设置
-    document.getElementById("serverSave").addEventListener("click", () => {
-      const inp = document.getElementById("serverBase");
-      api.setServerBase(inp.value);
-      toast("地址已保存，正在重连…");
-      loadProfile();
-      loadMe();
-      refreshAffinities();
-      setTimeout(() => location.reload(), 600);
-    });
-    document.getElementById("serverReset").addEventListener("click", () => {
-      api.setServerBase("");
-      toast("已恢复同源地址，正在重连…");
-      setTimeout(() => location.reload(), 600);
-    });
-    document.getElementById("serverBase").addEventListener("keydown", (e) => {
-      if (e.key === "Enter") document.getElementById("serverSave").click();
-    });
-
     // 登录 / 注册
-    authBtn().addEventListener("click", onAuthBtnClick);
     document.getElementById("authSend").addEventListener("click", sendCode);
     document.getElementById("authSubmit").addEventListener("click", submitAuth);
     document.getElementById("authCancel").addEventListener("click", closeAuthModal);
@@ -847,8 +725,9 @@
     document.getElementById("feedList").addEventListener("click", onMeClick);
     document.getElementById("myEssaysList").addEventListener("click", onMeClick);
 
-    // 行程页「去地图记录足迹」
-    document.getElementById("goRecord").addEventListener("click", () => showView("map"));
+    // 随笔：从「个人」进入发布页 / 从发布页返回
+    document.getElementById("essayGoBtn").addEventListener("click", () => showView("essay"));
+    document.getElementById("essayBack").addEventListener("click", () => showView("me"));
 
     // 随笔发布（文字 + 可选相册配图，走系统相册选择器）
     const essayFile = document.getElementById("essayFile");
@@ -864,7 +743,7 @@
     });
 
     // 路线
-    document.getElementById("recordStart").addEventListener("click", startRecord);
+    document.getElementById("recordStart").addEventListener("click", () => { showView("map"); startRecord(); });
     document.getElementById("recordStop").addEventListener("click", stopRecord);
     // 起点选择 / 规划
     document.getElementById("setStart").addEventListener("click", enterPickStart);
@@ -907,8 +786,7 @@
     }
 
     // 拉取数据
-    showView("home");          // 打开 App 先落在首页，登录状态随之检测
-    refreshAuthUi();
+    showView("home");          // 打开 App 先落在首页，登录态由「进入地图」时判定
     loadProfile();
     loadMe();
     refreshAffinities();   // 无后端也初始化地图（走离线包），避免地图空白

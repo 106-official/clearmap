@@ -321,6 +321,38 @@
 
   function resetView() { fitToBox(); }
 
+  // —— 尺寸自适应：修复“SVG 底图不显示”。
+  //    App 启动时地图视图处于 hidden，渲染时面板尺寸为 0（W/H 落到最小值 120）；
+  //    切到地图后才真正可见。此处在面板尺寸变化（尤其 0 → 实际尺寸）时重算 W/H 并复位视野。
+  var rz = null;
+  function watchResize(container) {
+    if (typeof ResizeObserver === "undefined") return;   // 旧 WebView 兜底走 refreshSize()
+    if (rz) rz.disconnect();
+    rz = new ResizeObserver(function (entries) {
+      var e = entries[entries.length - 1];
+      if (!e) return;
+      var w = Math.max(120, e.contentRect.width), h = Math.max(120, e.contentRect.height);
+      var changed = Math.abs(w - W) > 4 || Math.abs(h - H) > 4;
+      W = w; H = h;
+      if (changed) {
+        if (initDone && DATA) fitToBox();   // 尺寸变化（含首次可见）：重算并复位视野
+        else render();
+      }
+    });
+    rz.observe(container);
+  }
+
+  // 供上层在切到「地图」视图时主动调用，兼容无 ResizeObserver 的环境
+  function refreshSize() {
+    if (!svg) return;
+    var r = svg.getBoundingClientRect();
+    var w = Math.max(120, Math.round(r.width)), h = Math.max(120, Math.round(r.height));
+    var changed = Math.abs(w - W) > 4 || Math.abs(h - H) > 4;
+    W = w; H = h;
+    if (changed && initDone && DATA) fitToBox();
+    else if (changed) render();
+  }
+
   function zoomAt(px, py, factor) {
     var ns = Math.max(MIN_S, Math.min(MAX_S, view.s * factor));
     var k = ns / view.s;
@@ -662,6 +694,7 @@
     ensureSvg(container);
     bindInteraction(container);
     bindControls(container);
+    watchResize(container);                      // 面板尺寸可见后再复位视野
     if (!initDone) {
       initDone = true;
       loadData().then(function () {
@@ -702,6 +735,7 @@
     renderMarkers: renderMarkersCompat,
     GEO: GEO,
     resetView: resetView,
+    refreshSize: refreshSize,
     zoomIn: function () { var r = svg && svg.getBoundingClientRect(); if (r) zoomAt(r.width / 2, r.height / 2, 1.6); },
     zoomOut: function () { var r = svg && svg.getBoundingClientRect(); if (r) zoomAt(r.width / 2, r.height / 2, 1 / 1.6); },
     drawRoute: drawRoute,

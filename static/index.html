@@ -27,7 +27,6 @@
         <h1 class="lead-title home-title">把一座城市，<br>走成<span class="lead-em">自己的样子</span>。</h1>
         <p class="lead-sub">选定你偏好的落点，地图会替你圈出<em>最顺你心意</em>的去处。</p>
         <button class="btn-primary home-enter" id="homeEnter">进入地图 <span class="home-enter-arrow">→</span></button>
-        <button class="home-account" id="homeAccount">检测登录状态…</button>
       </div>
     </section>
 
@@ -50,16 +49,19 @@
       <!-- MBTI 推荐条（悬浮在地图上方） -->
       <div class="mbti-strip" id="mbtiStrip" hidden></div>
 
-      <!-- 路线记录条（悬浮在地图下方） -->
+      <!-- 路线记录条（悬浮在地图下方）：仅保留「选起点」用于纸飞机路线规划 -->
       <div class="route-bar" id="routeBar">
         <div class="start-box" id="startBox">
           <button class="btn-ghost btn-sm" id="setStart">选起点</button>
           <button class="icon-ghost" id="useGpsStart" title="用我的位置作起点" aria-label="用我的位置作起点">◎</button>
           <span class="start-name" id="startName">未选起点</span>
         </div>
-        <button class="btn-primary btn-sm" id="recordStart">开始记录</button>
-        <button class="btn-ghost btn-sm" id="recordStop" disabled>结束并保存</button>
-        <span class="route-status" id="routeStatus">实时 GPS 记录你的足迹，沿途点亮一条属于你的路线。</span>
+      </div>
+
+      <!-- GPS 记录行程浮层（仅记录时出现，无默认文案） -->
+      <div class="rec-hud" id="recHud" hidden>
+        <span class="route-status" id="routeStatus"></span>
+        <button class="btn-primary btn-sm" id="recordStop" disabled>停止并保存</button>
       </div>
 
       <!-- 选点详情：底部弹出层（点击红绿点后显示） -->
@@ -101,8 +103,8 @@
         <!-- 足迹路线 -->
         <div class="me-card">
           <h3 class="me-title">足迹路线</h3>
-          <p class="me-hint">去地图页点「开始记录」，用 GPS 画下你走过的路，回头在这里翻看归档。</p>
-          <button class="btn-primary btn-sm" id="goRecord" type="button">去地图记录足迹 →</button>
+          <p class="me-hint">点击「开始记录行程」，地图会用 GPS 画下你走过的路，记完回来这里查看归档。</p>
+          <button class="btn-primary btn-sm" id="recordStart" type="button">开始记录行程</button>
           <h4 class="me-list-title">记录路线</h4>
           <div class="me-list" id="routeList"></div>
         </div>
@@ -119,40 +121,16 @@
       <div class="feed" id="feedList"></div>
     </section>
 
-    <!-- 视图：个人（账号 / 偏好 / 资料 / 随笔发布） -->
+    <!-- 视图：个人（资料 + 嵌入式我的随笔） -->
     <section class="view" id="view-me" hidden>
       <div class="lead lead--compact">
         <p class="lead-kicker">个人</p>
         <h2 class="lead-title lead-title--sm">我的<span class="lead-em">旅行志</span></h2>
-        <p class="lead-sub">账号、偏好、资料与随笔记事，都收在这。</p>
+        <p class="lead-sub">资料与随笔记事，都收在这。</p>
       </div>
 
       <div class="me-grid">
-        <!-- 账号 / 偏好（已并入个人中心） -->
-        <div class="me-card">
-          <h3 class="me-title">账号</h3>
-          <button class="btn-primary btn-block" id="authBtn">登录 / 注册</button>
-        </div>
-
-        <!-- 服务器 / 后端连接 -->
-        <div class="me-card">
-          <h3 class="me-title">服务器 / 后端连接</h3>
-          <p class="me-hint">后端常开笔记本时填它的外网地址（末尾带 <code>/</code>）。搬新位置/换 IP 时在改这里即可，<em>无需重新打包</em>。</p>
-          <input class="me-input" id="serverBase" placeholder="如 http://192.168.1.20:9100/" spellcheck="false" autocomplete="off">
-          <div class="server-row">
-            <button class="btn-ghost btn-sm" id="serverSave" type="button">保存并重连</button>
-            <button class="btn-ghost btn-sm" id="serverReset" type="button">恢复默认(同源)</button>
-            <span class="server-state" id="serverState"></span>
-          </div>
-        </div>
-
-        <div class="me-card">
-          <h3 class="me-title">我的偏好</h3>
-          <p class="me-hint">拖动标尺，推荐会跟着你的心意流转。</p>
-          <div class="prefs-panel" id="prefsPanel"><!-- 由 JS 渲染 --></div>
-        </div>
-
-        <!-- 资料卡 -->
+        <!-- 个人资料卡 -->
         <div class="me-card">
           <h3 class="me-title">个人资料</h3>
           <button class="me-avatar" id="avatarBox" aria-label="上传头像">
@@ -167,25 +145,32 @@
             <div class="mbti-label">MBTI 性格</div>
             <button class="mbti-badge" id="mbtiBadge">选择我的性格 →</button>
           </div>
+          <button class="btn-primary btn-block btn-essay-go" id="essayGoBtn">写一篇随笔 →</button>
         </div>
+      </div>
 
-        <!-- 发布随笔 -->
-        <div class="me-card">
-          <h3 class="me-title">发布随笔</h3>
-          <p class="me-hint">一篇文字 + 可选相册配图（最多 6 张），发布后会出现在「发现」页。</p>
-          <textarea class="me-input me-textarea" id="essayText" maxlength="2000" placeholder="写写此刻的风景或心情…"></textarea>
-          <div class="essay-imgs" id="essayImgs"></div>
-          <input type="file" id="essayFile" accept="image/*" multiple hidden>
-          <div class="essay-actions">
-            <button class="btn-ghost btn-sm" id="essayAddImg" type="button">＋ 相册配图</button>
-            <button class="btn-primary btn-sm" id="essayPublish" type="button">发布</button>
-          </div>
-        </div>
+      <!-- 我的随笔：嵌入式展示（不单独成卡片） -->
+      <section class="me-myessays">
+        <h3 class="me-title me-myessays-title">我的随笔</h3>
+        <div class="me-list me-list--essays" id="myEssaysList"></div>
+      </section>
+    </section>
 
-        <!-- 我的随笔 -->
-        <div class="me-card">
-          <h3 class="me-title">我的随笔</h3>
-          <div class="me-list me-list--essays" id="myEssaysList"></div>
+    <!-- 视图：发布随笔（从「个人」进入，专注写作） -->
+    <section class="view" id="view-essay" hidden>
+      <div class="lead lead--compact">
+        <p class="lead-kicker">发布随笔</p>
+        <h2 class="lead-title lead-title--sm">此刻的<span class="lead-em">风景与心情</span></h2>
+        <p class="lead-sub">写几句感受，配几张此刻的照片。</p>
+      </div>
+      <div class="me-card">
+        <textarea class="me-input me-textarea" id="essayText" maxlength="2000" placeholder="写写此刻的风景或心情…"></textarea>
+        <div class="essay-imgs" id="essayImgs"></div>
+        <input type="file" id="essayFile" accept="image/*" multiple hidden>
+        <div class="essay-actions">
+          <button class="btn-ghost btn-sm" id="essayAddImg" type="button">＋ 相册配图</button>
+          <button class="btn-primary btn-sm" id="essayPublish" type="button">发布</button>
+          <button class="btn-ghost btn-sm" id="essayBack" type="button">← 返回个人</button>
         </div>
       </div>
     </section>
