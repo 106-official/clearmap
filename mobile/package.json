@@ -1,0 +1,16 @@
+{
+  "name": "clearmap-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ClearMap 安卓封装（Capacitor）—— 将既有 Web 前端打包为 Android App",
+  "scripts": {
+    "android:sync": "npx cap sync android",
+    "android:open": "npx cap open android",
+    "android:add": "npx cap add android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/cli": "^8.5.2",
+    "@capacitor/core": "^8.5.2"
+  }
+}

@@ -2,57 +2,55 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>ClearMap · 长沙</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="/css/style.css">
 </head>
-<body data-view="map">
+<body data-view="home">
 
-  <!-- 顶部题眉 -->
-  <header class="masthead">
-    <a class="brand" href="#" data-nav="map">
+  <!-- 顶部：仅左上角 ClearMap logo -->
+  <header class="titlebar">
+    <a class="brand" id="brandHome" aria-label="回到首页">
       <span class="brand-mark"></span>
       <span class="brand-name">ClearMap</span>
-      <span class="brand-city">长沙&thinsp;Changsha</span>
     </a>
-    <nav class="masthead-nav" aria-label="主导航">
-      <button class="nav-link is-active" data-nav="map">地图</button>
-      <button class="nav-link" data-nav="prefs">偏好</button>
-      <button class="nav-link" data-nav="plan">行程</button>
-      <button class="nav-link" data-nav="me">我的</button>
-    </nav>
-    <button class="icon-ghost" id="profileBtn" aria-label="我的足迹">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.6-3.4 3.4-5 7-5s6.4 1.6 7 5"/></svg>
-    </button>
   </header>
 
-  <!-- 主区：三个视图 -->
+  <!-- 主区：首页 + 各视图 -->
   <main class="stage">
 
-    <!-- 视图：地图 -->
-    <section class="view" id="view-map">
-      <div class="lead">
-        <p class="lead-kicker">长沙 · 湘江边的山水之城</p>
-        <h1 class="lead-title">把一座城市，<br>走成<span class="lead-em">自己的样子</span>。</h1>
+    <!-- 视图：首页（打开 App 先看到它） -->
+    <section class="view view-home" id="view-home">
+      <div class="home-hero">
+        <p class="lead-kicker" id="cityKicker">长沙 · 湘江边的山水之城</p>
+        <h1 class="lead-title home-title">把一座城市，<br>走成<span class="lead-em">自己的样子</span>。</h1>
         <p class="lead-sub">选定你偏好的落点，地图会替你圈出<em>最顺你心意</em>的去处。</p>
+        <button class="btn-primary home-enter" id="homeEnter">进入地图 <span class="home-enter-arrow">→</span></button>
+        <button class="home-account" id="homeAccount">检测登录状态…</button>
       </div>
+    </section>
 
-      <div class="map-wrap">
-        <div class="map-panel" id="mapPanel">
-          <div class="map-hint" id="mapHint">滚轮缩放 · 拖拽平移</div>
-          <div class="map-controls" aria-label="地图缩放">
-            <button class="map-btn" data-zoom="in" aria-label="放大">＋</button>
-            <button class="map-btn" data-zoom="out" aria-label="缩小">－</button>
-            <button class="map-btn" data-zoom="reset" aria-label="重置视图">⟲</button>
-          </div>
+    <!-- 视图：地图（全屏沉浸，覆盖上下栏以外全部区域） -->
+    <section class="view view-map" id="view-map" hidden>
+      <div class="map-panel" id="mapPanel">
+        <div class="map-hint" id="mapHint">拖拽平移 · 双指缩放</div>
+        <div class="map-controls" aria-label="地图缩放">
+          <button class="map-btn" data-zoom="in" aria-label="放大">＋</button>
+          <button class="map-btn" data-zoom="out" aria-label="缩小">－</button>
+          <button class="map-btn" data-zoom="reset" aria-label="重置视图">⟲</button>
+          <select class="map-city" id="mapCity" aria-label="切换城市">
+            <option value="changsha">长沙</option>
+            <option value="shanghai">上海</option>
+            <option value="beijing">北京</option>
+          </select>
         </div>
-        <aside class="side" id="sidePanel" aria-label="选点详情"></aside>
-        <p class="map-caption" id="mapCaption">从河心洲与千年书院，到夜色不熄的街巷 —— 点一粒光，看它的模样。</p>
       </div>
 
+      <!-- MBTI 推荐条（悬浮在地图上方） -->
       <div class="mbti-strip" id="mbtiStrip" hidden></div>
 
+      <!-- 路线记录条（悬浮在地图下方） -->
       <div class="route-bar" id="routeBar">
         <div class="start-box" id="startBox">
           <button class="btn-ghost btn-sm" id="setStart">选起点</button>
@@ -63,50 +61,97 @@
         <button class="btn-ghost btn-sm" id="recordStop" disabled>结束并保存</button>
         <span class="route-status" id="routeStatus">实时 GPS 记录你的足迹，沿途点亮一条属于你的路线。</span>
       </div>
-    </section>
 
-    <!-- 视图：偏好 -->
-    <section class="view" id="view-prefs" hidden>
-      <div class="lead lead--compact">
-        <p class="lead-kicker">个性化</p>
-        <h2 class="lead-title lead-title--sm">你想把时间花在<span class="lead-em">哪里</span>？</h2>
-        <p class="lead-sub">拖动七条标尺，地图的推荐会跟着你的心意流转。</p>
+      <!-- 选点详情：底部弹出层（点击红绿点后显示） -->
+      <div class="poi-pop" id="poiPop" hidden>
+        <div class="poi-pop-sheet">
+          <button class="poi-pop-close" id="poiPopClose" aria-label="关闭">×</button>
+          <div class="poi-pop-body" id="poiPopBody"></div>
+        </div>
       </div>
-      <div class="prefs-panel" id="prefsPanel"><!-- 由 JS 渲染 --></div>
     </section>
 
-    <!-- 视图：行程 -->
+    <!-- 视图：行程（打卡 + 足迹档案） -->
     <section class="view" id="view-plan" hidden>
       <div class="lead lead--compact">
-        <p class="lead-kicker">行程编排</p>
-        <h2 class="lead-title lead-title--sm">今日的<span class="lead-em">一条线</span></h2>
-        <p class="lead-sub">按你的偏好，把心仪的去处串成顺路的一天。</p>
-      </div>
-      <div class="plan-bar">
-        <div class="plan-budget" role="group" aria-label="行程时长">
-          <button class="chip" data-budget="quick">半日 4h</button>
-          <button class="chip is-active" data-budget="full">全天 8h</button>
-          <button class="chip" data-budget="relax">慢游 12h</button>
-        </div>
-        <button class="btn-primary" id="generateBtn">编排行程</button>
-        <button class="btn-ghost" id="savePlanBtn" disabled>存进我的行程</button>
-      </div>
-      <div class="plan-panel" id="planPanel">
-        <div class="plan-empty">还没有行程 —— 点「编排行程」，让线路浮现。</div>
-      </div>
-      <h3 class="save-title">已收藏的行程</h3>
-      <div class="saved-list" id="savedPlans"></div>
-    </section>
-
-    <!-- 视图：我的 -->
-    <section class="view" id="view-me" hidden>
-      <div class="lead lead--compact">
-        <p class="lead-kicker">个人中心</p>
-        <h2 class="lead-title lead-title--sm">我的<span class="lead-em">旅行足迹</span></h2>
-        <p class="lead-sub">头像、性格、走过的路与到过的角落，都收在这里。</p>
+        <p class="lead-kicker">行程档案</p>
+        <h2 class="lead-title lead-title--sm">走过的路，<span class="lead-em">到过的角落</span></h2>
+        <p class="lead-sub">记录一段足迹、打卡一处风景，全都归档在这里。</p>
       </div>
 
       <div class="me-grid">
+        <!-- 行程打卡 -->
+        <div class="me-card">
+          <h3 class="me-title">行程打卡</h3>
+          <p class="me-hint">在地图上点开景点「在此打卡」，上传照片点亮你的旅程。</p>
+          <form class="checkin-form" id="checkinForm">
+            <label class="checkin-img" id="checkinImgBox">
+              <input type="file" id="checkinFile" accept="image/*" hidden>
+              <span class="checkin-img-ph" id="checkinImgPh">＋ 添加照片</span>
+              <img class="checkin-img-prev" id="checkinImgPrev" alt="预览" hidden>
+            </label>
+            <select class="me-input" id="checkinPoi"></select>
+            <input class="me-input" id="checkinCaption" placeholder="写一句当时的心情…" maxlength="200">
+            <button class="btn-ghost" type="submit" id="checkinSubmit">记录打卡</button>
+          </form>
+          <h4 class="me-list-title">打卡景点</h4>
+          <div class="me-list" id="checkinList"></div>
+        </div>
+
+        <!-- 足迹路线 -->
+        <div class="me-card">
+          <h3 class="me-title">足迹路线</h3>
+          <p class="me-hint">去地图页点「开始记录」，用 GPS 画下你走过的路，回头在这里翻看归档。</p>
+          <button class="btn-primary btn-sm" id="goRecord" type="button">去地图记录足迹 →</button>
+          <h4 class="me-list-title">记录路线</h4>
+          <div class="me-list" id="routeList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 视图：发现（别人的旅游随笔） -->
+    <section class="view" id="view-discover" hidden>
+      <div class="lead lead--compact">
+        <p class="lead-kicker">发现</p>
+        <h2 class="lead-title lead-title--sm">别人的<span class="lead-em">旅志</span></h2>
+        <p class="lead-sub">看看大家正在把一座城，走成什么样子。</p>
+      </div>
+      <div class="feed" id="feedList"></div>
+    </section>
+
+    <!-- 视图：个人（账号 / 偏好 / 资料 / 随笔发布） -->
+    <section class="view" id="view-me" hidden>
+      <div class="lead lead--compact">
+        <p class="lead-kicker">个人</p>
+        <h2 class="lead-title lead-title--sm">我的<span class="lead-em">旅行志</span></h2>
+        <p class="lead-sub">账号、偏好、资料与随笔记事，都收在这。</p>
+      </div>
+
+      <div class="me-grid">
+        <!-- 账号 / 偏好（已并入个人中心） -->
+        <div class="me-card">
+          <h3 class="me-title">账号</h3>
+          <button class="btn-primary btn-block" id="authBtn">登录 / 注册</button>
+        </div>
+
+        <!-- 服务器 / 后端连接 -->
+        <div class="me-card">
+          <h3 class="me-title">服务器 / 后端连接</h3>
+          <p class="me-hint">后端常开笔记本时填它的外网地址（末尾带 <code>/</code>）。搬新位置/换 IP 时在改这里即可，<em>无需重新打包</em>。</p>
+          <input class="me-input" id="serverBase" placeholder="如 http://192.168.1.20:9100/" spellcheck="false" autocomplete="off">
+          <div class="server-row">
+            <button class="btn-ghost btn-sm" id="serverSave" type="button">保存并重连</button>
+            <button class="btn-ghost btn-sm" id="serverReset" type="button">恢复默认(同源)</button>
+            <span class="server-state" id="serverState"></span>
+          </div>
+        </div>
+
+        <div class="me-card">
+          <h3 class="me-title">我的偏好</h3>
+          <p class="me-hint">拖动标尺，推荐会跟着你的心意流转。</p>
+          <div class="prefs-panel" id="prefsPanel"><!-- 由 JS 渲染 --></div>
+        </div>
+
         <!-- 资料卡 -->
         <div class="me-card">
           <h3 class="me-title">个人资料</h3>
@@ -124,45 +169,81 @@
           </div>
         </div>
 
-        <!-- 打卡卡 -->
+        <!-- 发布随笔 -->
         <div class="me-card">
-          <h3 class="me-title">旅行打卡</h3>
-          <form class="checkin-form" id="checkinForm">
-            <label class="checkin-img" id="checkinImgBox">
-              <input type="file" id="checkinFile" accept="image/*" hidden>
-              <span class="checkin-img-ph" id="checkinImgPh">＋ 添加照片</span>
-              <img class="checkin-img-prev" id="checkinImgPrev" alt="预览" hidden>
-            </label>
-            <select class="me-input" id="checkinPoi"></select>
-            <input class="me-input" id="checkinCaption" placeholder="写一句当时的心情…" maxlength="200">
-            <button class="btn-ghost" type="submit" id="checkinSubmit">记录打卡</button>
-          </form>
-          <div class="me-list" id="checkinList"></div>
+          <h3 class="me-title">发布随笔</h3>
+          <p class="me-hint">一篇文字 + 可选相册配图（最多 6 张），发布后会出现在「发现」页。</p>
+          <textarea class="me-input me-textarea" id="essayText" maxlength="2000" placeholder="写写此刻的风景或心情…"></textarea>
+          <div class="essay-imgs" id="essayImgs"></div>
+          <input type="file" id="essayFile" accept="image/*" multiple hidden>
+          <div class="essay-actions">
+            <button class="btn-ghost btn-sm" id="essayAddImg" type="button">＋ 相册配图</button>
+            <button class="btn-primary btn-sm" id="essayPublish" type="button">发布</button>
+          </div>
         </div>
 
-        <!-- 路线卡 -->
+        <!-- 我的随笔 -->
         <div class="me-card">
-          <h3 class="me-title">我的路线</h3>
-          <p class="me-hint">在地图页点「开始记录」，用 GPS 画下你走过的路。</p>
-          <div class="me-list" id="routeList"></div>
-        </div>
-
-        <!-- MBTI 专属推荐卡 -->
-        <div class="me-card">
-          <h3 class="me-title">MBTI 专属推荐</h3>
-          <p class="me-hint">按你的性格画像，为风景排好了序 —— 点它去地图上看看。</p>
-          <div id="mbtiRecsMe"></div>
+          <h3 class="me-title">我的随笔</h3>
+          <div class="me-list me-list--essays" id="myEssaysList"></div>
         </div>
       </div>
     </section>
 
   </main>
 
-  <footer class="colophon">
-    <p>ClearMap · 城市地图与个性化行程推荐 —— POI 单一数据源 &thinsp;·&thinsp; 推荐引擎 &thinsp;·&thinsp; 数据本地存储</p>
-  </footer>
+  <!-- 底部标签栏：地图 / 行程 / 发现 / 个人 -->
+  <nav class="tabbar" aria-label="主导航">
+    <button class="tab-link is-active" data-nav="map" aria-label="地图">
+      <svg class="tab-ico" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6">
+        <path d="M9 4 4 6v14l5-2 6 2 5-2V4l-5 2-6-2z"/><path d="M9 4v14m6-12v14"/>
+      </svg>
+      <span class="tab-label">地图</span>
+    </button>
+    <button class="tab-link" data-nav="plan" aria-label="行程">
+      <svg class="tab-ico" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6">
+        <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>
+      </svg>
+      <span class="tab-label">行程</span>
+    </button>
+    <button class="tab-link" data-nav="discover" aria-label="发现">
+      <svg class="tab-ico" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M15.2 8.8 13.6 13.6 8.8 15.2l1.6-4.8z"/>
+        <circle cx="12.5" cy="12.5" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+      <span class="tab-label">发现</span>
+    </button>
+    <button class="tab-link tab-link--me" data-nav="me" aria-label="个人">
+      <span class="tab-avatar" id="tabAvatar">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <circle cx="12" cy="8" r="3.5"/><path d="M5 20c.6-3.4 3.4-5 7-5s6.4 1.6 7 5"/>
+        </svg>
+      </span>
+      <span class="tab-label">个人</span>
+    </button>
+  </nav>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- 登录 / 注册弹窗 -->
+  <div class="modal" id="authModal" hidden>
+    <div class="modal-card">
+      <h3 class="modal-title">手机号登录 / 注册</h3>
+      <p class="modal-sub">用手机验证码登录，账号与个人信息将同步到云端。</p>
+      <div class="auth-phone-row">
+        <input class="me-input" id="authPhone" placeholder="手机号" inputmode="tel" maxlength="20">
+        <button class="btn-ghost btn-sm" id="authSend" type="button">获取验证码</button>
+      </div>
+      <input class="me-input" id="authCode" placeholder="6 位验证码" inputmode="numeric" maxlength="6">
+      <div class="auth-dev" id="authDev" hidden></div>
+      <div class="auth-error" id="authError" hidden></div>
+      <div class="modal-actions">
+        <button class="btn-ghost" id="authCancel" type="button">取消</button>
+        <button class="btn-primary" id="authSubmit" type="button">登录 / 注册</button>
+      </div>
+    </div>
+  </div>
 
   <!-- MBTI 选择弹窗 -->
   <div class="modal" id="mbtiModal" hidden>

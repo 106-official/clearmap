@@ -15,6 +15,7 @@ import data
 import recommend
 import route as route_mod   # 别名为 route_mod：避免与下方 handler 函数 route() 重名遮蔽
 import config
+import auth
 
 
 class ApiError(Exception):
@@ -50,11 +51,11 @@ def meta():
             "poi_count": len(data.load_pois())}
 
 
-def pois(user_id="guest"):
+def pois(user_id="guest", city="changsha"):
     user = data.ensure_user(user_id)
     profile = user.get("profile", {})
     mbti = user.get("mbti")
-    sc = recommend.recommend(profile)
+    sc = recommend.recommend(profile, city=city)
     out = []
     for r in sc:
         p = r["poi"]
@@ -73,17 +74,17 @@ def pois(user_id="guest"):
     return {"ok": True, "pois": out}
 
 
-def recommend_api(user_id="guest", limit=None):
+def recommend_api(user_id="guest", limit=None, city="changsha"):
     profile = data.ensure_user(user_id).get("profile", {})
-    sc = recommend.recommend(profile, limit=limit)
+    sc = recommend.recommend(profile, limit=limit, city=city)
     return {"ok": True, "recommended": [
         {"poi": {k: r["poi"][k] for k in ("id", "name", "district", "type", "x", "y")},
          "affinity": r["affinity"]} for r in sc]}
 
 
-def itinerary(user_id="guest", budget="full"):
+def itinerary(user_id="guest", budget="full", city="changsha"):
     profile = data.ensure_user(user_id).get("profile", {})
-    it = recommend.build_itinerary(profile, budget_key=budget)
+    it = recommend.build_itinerary(profile, budget_key=budget, city=city)
     return {"ok": True, **it}
 
 
@@ -137,7 +138,8 @@ def get_me(user_id):
     }, "profile": user["profile"], "favorites": user.get("favorites", []),
         "plans": user.get("plans", []),
         "checkins": _decorate_checkins(user.get("checkins", []), user_id),
-        "routes": user.get("routes", [])}
+        "routes": user.get("routes", []),
+        "essays": data.my_essays(user_id)}
 
 
 def _decorate_checkins(checkins, user_id="guest"):
@@ -216,14 +218,48 @@ def delete_route(user_id, route_id):
     return {"ok": True, "id": route_id}
 
 
-def mbti_recommendations(user_id, limit=6):
+# ---- 旅游随笔 / 发现（preview-1.22）----------------------------------------
+
+_ESSAY_IMAGES_MAX = 6
+
+
+def publish_essay(user_id, body):
+    if user_id == "guest":
+        raise ApiError("请先登录后再发布随笔")
+    text = str(body.get("text", "")).strip()
+    if not text:
+        raise ApiError("随笔内容不能为空")
+    imgs = body.get("imgs") or []
+    if not isinstance(imgs, list):
+        raise ApiError("图片参数非法")
+    if len(imgs) > _ESSAY_IMAGES_MAX:
+        raise ApiError("最多上传 %d 张图片" % _ESSAY_IMAGES_MAX)
+    files = [_save_image(user_id, d, "essay") for d in imgs]
+    e = data.add_essay(user_id, {
+        "text": text, "imgs": files,
+        "lat": body.get("lat"), "lon": body.get("lon"),
+    })
+    return {"ok": True, "essay": e}
+
+
+def remove_essay(user_id, essay_id):
+    if not data.delete_essay(user_id, essay_id):
+        raise ApiError("随笔不存在")
+    return {"ok": True, "id": essay_id}
+
+
+def discover_feed(user_id, limit=30):
+    return {"ok": True, "essays": data.feed_essays(limit)}
+
+
+def mbti_recommendations(user_id, limit=6, city="changsha"):
     user = data.ensure_user(user_id)
     mbti = user.get("mbti")
     if not mbti:
         return {"ok": True, "mbti": None, "recommended": [], "name": ""}
     sc = [{"poi": p, "affinity": recommend.score_poi(p, user["profile"]),
            "mbti_affinity": recommend.mbti_affinity(p, mbti)}
-          for p in data.load_pois()]
+          for p in data.load_pois(city)]
     sc.sort(key=lambda r: r["mbti_affinity"], reverse=True)
     sc = sc[:limit]
     return {"ok": True, "mbti": mbti,
@@ -273,6 +309,43 @@ def route_plan(user_id, body):
 
 def transit_meta():
     return {"ok": True, "available": route_mod.available(), "stats": route_mod.stats()}
+
+
+# ---- 认证 / 账号 ------------------------------------------------------------
+
+def send_code(phone):
+    ok, msg, mock = auth.send_code(phone)
+    resp = {"ok": ok, "msg": msg}
+    if mock:
+        resp["dev_code"] = mock   # 仅调试模式出现，前端用于填充输入框
+    return 200, resp
+
+
+def auth_login(body):
+    ok, msg, sess = auth.register_or_login(body.get("phone"), body.get("code"))
+    if not ok:
+        return 400, {"ok": False, "error": msg}
+    return 200, {"ok": True, "msg": msg, "session": sess}
+
+
+def auth_logout(body):
+    auth.logout(body.get("token"))
+    return 200, {"ok": True}
+
+
+def auth_me(query):
+    token = (urllib.parse.parse_qs(query or "").get("token", [""]) or [""])[0]
+    info = auth.session_info(token)
+    user_id = info["user_id"] if info else "guest"
+    user = data.ensure_user(user_id)
+    return 200, {"ok": True, "me": {
+        "user_id": user["id"],
+        "phone": (info or {}).get("phone", "") if user_id != "guest" else "",
+        "nickname": user.get("nickname", ""),
+        "avatar": user.get("avatar", ""),
+        "is_new": user.get("created"),
+        "signed_in": user_id != "guest",
+    }}
 
 
 # ---- 图片存取 ----
@@ -334,22 +407,28 @@ def route(method, path, body_raw=None, query=None):
             if path == "/api/meta":
                 return 200, meta()
             if path == "/api/pois":
-                return 200, pois(query_id(query))
+                return 200, pois(query_id(query), _query_city(query))
             if path.startswith("/api/recommend"):
-                return 200, recommend_api(query_id(query), limit=_query_int(query, "limit"))
+                return 200, recommend_api(query_id(query),
+                                          limit=_query_int(query, "limit"), city=_query_city(query))
             if path == "/api/profile":
                 return 200, get_profile(query_id(query))
             if path == "/api/me":
                 return 200, get_me(query_id(query))
             if path.startswith("/api/mbti-recs"):
                 return 200, mbti_recommendations(query_id(query),
-                                                 limit=_query_int(query, "limit") or 6)
+                                                 limit=_query_int(query, "limit") or 6,
+                                                 city=_query_city(query))
             if path == "/api/transit":
                 return 200, transit_meta()
+            if path == "/api/feed":
+                return 200, discover_feed(query_id(query), _query_int(query, "limit") or 30)
+            if path == "/api/auth/me":
+                return auth_me(query)
             if path.startswith("/api/itinerary"):
                 seg = path.split("/")  # /api/itinerary[/{budget}]
                 budget = seg[3] if len(seg) > 3 and seg[3] in config.ITINERARY_BUDGETS else "full"
-                return 200, itinerary(query_id(query), budget)
+                return 200, itinerary(query_id(query), budget, _query_city(query))
 
         elif method == "POST":
             body = _json_body(body_raw)
@@ -370,6 +449,14 @@ def route(method, path, body_raw=None, query=None):
                 return 200, favorite(query_id(query), _path_id(seg, 0))
             if path == "/api/route-plan":
                 return 200, route_plan(query_id(query), body)
+            if path == "/api/sms":
+                return send_code(body.get("phone"))
+            if path == "/api/essay":
+                return 200, publish_essay(query_id(query), body)
+            if path == "/api/auth/login":
+                return auth_login(body)
+            if path == "/api/auth/logout":
+                return auth_logout(body)
 
         elif method == "DELETE":
             if path.startswith("/api/checkin/"):
@@ -378,6 +465,9 @@ def route(method, path, body_raw=None, query=None):
             if path.startswith("/api/route/"):
                 seg = path.split("/")[3:]
                 return 200, delete_route(query_id(query), _path_id(seg, 0))
+            if path.startswith("/api/essay/"):
+                seg = path.split("/")[3:]
+                return 200, remove_essay(query_id(query), _path_id(seg, 0))
 
         return 404, {"ok": False, "error": "接口不存在"}
 
@@ -389,6 +479,11 @@ def route(method, path, body_raw=None, query=None):
 
 def query_id(query):
     q = urllib.parse.parse_qs(query or "")
+    token = q.get("token", [""])[0]
+    if token:
+        uid = auth.resolve(token)
+        if uid:
+            return uid
     return (q.get("user", ["guest"])[0]) or "guest"
 
 
@@ -398,3 +493,10 @@ def _query_int(query, key):
         return max(1, int(q[key][0]))
     except (KeyError, ValueError):
         return None
+
+
+def _query_city(query):
+    """从查询串读城市；缺省/非法回退 changsha。"""
+    q = urllib.parse.parse_qs(query or "")
+    c = (q.get("city", ["changsha"])[0] or "changsha").strip().lower()
+    return c if c in config.POI_FILES else "changsha"

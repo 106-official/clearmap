@@ -1,0 +1,3291 @@
+{
+  "pois": [
+    {
+      "id": "yuelu-mountain",
+      "name": "岳麓山风景名胜区",
+      "district": "岳麓区",
+      "type": "nature",
+      "tags": [
+        "山野",
+        "登高",
+        "自然"
+      ],
+      "duration_min": 150,
+      "x": 135,
+      "y": 220,
+      "desc": "长沙最负盛名的城市绿肺，登顶可俯瞰湘江与城市天际线。",
+      "scores": {
+        "nature": 5,
+        "photo": 4,
+        "family": 4,
+        "culture": 3,
+        "nightlife": 1,
+        "food": 2,
+        "shopping": 1
+      },
+      "lat": 28.1869583,
+      "lon": 112.9283216,
+      "style": [
+        "自然山水"
+      ],
+      "hours": {
+        "open": "06:00",
+        "close": "22:00",
+        "note": "免费入园，索道另计"
+      },
+      "ticket": "免费",
+      "images": [
+        {
+          "src": "/media/pois/yuelu-mountain/img1.jpg",
+          "alt": "岳麓山风景名胜区",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuelu-mountain/img2.jpg",
+          "alt": "岳麓山风景名胜区",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuelu-mountain/img3.jpg",
+          "alt": "岳麓山风景名胜区",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuelu-mountain/img4.jpg",
+          "alt": "岳麓山风景名胜区",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuelu-mountain/img5.jpg",
+          "alt": "岳麓山风景名胜区",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "yuelu-academy",
+      "name": "岳麓书院",
+      "district": "岳麓区",
+      "type": "culture",
+      "tags": [
+        "千年学府",
+        "文化",
+        "古建"
+      ],
+      "duration_min": 90,
+      "x": 172,
+      "y": 262,
+      "desc": "四大书院之首，千年弦歌不绝，庭院静谧古朴。",
+      "scores": {
+        "culture": 5,
+        "photo": 4,
+        "nature": 3,
+        "family": 3,
+        "food": 1,
+        "shopping": 1,
+        "nightlife": 1
+      },
+      "lat": 28.1839094,
+      "lon": 112.9351255,
+      "style": [
+        "古韵文化"
+      ],
+      "hours": {
+        "open": "07:30",
+        "close": "18:00",
+        "note": "17:30 停止售票"
+      },
+      "ticket": "¥50",
+      "images": [
+        {
+          "src": "/media/pois/yuelu-academy/img1.jpg",
+          "alt": "岳麓书院",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuelu-academy/img2.jpg",
+          "alt": "岳麓书院",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuelu-academy/img3.jpg",
+          "alt": "岳麓书院",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuelu-academy/img4.jpg",
+          "alt": "岳麓书院",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuelu-academy/img5.jpg",
+          "alt": "岳麓书院",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "yuhu-wetland",
+      "name": "洋湖湿地公园",
+      "district": "岳麓区",
+      "type": "nature",
+      "tags": [
+        "湿地",
+        "亲子",
+        "自然"
+      ],
+      "duration_min": 120,
+      "x": 120,
+      "y": 780,
+      "desc": "城市湿地公园，草坪开阔、水鸟栖息，适合放空与野餐。",
+      "scores": {
+        "nature": 5,
+        "family": 5,
+        "photo": 3,
+        "culture": 1,
+        "food": 2,
+        "shopping": 1,
+        "nightlife": 1
+      },
+      "lat": 28.1296632,
+      "lon": 112.9188968,
+      "style": [
+        "自然山水",
+        "亲子休闲"
+      ],
+      "hours": {
+        "open": "07:00",
+        "close": "21:00",
+        "note": "湿地科普馆 9:00-17:00"
+      },
+      "ticket": "免费",
+      "images": [
+        {
+          "src": "/media/pois/yuhu-wetland/img1.jpg",
+          "alt": "洋湖湿地公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuhu-wetland/img2.jpg",
+          "alt": "洋湖湿地公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuhu-wetland/img3.jpg",
+          "alt": "洋湖湿地公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuhu-wetland/img4.jpg",
+          "alt": "洋湖湿地公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuhu-wetland/img5.jpg",
+          "alt": "洋湖湿地公园",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "juzizhou",
+      "name": "橘子洲",
+      "district": "岳麓区",
+      "type": "nature",
+      "tags": [
+        "江心洲",
+        "伟人雕像",
+        "漫行"
+      ],
+      "duration_min": 120,
+      "x": 300,
+      "y": 420,
+      "desc": "湘江中游的狭长绿洲，青年毛泽东雕像矗立洲头，江风拂面。",
+      "scores": {
+        "nature": 5,
+        "photo": 5,
+        "family": 4,
+        "culture": 4,
+        "food": 2,
+        "shopping": 1,
+        "nightlife": 1
+      },
+      "lat": 28.1896845,
+      "lon": 112.9561264,
+      "style": [
+        "自然山水",
+        "夜景打卡"
+      ],
+      "hours": {
+        "open": "07:00",
+        "close": "22:00",
+        "note": "观光小火车 8:00-21:00"
+      },
+      "ticket": "免费",
+      "images": [
+        {
+          "src": "/media/pois/juzizhou/img1.jpg",
+          "alt": "橘子洲",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/juzizhou/img2.jpg",
+          "alt": "橘子洲",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/juzizhou/img3.jpg",
+          "alt": "橘子洲",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/juzizhou/img4.jpg",
+          "alt": "橘子洲",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/juzizhou/img5.jpg",
+          "alt": "橘子洲",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "xiangjiang-view",
+      "name": "湘江风光带",
+      "district": "天心区",
+      "type": "nature",
+      "tags": [
+        "江畔",
+        "骑行",
+        "夜景"
+      ],
+      "duration_min": 60,
+      "x": 318,
+      "y": 590,
+      "desc": "沿江步道，白日江景开阔，入夜两岸灯火绵延成河。",
+      "scores": {
+        "nature": 4,
+        "photo": 4,
+        "nightlife": 3,
+        "family": 4,
+        "culture": 2,
+        "food": 2,
+        "shopping": 1
+      },
+      "lat": 28.208441,
+      "lon": 112.9650483,
+      "style": [
+        "自然山水",
+        "夜景打卡"
+      ],
+      "hours": {
+        "open": "00:00",
+        "close": "24:00",
+        "note": "沿江步道全天开放"
+      },
+      "ticket": "免费",
+      "images": [
+        {
+          "src": "/media/pois/xiangjiang-view/img1.jpg",
+          "alt": "湘江风光带",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/xiangjiang-view/img2.jpg",
+          "alt": "湘江风光带",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/xiangjiang-view/img3.jpg",
+          "alt": "湘江风光带",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/xiangjiang-view/img4.jpg",
+          "alt": "湘江风光带",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/xiangjiang-view/img5.jpg",
+          "alt": "湘江风光带",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "taiping-street",
+      "name": "太平老街",
+      "district": "天心区",
+      "type": "culture",
+      "tags": [
+        "老街",
+        "石板路",
+        "非遗"
+      ],
+      "duration_min": 90,
+      "x": 430,
+      "y": 360,
+      "desc": "保留明清格局的青石板老街，青砖黛瓦间藏着烟火与手艺。",
+      "scores": {
+        "culture": 4,
+        "food": 4,
+        "photo": 4,
+        "shopping": 3,
+        "nightlife": 2,
+        "family": 3,
+        "nature": 1
+      },
+      "lat": 28.1986072,
+      "lon": 112.9662972,
+      "style": [
+        "美食烟火",
+        "古韵文化"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "23:00",
+        "note": "夜景最佳"
+      },
+      "ticket": "免费",
+      "images": [
+        {
+          "src": "/media/pois/taiping-street/img1.jpg",
+          "alt": "太平老街",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/taiping-street/img2.jpg",
+          "alt": "太平老街",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/taiping-street/img3.jpg",
+          "alt": "太平老街",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/taiping-street/img4.jpg",
+          "alt": "太平老街",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/taiping-street/img5.jpg",
+          "alt": "太平老街",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "pozi-street",
+      "name": "坡子街",
+      "district": "天心区",
+      "type": "food",
+      "tags": [
+        "小吃夜市",
+        "火宫殿",
+        "美食"
+      ],
+      "duration_min": 90,
+      "x": 452,
+      "y": 422,
+      "desc": "长沙小吃的心脏地带，臭豆腐糖油粑粑四下飘香，越夜越闹。",
+      "scores": {
+        "food": 5,
+        "nightlife": 4,
+        "photo": 3,
+        "shopping": 2,
+        "family": 3,
+        "culture": 2,
+        "nature": 1
+      },
+      "lat": 28.1886772,
+      "lon": 112.965451,
+      "style": [
+        "美食烟火",
+        "夜景打卡"
+      ],
+      "hours": {
+        "open": "10:00",
+        "close": "24:00",
+        "note": "越夜越热闹"
+      },
+      "ticket": "免费",
+      "images": [
+        {
+          "src": "/media/pois/pozi-street/img1.jpg",
+          "alt": "坡子街",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/pozi-street/img2.jpg",
+          "alt": "坡子街",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/pozi-street/img3.jpg",
+          "alt": "坡子街",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/pozi-street/img4.jpg",
+          "alt": "坡子街",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/pozi-street/img5.jpg",
+          "alt": "坡子街",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "huogongdian",
+      "name": "火宫殿",
+      "district": "天心区",
+      "type": "food",
+      "tags": [
+        "湘菜",
+        "老字号",
+        "庙会"
+      ],
+      "duration_min": 75,
+      "x": 458,
+      "y": 408,
+      "lat": 28.19642,
+      "lon": 112.97142,
+      "desc": "百年老字号，火宫殿小吃的发源地，庙宇与烟火并存。",
+      "scores": {
+        "food": 5,
+        "culture": 3,
+        "photo": 3,
+        "family": 3,
+        "nightlife": 2,
+        "shopping": 1,
+        "nature": 1
+      },
+      "style": [
+        "美食烟火"
+      ],
+      "hours": {
+        "open": "11:00",
+        "close": "22:00",
+        "note": "早茶 7:00-10:30"
+      },
+      "ticket": "免费",
+      "images": [
+        {
+          "src": "/media/pois/huogongdian/img1.jpg",
+          "alt": "火宫殿",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/huogongdian/img2.jpg",
+          "alt": "火宫殿",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/huogongdian/img3.jpg",
+          "alt": "火宫殿",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/huogongdian/img4.jpg",
+          "alt": "火宫殿",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/huogongdian/img5.jpg",
+          "alt": "火宫殿",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "wenheyou",
+      "name": "文和友超级文和友",
+      "district": "天心区",
+      "type": "food",
+      "tags": [
+        "怀旧",
+        "打卡",
+        "湘菜"
+      ],
+      "duration_min": 90,
+      "x": 440,
+      "y": 396,
+      "lat": 28.19545,
+      "lon": 112.96701,
+      "desc": "把整座八九十年代老长沙装进楼里，复古市井感强烈。",
+      "scores": {
+        "food": 4,
+        "photo": 5,
+        "culture": 3,
+        "nightlife": 3,
+        "shopping": 2,
+        "family": 3,
+        "nature": 1
+      },
+      "style": [
+        "潮玩都市",
+        "美食烟火"
+      ],
+      "hours": {
+        "open": "11:00",
+        "close": "24:00",
+        "note": "排队较久，建议提前取号"
+      },
+      "ticket": "免费",
+      "images": [
+        {
+          "src": "/media/pois/wenheyou/img1.jpg",
+          "alt": "文和友超级文和友",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/wenheyou/img2.jpg",
+          "alt": "文和友超级文和友",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/wenheyou/img3.jpg",
+          "alt": "文和友超级文和友",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/wenheyou/img4.jpg",
+          "alt": "文和友超级文和友",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/wenheyou/img5.jpg",
+          "alt": "文和友超级文和友",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "wuyi-square",
+      "name": "五一广场",
+      "district": "芙蓉区",
+      "type": "shopping",
+      "tags": [
+        "商圈",
+        "地铁枢纽",
+        "核心"
+      ],
+      "duration_min": 90,
+      "x": 472,
+      "y": 340,
+      "desc": "长沙绝对的地理中心，商圈环绕、人潮如织。",
+      "scores": {
+        "shopping": 5,
+        "food": 4,
+        "nightlife": 3,
+        "photo": 3,
+        "family": 2,
+        "culture": 1,
+        "nature": 1
+      },
+      "lat": 28.1985991,
+      "lon": 112.9709227,
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "00:00",
+        "close": "24:00",
+        "note": "商圈广场"
+      },
+      "ticket": "免费",
+      "images": [
+        {
+          "src": "/media/pois/wuyi-square/img1.jpg",
+          "alt": "五一广场",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/wuyi-square/img2.jpg",
+          "alt": "五一广场",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/wuyi-square/img3.jpg",
+          "alt": "五一广场",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/wuyi-square/img4.jpg",
+          "alt": "五一广场",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/wuyi-square/img5.jpg",
+          "alt": "五一广场",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "ifs-changsha",
+      "name": "长沙国金中心 IFS",
+      "district": "芙蓉区",
+      "type": "shopping",
+      "tags": [
+        "潮牌",
+        "观景台",
+        "地标"
+      ],
+      "duration_min": 90,
+      "x": 494,
+      "y": 330,
+      "lat": 28.19313,
+      "lon": 112.97732,
+      "desc": "天际线地标，顶层观景台横跨城市，雕塑与潮牌云集。",
+      "scores": {
+        "shopping": 5,
+        "photo": 5,
+        "food": 3,
+        "nightlife": 2,
+        "family": 2,
+        "culture": 1,
+        "nature": 1
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "10:00",
+        "close": "22:00",
+        "note": "观景台 10:00-22:00"
+      },
+      "ticket": "免费",
+      "images": [
+        {
+          "src": "/media/pois/ifs-changsha/img1.jpg",
+          "alt": "长沙国金中心 IFS",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/ifs-changsha/img2.jpg",
+          "alt": "长沙国金中心 IFS",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/ifs-changsha/img3.jpg",
+          "alt": "长沙国金中心 IFS",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/ifs-changsha/img4.jpg",
+          "alt": "长沙国金中心 IFS",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/ifs-changsha/img5.jpg",
+          "alt": "长沙国金中心 IFS",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "huangxing-walk",
+      "name": "黄兴路步行街",
+      "district": "芙蓉区",
+      "type": "shopping",
+      "tags": [
+        "步行街",
+        "平价",
+        "潮流"
+      ],
+      "duration_min": 90,
+      "x": 456,
+      "y": 300,
+      "desc": "夜生活的延展，橱窗灯火通明，青春气息扑面。",
+      "scores": {
+        "shopping": 4,
+        "food": 4,
+        "nightlife": 4,
+        "photo": 3,
+        "family": 2,
+        "culture": 1,
+        "nature": 1
+      },
+      "lat": 28.1910691,
+      "lon": 112.9708055,
+      "style": [
+        "潮玩都市",
+        "夜景打卡"
+      ],
+      "hours": {
+        "open": "10:00",
+        "close": "24:00",
+        "note": "步行街全天"
+      },
+      "ticket": "免费",
+      "images": [
+        {
+          "src": "/media/pois/huangxing-walk/img1.jpg",
+          "alt": "黄兴路步行街",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/huangxing-walk/img2.jpg",
+          "alt": "黄兴路步行街",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/huangxing-walk/img3.jpg",
+          "alt": "黄兴路步行街",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/huangxing-walk/img4.jpg",
+          "alt": "黄兴路步行街",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/huangxing-walk/img5.jpg",
+          "alt": "黄兴路步行街",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "jiayi-guju",
+      "name": "贾谊故居",
+      "district": "天心区",
+      "type": "culture",
+      "tags": [
+        "祠堂",
+        "先贤",
+        "静谧"
+      ],
+      "duration_min": 45,
+      "x": 420,
+      "y": 372,
+      "desc": "西汉贾谊故宅，藏在闹市一隅的园林小院。",
+      "scores": {
+        "culture": 4,
+        "photo": 3,
+        "nature": 2,
+        "family": 2,
+        "food": 1,
+        "shopping": 1,
+        "nightlife": 1
+      },
+      "lat": 28.1953636,
+      "lon": 112.9664017,
+      "style": [
+        "古韵文化"
+      ],
+      "hours": {
+        "open": "08:30",
+        "close": "17:30",
+        "note": "周一闭馆"
+      },
+      "ticket": "免费",
+      "images": [
+        {
+          "src": "/media/pois/jiayi-guju/img1.jpg",
+          "alt": "贾谊故居",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/jiayi-guju/img2.jpg",
+          "alt": "贾谊故居",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/jiayi-guju/img3.jpg",
+          "alt": "贾谊故居",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/jiayi-guju/img4.jpg",
+          "alt": "贾谊故居",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/jiayi-guju/img5.jpg",
+          "alt": "贾谊故居",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "hun-museum",
+      "name": "湖南省博物馆",
+      "district": "开福区",
+      "type": "culture",
+      "tags": [
+        "马王堆",
+        "辛追",
+        "镇馆之宝"
+      ],
+      "duration_min": 150,
+      "x": 418,
+      "y": 148,
+      "desc": "马王堆汉墓出土文物集中地，辛追夫人与素纱襌衣的故乡。",
+      "scores": {
+        "culture": 5,
+        "photo": 3,
+        "family": 4,
+        "nature": 1,
+        "food": 1,
+        "shopping": 1,
+        "nightlife": 1
+      },
+      "lat": 28.215391,
+      "lon": 112.9883389,
+      "style": [
+        "古韵文化"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "17:00",
+        "note": "周一闭馆，需公众号预约"
+      },
+      "ticket": "免费预约",
+      "images": [
+        {
+          "src": "/media/pois/hun-museum/img1.jpg",
+          "alt": "湖南省博物馆",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/hun-museum/img2.jpg",
+          "alt": "湖南省博物馆",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/hun-museum/img3.jpg",
+          "alt": "湖南省博物馆",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/hun-museum/img4.jpg",
+          "alt": "湖南省博物馆",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/hun-museum/img5.jpg",
+          "alt": "湖南省博物馆",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "tianxin-pavilion",
+      "name": "天心阁",
+      "district": "天心区",
+      "type": "culture",
+      "tags": [
+        "城墙",
+        "古阁",
+        "登眺"
+      ],
+      "duration_min": 60,
+      "x": 470,
+      "y": 470,
+      "desc": "长沙仅存的一段古城墙与阁楼，登阁可望老城轮廓。",
+      "scores": {
+        "culture": 4,
+        "photo": 3,
+        "nature": 2,
+        "family": 3,
+        "food": 1,
+        "shopping": 1,
+        "nightlife": 1
+      },
+      "lat": 28.1871623,
+      "lon": 112.9758666,
+      "style": [
+        "古韵文化"
+      ],
+      "hours": {
+        "open": "08:00",
+        "close": "17:30",
+        "note": "17:00 停止入园"
+      },
+      "ticket": "¥32",
+      "images": [
+        {
+          "src": "/media/pois/tianxin-pavilion/img1.jpg",
+          "alt": "天心阁",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/tianxin-pavilion/img2.jpg",
+          "alt": "天心阁",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/tianxin-pavilion/img3.jpg",
+          "alt": "天心阁",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/tianxin-pavilion/img4.jpg",
+          "alt": "天心阁",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/tianxin-pavilion/img5.jpg",
+          "alt": "天心阁",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "dufu-jiangge",
+      "name": "杜甫江阁",
+      "district": "天心区",
+      "type": "culture",
+      "tags": [
+        "江阁",
+        "诗圣",
+        "夜景"
+      ],
+      "duration_min": 60,
+      "x": 330,
+      "y": 520,
+      "desc": "为纪念客居此地的杜甫而建，临江而立，夜灯如带。",
+      "scores": {
+        "culture": 4,
+        "photo": 4,
+        "nightlife": 3,
+        "nature": 3,
+        "family": 2,
+        "food": 1,
+        "shopping": 1
+      },
+      "lat": 28.1884645,
+      "lon": 112.9630605,
+      "style": [
+        "古韵文化",
+        "夜景打卡"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "22:00",
+        "note": "夜间亮灯至 22:00"
+      },
+      "ticket": "¥11",
+      "images": [
+        {
+          "src": "/media/pois/dufu-jiangge/img1.jpg",
+          "alt": "杜甫江阁",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/dufu-jiangge/img2.jpg",
+          "alt": "杜甫江阁",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/dufu-jiangge/img3.jpg",
+          "alt": "杜甫江阁",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/dufu-jiangge/img4.jpg",
+          "alt": "杜甫江阁",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/dufu-jiangge/img5.jpg",
+          "alt": "杜甫江阁",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "jiefangxi",
+      "name": "解放西路",
+      "district": "天心区",
+      "type": "nightlife",
+      "tags": [
+        "酒吧",
+        "夜宵",
+        "不夜城"
+      ],
+      "duration_min": 120,
+      "x": 462,
+      "y": 460,
+      "desc": "长沙的夜色入口，霓虹与音浪直到后半夜仍不熄。",
+      "scores": {
+        "nightlife": 5,
+        "food": 4,
+        "photo": 3,
+        "shopping": 2,
+        "culture": 1,
+        "family": 1,
+        "nature": 1
+      },
+      "lat": 28.1943546,
+      "lon": 112.9773854,
+      "style": [
+        "夜景打卡",
+        "美食烟火"
+      ],
+      "hours": {
+        "open": "18:00",
+        "close": "04:00",
+        "note": "越夜越疯狂"
+      },
+      "ticket": "免费",
+      "images": [
+        {
+          "src": "/media/pois/jiefangxi/img1.jpg",
+          "alt": "解放西路",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/jiefangxi/img2.jpg",
+          "alt": "解放西路",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/jiefangxi/img3.jpg",
+          "alt": "解放西路",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/jiefangxi/img4.jpg",
+          "alt": "解放西路",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/jiefangxi/img5.jpg",
+          "alt": "解放西路",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "orange-ride",
+      "name": "环湘江骑行道",
+      "district": "岳麓区",
+      "type": "photo",
+      "tags": [
+        "骑行",
+        "湖光",
+        "出片"
+      ],
+      "duration_min": 90,
+      "x": 300,
+      "y": 700,
+      "lat": 28.1965,
+      "lon": 112.947,
+      "desc": "沿江慢骑，随手一拍都是天空与水面的清透。",
+      "scores": {
+        "photo": 4,
+        "nature": 4,
+        "family": 4,
+        "culture": 2,
+        "food": 1,
+        "shopping": 1,
+        "nightlife": 2
+      },
+      "style": [
+        "自然山水",
+        "夜景打卡"
+      ],
+      "hours": {
+        "open": "00:00",
+        "close": "24:00",
+        "note": "租车点白天营业"
+      },
+      "ticket": "免费",
+      "images": [
+        {
+          "src": "/media/pois/orange-ride/img1.jpg",
+          "alt": "环湘江骑行道",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/orange-ride/img2.jpg",
+          "alt": "环湘江骑行道",
+          "ext": ".jpg"
+        },
+        {
+          "src": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=%E9%95%BF%E6%B2%99%E5%AE%9E%E6%99%AF%E6%97%85%E6%B8%B8%E6%91%84%E5%BD%B1%EF%BC%8C%E7%8E%AF%E6%B9%98%E6%B1%9F%E9%AA%91%E8%A1%8C%E9%81%93%EF%BC%8C%E6%B2%BF%E6%B1%9F%E6%85%A2%E9%AA%91%EF%BC%8C%E9%9A%8F%E6%89%8B%E4%B8%80%E6%8B%8D%E9%83%BD%E6%98%AF%E5%A4%A9%E7%A9%BA%E4%B8%8E%E6%B0%B4%E9%9D%A2%E7%9A%84%E6%B8%85%E9%80%8F%E3%80%82%EF%BC%8C%E6%99%B4%E5%A4%A9%E8%87%AA%E7%84%B6%E5%85%89%EF%BC%8C%E9%AB%98%E6%B8%85%E6%91%84%E5%BD%B1%E4%BD%9C%E5%93%81%EF%BC%8C%E6%9E%84%E5%9B%BE%E7%B2%BE%E7%BE%8E&image_size=landscape_16_9&seed=1",
+          "alt": "环湘江骑行道 景致 1"
+        },
+        {
+          "src": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=%E9%95%BF%E6%B2%99%E5%AE%9E%E6%99%AF%E6%97%85%E6%B8%B8%E6%91%84%E5%BD%B1%EF%BC%8C%E7%8E%AF%E6%B9%98%E6%B1%9F%E9%AA%91%E8%A1%8C%E9%81%93%EF%BC%8C%E6%B2%BF%E6%B1%9F%E6%85%A2%E9%AA%91%EF%BC%8C%E9%9A%8F%E6%89%8B%E4%B8%80%E6%8B%8D%E9%83%BD%E6%98%AF%E5%A4%A9%E7%A9%BA%E4%B8%8E%E6%B0%B4%E9%9D%A2%E7%9A%84%E6%B8%85%E9%80%8F%E3%80%82%EF%BC%8C%E6%99%B4%E5%A4%A9%E8%87%AA%E7%84%B6%E5%85%89%EF%BC%8C%E9%AB%98%E6%B8%85%E6%91%84%E5%BD%B1%E4%BD%9C%E5%93%81%EF%BC%8C%E6%9E%84%E5%9B%BE%E7%B2%BE%E7%BE%8E&image_size=landscape_16_9&seed=2",
+          "alt": "环湘江骑行道 景致 2"
+        }
+      ]
+    },
+    {
+      "id": "meixihu-island",
+      "name": "梅溪湖城市岛",
+      "district": "岳麓区",
+      "type": "photo",
+      "tags": [
+        "湖湾",
+        "白桥",
+        "夜景"
+      ],
+      "duration_min": 90,
+      "lat": 28.1925,
+      "lon": 112.895,
+      "desc": "螺旋白桥悬于梅溪湖面，黄昏亮灯后湖光倒影如画，是河西最出片的打卡地。",
+      "scores": {
+        "nature": 4,
+        "photo": 5,
+        "family": 3,
+        "nightlife": 3,
+        "culture": 1,
+        "food": 2,
+        "shopping": 1
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 135,
+      "y": 593,
+      "images": [
+        {
+          "src": "/media/pois/meixihu-island/img1.jpg",
+          "alt": "梅溪湖城市岛",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/meixihu-island/img2.jpg",
+          "alt": "梅溪湖城市岛",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/meixihu-island/img3.jpg",
+          "alt": "梅溪湖城市岛",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/meixihu-island/img4.jpg",
+          "alt": "梅溪湖城市岛",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/meixihu-island/img5.jpg",
+          "alt": "梅溪湖城市岛",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "aiwanting",
+      "name": "爱晚亭",
+      "district": "岳麓区",
+      "type": "culture",
+      "tags": [
+        "名亭",
+        "红叶",
+        "诗境"
+      ],
+      "duration_min": 45,
+      "lat": 28.1833,
+      "lon": 112.9408,
+      "desc": "岳麓山清风峡中的百年名亭，杜牧诗句“停车坐爱枫林晚”即出于此，秋日层林尽染。",
+      "scores": {
+        "culture": 5,
+        "nature": 4,
+        "photo": 4,
+        "family": 3,
+        "food": 1,
+        "shopping": 1,
+        "nightlife": 1
+      },
+      "style": [
+        "古韵文化"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 311,
+      "y": 619,
+      "images": [
+        {
+          "src": "/media/pois/aiwanting/img1.jpg",
+          "alt": "爱晚亭",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/aiwanting/img2.jpg",
+          "alt": "爱晚亭",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/aiwanting/img3.jpg",
+          "alt": "爱晚亭",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/aiwanting/img4.jpg",
+          "alt": "爱晚亭",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/aiwanting/img5.jpg",
+          "alt": "爱晚亭",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "hunan-university",
+      "name": "湖南大学",
+      "district": "岳麓区",
+      "type": "culture",
+      "tags": [
+        "千年学府",
+        "红墙",
+        "书香"
+      ],
+      "duration_min": 60,
+      "lat": 28.18,
+      "lon": 112.941,
+      "desc": "没有围墙的大学，东方红广场与红楼并列，与岳麓书院一脉相承的书香气息。",
+      "scores": {
+        "culture": 5,
+        "photo": 3,
+        "family": 3,
+        "food": 2,
+        "shopping": 1,
+        "nightlife": 1,
+        "nature": 2
+      },
+      "style": [
+        "古韵文化"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 312,
+      "y": 629,
+      "images": [
+        {
+          "src": "/media/pois/hunan-university/img1.jpg",
+          "alt": "湖南大学",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/hunan-university/img2.jpg",
+          "alt": "湖南大学",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/hunan-university/img3.jpg",
+          "alt": "湖南大学",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/hunan-university/img4.jpg",
+          "alt": "湖南大学",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/hunan-university/img5.jpg",
+          "alt": "湖南大学",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "yuren-pier",
+      "name": "渔人码头",
+      "district": "岳麓区",
+      "type": "nightlife",
+      "tags": [
+        "欧式街区",
+        "江畔",
+        "夜宵"
+      ],
+      "duration_min": 90,
+      "lat": 28.238,
+      "lon": 112.958,
+      "desc": "湘江西岸的欧式风情街区，临江露台吹风喝一杯，入夜霓虹与江影交错。",
+      "scores": {
+        "food": 4,
+        "nightlife": 4,
+        "photo": 4,
+        "shopping": 2,
+        "family": 3,
+        "culture": 1,
+        "nature": 2
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 377,
+      "y": 463,
+      "images": [
+        {
+          "src": "/media/pois/yuren-pier/img1.jpg",
+          "alt": "渔人码头",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuren-pier/img2.jpg",
+          "alt": "渔人码头",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuren-pier/img3.jpg",
+          "alt": "渔人码头",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuren-pier/img4.jpg",
+          "alt": "渔人码头",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuren-pier/img5.jpg",
+          "alt": "渔人码头",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "xihu-park",
+      "name": "西湖公园",
+      "district": "岳麓区",
+      "type": "nature",
+      "tags": [
+        "湖景",
+        "草坪",
+        "亲子"
+      ],
+      "duration_min": 90,
+      "lat": 28.211,
+      "lon": 112.928,
+      "desc": "城西的静谧湖园，环湖步道树影婆娑，草坪开阔，适合散步与野餐。",
+      "scores": {
+        "nature": 4,
+        "family": 4,
+        "photo": 3,
+        "culture": 1,
+        "food": 2,
+        "shopping": 1,
+        "nightlife": 1
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 262,
+      "y": 540,
+      "images": [
+        {
+          "src": "/media/pois/xihu-park/img1.jpg",
+          "alt": "西湖公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/xihu-park/img2.jpg",
+          "alt": "西湖公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/xihu-park/img3.jpg",
+          "alt": "西湖公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/xihu-park/img4.jpg",
+          "alt": "西湖公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/xihu-park/img5.jpg",
+          "alt": "西湖公园",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "lizijian-gallery",
+      "name": "李自健美术馆",
+      "district": "岳麓区",
+      "type": "culture",
+      "tags": [
+        "油画",
+        "湖景",
+        "艺术"
+      ],
+      "duration_min": 90,
+      "lat": 28.132,
+      "lon": 112.949,
+      "desc": "临湖而建的美术馆，李自健写实油画震撼人心，建筑本身即是风景。",
+      "scores": {
+        "culture": 4,
+        "photo": 4,
+        "family": 3,
+        "nature": 2,
+        "food": 1,
+        "shopping": 1,
+        "nightlife": 1
+      },
+      "style": [
+        "古韵文化"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 342,
+      "y": 766,
+      "images": [
+        {
+          "src": "/media/pois/lizijian-gallery/img1.jpg",
+          "alt": "李自健美术馆",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/lizijian-gallery/img2.jpg",
+          "alt": "李自健美术馆",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/lizijian-gallery/img3.jpg",
+          "alt": "李自健美术馆",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/lizijian-gallery/img4.jpg",
+          "alt": "李自健美术馆",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/lizijian-gallery/img5.jpg",
+          "alt": "李自健美术馆",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "houhu-art",
+      "name": "后湖国际艺术园",
+      "district": "岳麓区",
+      "type": "photo",
+      "tags": [
+        "艺术街区",
+        "咖啡",
+        "涂鸦"
+      ],
+      "duration_min": 90,
+      "lat": 28.162,
+      "lon": 112.937,
+      "desc": "大学城旁的艺术村落，厂房改造的画廊与咖啡馆散布湖边，青年气息浓厚。",
+      "scores": {
+        "photo": 4,
+        "culture": 3,
+        "food": 3,
+        "nightlife": 2,
+        "family": 2,
+        "shopping": 2,
+        "nature": 2
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 296,
+      "y": 680,
+      "images": [
+        {
+          "src": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=%E9%95%BF%E6%B2%99%E5%AE%9E%E6%99%AF%E6%97%85%E6%B8%B8%E6%91%84%E5%BD%B1%EF%BC%8C%E5%90%8E%E6%B9%96%E5%9B%BD%E9%99%85%E8%89%BA%E6%9C%AF%E5%9B%AD%EF%BC%8C%E5%A4%A7%E5%AD%A6%E5%9F%8E%E6%97%81%E7%9A%84%E8%89%BA%E6%9C%AF%E6%9D%91%E8%90%BD%EF%BC%8C%E5%8E%82%E6%88%BF%E6%94%B9%E9%80%A0%E7%9A%84%E7%94%BB%E5%BB%8A%E4%B8%8E%E5%92%96%E5%95%A1%E9%A6%86%E6%95%A3%E5%B8%83%E6%B9%96%E8%BE%B9%EF%BC%8C%E9%9D%92%E5%B9%B4%E6%B0%94%E6%81%AF%E6%B5%93%E5%8E%9A%E3%80%82%EF%BC%8C%E6%99%B4%E5%A4%A9%E8%87%AA%E7%84%B6%E5%85%89%EF%BC%8C%E9%AB%98%E6%B8%85%E6%91%84%E5%BD%B1%E4%BD%9C%E5%93%81%EF%BC%8C%E6%9E%84%E5%9B%BE%E7%B2%BE%E7%BE%8E&image_size=landscape_16_9&seed=1",
+          "alt": "后湖国际艺术园 景致 1"
+        },
+        {
+          "src": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=%E9%95%BF%E6%B2%99%E5%AE%9E%E6%99%AF%E6%97%85%E6%B8%B8%E6%91%84%E5%BD%B1%EF%BC%8C%E5%90%8E%E6%B9%96%E5%9B%BD%E9%99%85%E8%89%BA%E6%9C%AF%E5%9B%AD%EF%BC%8C%E5%A4%A7%E5%AD%A6%E5%9F%8E%E6%97%81%E7%9A%84%E8%89%BA%E6%9C%AF%E6%9D%91%E8%90%BD%EF%BC%8C%E5%8E%82%E6%88%BF%E6%94%B9%E9%80%A0%E7%9A%84%E7%94%BB%E5%BB%8A%E4%B8%8E%E5%92%96%E5%95%A1%E9%A6%86%E6%95%A3%E5%B8%83%E6%B9%96%E8%BE%B9%EF%BC%8C%E9%9D%92%E5%B9%B4%E6%B0%94%E6%81%AF%E6%B5%93%E5%8E%9A%E3%80%82%EF%BC%8C%E6%99%B4%E5%A4%A9%E8%87%AA%E7%84%B6%E5%85%89%EF%BC%8C%E9%AB%98%E6%B8%85%E6%91%84%E5%BD%B1%E4%BD%9C%E5%93%81%EF%BC%8C%E6%9E%84%E5%9B%BE%E7%B2%BE%E7%BE%8E&image_size=landscape_16_9&seed=2",
+          "alt": "后湖国际艺术园 景致 2"
+        }
+      ]
+    },
+    {
+      "id": "baisha-well",
+      "name": "白沙古井",
+      "district": "天心区",
+      "type": "culture",
+      "tags": [
+        "古井",
+        "汲水",
+        "市井"
+      ],
+      "duration_min": 30,
+      "lat": 28.188,
+      "lon": 112.9705,
+      "desc": "长沙老城的一眼活井，历代文人题咏，至今仍有市民前来取水泡茶。",
+      "scores": {
+        "culture": 4,
+        "photo": 2,
+        "family": 2,
+        "nature": 1,
+        "food": 1,
+        "shopping": 1,
+        "nightlife": 1
+      },
+      "style": [
+        "古韵文化"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 425,
+      "y": 606,
+      "images": [
+        {
+          "src": "/media/pois/baisha-well/img1.jpg",
+          "alt": "白沙古井",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/baisha-well/img2.jpg",
+          "alt": "白沙古井",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/baisha-well/img3.jpg",
+          "alt": "白沙古井",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/baisha-well/img4.jpg",
+          "alt": "白沙古井",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/baisha-well/img5.jpg",
+          "alt": "白沙古井",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "nanmenkou",
+      "name": "南门口",
+      "district": "天心区",
+      "type": "food",
+      "tags": [
+        "老巷",
+        "糖油粑粑",
+        "烟火"
+      ],
+      "duration_min": 60,
+      "lat": 28.1805,
+      "lon": 112.971,
+      "desc": "老长沙的记忆坐标，巷口小摊的糖油粑粑与葱油粑粑冒着热气，从早到晚不断。",
+      "scores": {
+        "food": 5,
+        "nightlife": 3,
+        "photo": 3,
+        "culture": 2,
+        "shopping": 2,
+        "family": 3,
+        "nature": 1
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 427,
+      "y": 627,
+      "images": [
+        {
+          "src": "/media/pois/nanmenkou/img1.jpg",
+          "alt": "南门口",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/nanmenkou/img2.jpg",
+          "alt": "南门口",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/nanmenkou/img3.jpg",
+          "alt": "南门口",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/nanmenkou/img4.jpg",
+          "alt": "南门口",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/nanmenkou/img5.jpg",
+          "alt": "南门口",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "train-park",
+      "name": "火车头公园",
+      "district": "天心区",
+      "type": "photo",
+      "tags": [
+        "绿皮车",
+        "工业风",
+        "打卡"
+      ],
+      "duration_min": 45,
+      "lat": 28.165,
+      "lon": 112.973,
+      "desc": "江畔停着退役的蒸汽机车头，锈色铁轨配江景，怀旧工业风的出片圣地。",
+      "scores": {
+        "photo": 5,
+        "culture": 3,
+        "family": 3,
+        "nature": 2,
+        "food": 1,
+        "shopping": 1,
+        "nightlife": 2
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 435,
+      "y": 671,
+      "images": [
+        {
+          "src": "/media/pois/train-park/img1.jpg",
+          "alt": "火车头公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/train-park/img2.jpg",
+          "alt": "火车头公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=%E9%95%BF%E6%B2%99%E5%AE%9E%E6%99%AF%E6%97%85%E6%B8%B8%E6%91%84%E5%BD%B1%EF%BC%8C%E7%81%AB%E8%BD%A6%E5%A4%B4%E5%85%AC%E5%9B%AD%EF%BC%8C%E6%B1%9F%E7%95%94%E5%81%9C%E7%9D%80%E9%80%80%E5%BD%B9%E7%9A%84%E8%92%B8%E6%B1%BD%E6%9C%BA%E8%BD%A6%E5%A4%B4%EF%BC%8C%E9%94%88%E8%89%B2%E9%93%81%E8%BD%A8%E9%85%8D%E6%B1%9F%E6%99%AF%EF%BC%8C%E6%80%80%E6%97%A7%E5%B7%A5%E4%B8%9A%E9%A3%8E%E7%9A%84%E5%87%BA%E7%89%87%E5%9C%A3%E5%9C%B0%E3%80%82%EF%BC%8C%E6%99%B4%E5%A4%A9%E8%87%AA%E7%84%B6%E5%85%89%EF%BC%8C%E9%AB%98%E6%B8%85%E6%91%84%E5%BD%B1%E4%BD%9C%E5%93%81%EF%BC%8C%E6%9E%84%E5%9B%BE%E7%B2%BE%E7%BE%8E&image_size=landscape_16_9&seed=1",
+          "alt": "火车头公园 景致 1"
+        },
+        {
+          "src": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=%E9%95%BF%E6%B2%99%E5%AE%9E%E6%99%AF%E6%97%85%E6%B8%B8%E6%91%84%E5%BD%B1%EF%BC%8C%E7%81%AB%E8%BD%A6%E5%A4%B4%E5%85%AC%E5%9B%AD%EF%BC%8C%E6%B1%9F%E7%95%94%E5%81%9C%E7%9D%80%E9%80%80%E5%BD%B9%E7%9A%84%E8%92%B8%E6%B1%BD%E6%9C%BA%E8%BD%A6%E5%A4%B4%EF%BC%8C%E9%94%88%E8%89%B2%E9%93%81%E8%BD%A8%E9%85%8D%E6%B1%9F%E6%99%AF%EF%BC%8C%E6%80%80%E6%97%A7%E5%B7%A5%E4%B8%9A%E9%A3%8E%E7%9A%84%E5%87%BA%E7%89%87%E5%9C%A3%E5%9C%B0%E3%80%82%EF%BC%8C%E6%99%B4%E5%A4%A9%E8%87%AA%E7%84%B6%E5%85%89%EF%BC%8C%E9%AB%98%E6%B8%85%E6%91%84%E5%BD%B1%E4%BD%9C%E5%93%81%EF%BC%8C%E6%9E%84%E5%9B%BE%E7%B2%BE%E7%BE%8E&image_size=landscape_16_9&seed=2",
+          "alt": "火车头公园 景致 2"
+        }
+      ]
+    },
+    {
+      "id": "duzheng-street",
+      "name": "都正街",
+      "district": "芙蓉区",
+      "type": "culture",
+      "tags": [
+        "老街",
+        "市井",
+        "烟火"
+      ],
+      "duration_min": 60,
+      "lat": 28.186,
+      "lon": 112.975,
+      "desc": "窄巷老屋修旧如旧，灯笼挂满檐角，茶楼与小吃铺混着长沙人的日常。",
+      "scores": {
+        "culture": 4,
+        "food": 4,
+        "photo": 3,
+        "nightlife": 2,
+        "family": 3,
+        "shopping": 2,
+        "nature": 1
+      },
+      "style": [
+        "古韵文化"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 442,
+      "y": 611,
+      "images": [
+        {
+          "src": "/media/pois/duzheng-street/img1.jpg",
+          "alt": "都正街",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/duzheng-street/img2.jpg",
+          "alt": "都正街",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/duzheng-street/img3.jpg",
+          "alt": "都正街",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/duzheng-street/img4.jpg",
+          "alt": "都正街",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/duzheng-street/img5.jpg",
+          "alt": "都正街",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "hualongchi",
+      "name": "化龙池",
+      "district": "芙蓉区",
+      "type": "nightlife",
+      "tags": [
+        "酒吧",
+        "清吧",
+        "小巷"
+      ],
+      "duration_min": 90,
+      "lat": 28.184,
+      "lon": 112.977,
+      "desc": "白天的麻石小巷安静，入夜清吧亮起暖灯，音乐与低语漫过墙头。",
+      "scores": {
+        "nightlife": 5,
+        "food": 3,
+        "photo": 3,
+        "culture": 2,
+        "shopping": 1,
+        "family": 1,
+        "nature": 1
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 450,
+      "y": 617,
+      "images": [
+        {
+          "src": "/media/pois/hualongchi/img1.jpg",
+          "alt": "化龙池",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/hualongchi/img2.jpg",
+          "alt": "化龙池",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/hualongchi/img3.jpg",
+          "alt": "化龙池",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/hualongchi/img4.jpg",
+          "alt": "化龙池",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/hualongchi/img5.jpg",
+          "alt": "化龙池",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "mifen-street",
+      "name": "湖南米粉街",
+      "district": "芙蓉区",
+      "type": "food",
+      "tags": [
+        "米粉",
+        "早餐",
+        "嗦粉"
+      ],
+      "duration_min": 45,
+      "lat": 28.2,
+      "lon": 112.986,
+      "desc": "一街嗦遍湖南各地米粉，码子飘香，墙上涂鸦适合拍照发圈。",
+      "scores": {
+        "food": 5,
+        "photo": 3,
+        "family": 3,
+        "nightlife": 1,
+        "shopping": 1,
+        "culture": 1,
+        "nature": 1
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 485,
+      "y": 571,
+      "images": [
+        {
+          "src": "/media/pois/mifen-street/img1.jpg",
+          "alt": "湖南米粉街",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/mifen-street/img2.jpg",
+          "alt": "湖南米粉街",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/mifen-street/img3.jpg",
+          "alt": "湖南米粉街",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/mifen-street/img4.jpg",
+          "alt": "湖南米粉街",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/mifen-street/img5.jpg",
+          "alt": "湖南米粉街",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "baiguoyuan",
+      "name": "白果园",
+      "district": "芙蓉区",
+      "type": "culture",
+      "tags": [
+        "老宅",
+        "青砖",
+        "静谧"
+      ],
+      "duration_min": 45,
+      "lat": 28.193,
+      "lon": 112.968,
+      "desc": "闹市中的一片民国老宅，青砖灰瓦间藏着长沙近现代史的脚印。",
+      "scores": {
+        "culture": 4,
+        "photo": 3,
+        "family": 2,
+        "nature": 1,
+        "food": 2,
+        "shopping": 1,
+        "nightlife": 1
+      },
+      "style": [
+        "古韵文化"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 415,
+      "y": 591,
+      "images": [
+        {
+          "src": "/media/pois/baiguoyuan/img1.jpg",
+          "alt": "白果园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/baiguoyuan/img2.jpg",
+          "alt": "白果园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/baiguoyuan/img3.jpg",
+          "alt": "白果园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/baiguoyuan/img4.jpg",
+          "alt": "白果园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/baiguoyuan/img5.jpg",
+          "alt": "白果园",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "dingwangtai",
+      "name": "定王台",
+      "district": "芙蓉区",
+      "type": "culture",
+      "tags": [
+        "书市",
+        "故址",
+        "怀古"
+      ],
+      "duration_min": 40,
+      "lat": 28.191,
+      "lon": 112.977,
+      "desc": "汉长沙定王筑台望母之处，如今书市环绕，纸墨香与历史重叠。",
+      "scores": {
+        "culture": 4,
+        "photo": 2,
+        "family": 2,
+        "food": 2,
+        "shopping": 2,
+        "nature": 1,
+        "nightlife": 1
+      },
+      "style": [
+        "古韵文化"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 450,
+      "y": 597,
+      "images": [
+        {
+          "src": "/media/pois/dingwangtai/img1.jpg",
+          "alt": "定王台",
+          "ext": ".jpg"
+        },
+        {
+          "src": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=%E9%95%BF%E6%B2%99%E5%AE%9E%E6%99%AF%E6%97%85%E6%B8%B8%E6%91%84%E5%BD%B1%EF%BC%8C%E5%AE%9A%E7%8E%8B%E5%8F%B0%EF%BC%8C%E6%B1%89%E9%95%BF%E6%B2%99%E5%AE%9A%E7%8E%8B%E7%AD%91%E5%8F%B0%E6%9C%9B%E6%AF%8D%E4%B9%8B%E5%A4%84%EF%BC%8C%E5%A6%82%E4%BB%8A%E4%B9%A6%E5%B8%82%E7%8E%AF%E7%BB%95%EF%BC%8C%E7%BA%B8%E5%A2%A8%E9%A6%99%E4%B8%8E%E5%8E%86%E5%8F%B2%E9%87%8D%E5%8F%A0%E3%80%82%EF%BC%8C%E6%99%B4%E5%A4%A9%E8%87%AA%E7%84%B6%E5%85%89%EF%BC%8C%E9%AB%98%E6%B8%85%E6%91%84%E5%BD%B1%E4%BD%9C%E5%93%81%EF%BC%8C%E6%9E%84%E5%9B%BE%E7%B2%BE%E7%BE%8E&image_size=landscape_16_9&seed=1",
+          "alt": "定王台 景致 1"
+        },
+        {
+          "src": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=%E9%95%BF%E6%B2%99%E5%AE%9E%E6%99%AF%E6%97%85%E6%B8%B8%E6%91%84%E5%BD%B1%EF%BC%8C%E5%AE%9A%E7%8E%8B%E5%8F%B0%EF%BC%8C%E6%B1%89%E9%95%BF%E6%B2%99%E5%AE%9A%E7%8E%8B%E7%AD%91%E5%8F%B0%E6%9C%9B%E6%AF%8D%E4%B9%8B%E5%A4%84%EF%BC%8C%E5%A6%82%E4%BB%8A%E4%B9%A6%E5%B8%82%E7%8E%AF%E7%BB%95%EF%BC%8C%E7%BA%B8%E5%A2%A8%E9%A6%99%E4%B8%8E%E5%8E%86%E5%8F%B2%E9%87%8D%E5%8F%A0%E3%80%82%EF%BC%8C%E6%99%B4%E5%A4%A9%E8%87%AA%E7%84%B6%E5%85%89%EF%BC%8C%E9%AB%98%E6%B8%85%E6%91%84%E5%BD%B1%E4%BD%9C%E5%93%81%EF%BC%8C%E6%9E%84%E5%9B%BE%E7%B2%BE%E7%BE%8E&image_size=landscape_16_9&seed=2",
+          "alt": "定王台 景致 2"
+        }
+      ]
+    },
+    {
+      "id": "wanjiali",
+      "name": "万家丽国际购物中心",
+      "district": "芙蓉区",
+      "type": "shopping",
+      "tags": [
+        "巨mall",
+        "天台",
+        "地标"
+      ],
+      "duration_min": 120,
+      "lat": 28.198,
+      "lon": 113.035,
+      "desc": "建筑体量惊人的一站式巨mall，顶层观景天台可俯瞰半个长沙。",
+      "scores": {
+        "shopping": 5,
+        "food": 4,
+        "photo": 3,
+        "family": 4,
+        "nightlife": 2,
+        "culture": 1,
+        "nature": 1
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 673,
+      "y": 577,
+      "images": [
+        {
+          "src": "/media/pois/wanjiali/img1.jpg",
+          "alt": "万家丽国际购物中心",
+          "ext": ".jpg"
+        },
+        {
+          "src": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=%E9%95%BF%E6%B2%99%E5%AE%9E%E6%99%AF%E6%97%85%E6%B8%B8%E6%91%84%E5%BD%B1%EF%BC%8C%E4%B8%87%E5%AE%B6%E4%B8%BD%E5%9B%BD%E9%99%85%E8%B4%AD%E7%89%A9%E4%B8%AD%E5%BF%83%EF%BC%8C%E5%BB%BA%E7%AD%91%E4%BD%93%E9%87%8F%E6%83%8A%E4%BA%BA%E7%9A%84%E4%B8%80%E7%AB%99%E5%BC%8F%E5%B7%A8mall%EF%BC%8C%E9%A1%B6%E5%B1%82%E8%A7%82%E6%99%AF%E5%A4%A9%E5%8F%B0%E5%8F%AF%E4%BF%AF%E7%9E%B0%E5%8D%8A%E4%B8%AA%E9%95%BF%E6%B2%99%E3%80%82%EF%BC%8C%E6%99%B4%E5%A4%A9%E8%87%AA%E7%84%B6%E5%85%89%EF%BC%8C%E9%AB%98%E6%B8%85%E6%91%84%E5%BD%B1%E4%BD%9C%E5%93%81%EF%BC%8C%E6%9E%84%E5%9B%BE%E7%B2%BE%E7%BE%8E&image_size=landscape_16_9&seed=1",
+          "alt": "万家丽国际购物中心 景致 1"
+        },
+        {
+          "src": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=%E9%95%BF%E6%B2%99%E5%AE%9E%E6%99%AF%E6%97%85%E6%B8%B8%E6%91%84%E5%BD%B1%EF%BC%8C%E4%B8%87%E5%AE%B6%E4%B8%BD%E5%9B%BD%E9%99%85%E8%B4%AD%E7%89%A9%E4%B8%AD%E5%BF%83%EF%BC%8C%E5%BB%BA%E7%AD%91%E4%BD%93%E9%87%8F%E6%83%8A%E4%BA%BA%E7%9A%84%E4%B8%80%E7%AB%99%E5%BC%8F%E5%B7%A8mall%EF%BC%8C%E9%A1%B6%E5%B1%82%E8%A7%82%E6%99%AF%E5%A4%A9%E5%8F%B0%E5%8F%AF%E4%BF%AF%E7%9E%B0%E5%8D%8A%E4%B8%AA%E9%95%BF%E6%B2%99%E3%80%82%EF%BC%8C%E6%99%B4%E5%A4%A9%E8%87%AA%E7%84%B6%E5%85%89%EF%BC%8C%E9%AB%98%E6%B8%85%E6%91%84%E5%BD%B1%E4%BD%9C%E5%93%81%EF%BC%8C%E6%9E%84%E5%9B%BE%E7%B2%BE%E7%BE%8E&image_size=landscape_16_9&seed=2",
+          "alt": "万家丽国际购物中心 景致 2"
+        }
+      ]
+    },
+    {
+      "id": "hq-wedding-park",
+      "name": "浏阳河婚庆文化园",
+      "district": "芙蓉区",
+      "type": "photo",
+      "tags": [
+        "欧式",
+        "教堂",
+        "夜景"
+      ],
+      "duration_min": 60,
+      "lat": 28.205,
+      "lon": 113.025,
+      "desc": "浏阳河畔的欧式建筑群，白色教堂与草坪是婚纱照圣地，入夜灯光温柔。",
+      "scores": {
+        "photo": 5,
+        "family": 3,
+        "nightlife": 3,
+        "nature": 2,
+        "food": 2,
+        "shopping": 2,
+        "culture": 1
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 635,
+      "y": 557,
+      "images": [
+        {
+          "src": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=%E9%95%BF%E6%B2%99%E5%AE%9E%E6%99%AF%E6%97%85%E6%B8%B8%E6%91%84%E5%BD%B1%EF%BC%8C%E6%B5%8F%E9%98%B3%E6%B2%B3%E5%A9%9A%E5%BA%86%E6%96%87%E5%8C%96%E5%9B%AD%EF%BC%8C%E6%B5%8F%E9%98%B3%E6%B2%B3%E7%95%94%E7%9A%84%E6%AC%A7%E5%BC%8F%E5%BB%BA%E7%AD%91%E7%BE%A4%EF%BC%8C%E7%99%BD%E8%89%B2%E6%95%99%E5%A0%82%E4%B8%8E%E8%8D%89%E5%9D%AA%E6%98%AF%E5%A9%9A%E7%BA%B1%E7%85%A7%E5%9C%A3%E5%9C%B0%EF%BC%8C%E5%85%A5%E5%A4%9C%E7%81%AF%E5%85%89%E6%B8%A9%E6%9F%94%E3%80%82%EF%BC%8C%E6%99%B4%E5%A4%A9%E8%87%AA%E7%84%B6%E5%85%89%EF%BC%8C%E9%AB%98%E6%B8%85%E6%91%84%E5%BD%B1%E4%BD%9C%E5%93%81%EF%BC%8C%E6%9E%84%E5%9B%BE%E7%B2%BE%E7%BE%8E&image_size=landscape_16_9&seed=1",
+          "alt": "浏阳河婚庆文化园 景致 1"
+        },
+        {
+          "src": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=%E9%95%BF%E6%B2%99%E5%AE%9E%E6%99%AF%E6%97%85%E6%B8%B8%E6%91%84%E5%BD%B1%EF%BC%8C%E6%B5%8F%E9%98%B3%E6%B2%B3%E5%A9%9A%E5%BA%86%E6%96%87%E5%8C%96%E5%9B%AD%EF%BC%8C%E6%B5%8F%E9%98%B3%E6%B2%B3%E7%95%94%E7%9A%84%E6%AC%A7%E5%BC%8F%E5%BB%BA%E7%AD%91%E7%BE%A4%EF%BC%8C%E7%99%BD%E8%89%B2%E6%95%99%E5%A0%82%E4%B8%8E%E8%8D%89%E5%9D%AA%E6%98%AF%E5%A9%9A%E7%BA%B1%E7%85%A7%E5%9C%A3%E5%9C%B0%EF%BC%8C%E5%85%A5%E5%A4%9C%E7%81%AF%E5%85%89%E6%B8%A9%E6%9F%94%E3%80%82%EF%BC%8C%E6%99%B4%E5%A4%A9%E8%87%AA%E7%84%B6%E5%85%89%EF%BC%8C%E9%AB%98%E6%B8%85%E6%91%84%E5%BD%B1%E4%BD%9C%E5%93%81%EF%BC%8C%E6%9E%84%E5%9B%BE%E7%B2%BE%E7%BE%8E&image_size=landscape_16_9&seed=2",
+          "alt": "浏阳河婚庆文化园 景致 2"
+        }
+      ]
+    },
+    {
+      "id": "library",
+      "name": "湖南省图书馆",
+      "district": "芙蓉区",
+      "type": "culture",
+      "tags": [
+        "老馆",
+        "书香",
+        "静谧"
+      ],
+      "duration_min": 60,
+      "lat": 28.198,
+      "lon": 112.9775,
+      "desc": "百年老馆藏书百万册，中庭绿意掩映，是城中难得的安静角落。",
+      "scores": {
+        "culture": 4,
+        "family": 2,
+        "photo": 2,
+        "nature": 2,
+        "food": 1,
+        "shopping": 1,
+        "nightlife": 1
+      },
+      "style": [
+        "古韵文化"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 452,
+      "y": 577,
+      "images": [
+        {
+          "src": "/media/pois/library/img1.jpg",
+          "alt": "湖南省图书馆",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/library/img2.jpg",
+          "alt": "湖南省图书馆",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/library/img3.jpg",
+          "alt": "湖南省图书馆",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/library/img4.jpg",
+          "alt": "湖南省图书馆",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/library/img5.jpg",
+          "alt": "湖南省图书馆",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "window-of-world",
+      "name": "长沙世界之窗",
+      "district": "开福区",
+      "type": "family",
+      "tags": [
+        "主题乐园",
+        "微缩景观",
+        "游乐"
+      ],
+      "duration_min": 240,
+      "lat": 28.253,
+      "lon": 113.05,
+      "desc": "把世界名胜微缩到一处，过山车与摩天轮并举，适合全家玩上一整天。",
+      "scores": {
+        "family": 5,
+        "photo": 4,
+        "nightlife": 2,
+        "food": 3,
+        "shopping": 2,
+        "culture": 2,
+        "nature": 1
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 731,
+      "y": 420,
+      "images": [
+        {
+          "src": "/media/pois/window-of-world/img1.jpg",
+          "alt": "长沙世界之窗",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/window-of-world/img2.jpg",
+          "alt": "长沙世界之窗",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/window-of-world/img3.jpg",
+          "alt": "长沙世界之窗",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/window-of-world/img4.jpg",
+          "alt": "长沙世界之窗",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/window-of-world/img5.jpg",
+          "alt": "长沙世界之窗",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "underwater-world",
+      "name": "长沙海底世界",
+      "district": "开福区",
+      "type": "family",
+      "tags": [
+        "海洋馆",
+        "企鹅",
+        "亲子"
+      ],
+      "duration_min": 150,
+      "lat": 28.25,
+      "lon": 113.055,
+      "desc": "蔚蓝隧道里鲨鱼从头顶游过，海豚表演让小朋友挪不开眼睛。",
+      "scores": {
+        "family": 5,
+        "photo": 4,
+        "nature": 3,
+        "food": 2,
+        "shopping": 1,
+        "culture": 1,
+        "nightlife": 1
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 750,
+      "y": 429,
+      "images": [
+        {
+          "src": "/media/pois/underwater-world/img1.jpg",
+          "alt": "长沙海底世界",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/underwater-world/img2.jpg",
+          "alt": "长沙海底世界",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/underwater-world/img3.jpg",
+          "alt": "长沙海底世界",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/underwater-world/img4.jpg",
+          "alt": "长沙海底世界",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/underwater-world/img5.jpg",
+          "alt": "长沙海底世界",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "martyrs-park",
+      "name": "烈士公园",
+      "district": "开福区",
+      "type": "nature",
+      "tags": [
+        "湖心亭",
+        "梧桐",
+        "年嘉湖"
+      ],
+      "duration_min": 120,
+      "lat": 28.216,
+      "lon": 113.005,
+      "desc": "城央最大的绿肺，年嘉湖泛舟、梧桐大道漫步，四季都有不同的风景。",
+      "scores": {
+        "nature": 4,
+        "family": 4,
+        "photo": 3,
+        "culture": 2,
+        "food": 2,
+        "shopping": 1,
+        "nightlife": 1
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 558,
+      "y": 526,
+      "images": [
+        {
+          "src": "/media/pois/martyrs-park/img1.jpg",
+          "alt": "烈士公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/martyrs-park/img2.jpg",
+          "alt": "烈士公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/martyrs-park/img3.jpg",
+          "alt": "烈士公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/martyrs-park/img4.jpg",
+          "alt": "烈士公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/martyrs-park/img5.jpg",
+          "alt": "烈士公园",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "changsha-museum",
+      "name": "长沙博物馆",
+      "district": "开福区",
+      "type": "culture",
+      "tags": [
+        "湖湘",
+        "青铜",
+        "新馆"
+      ],
+      "duration_min": 120,
+      "lat": 28.23,
+      "lon": 112.989,
+      "desc": "滨江文化园里的新馆，湖湘文明从炭河里青铜到长沙窑瓷器层层铺开。",
+      "scores": {
+        "culture": 5,
+        "photo": 3,
+        "family": 4,
+        "nature": 1,
+        "food": 1,
+        "shopping": 1,
+        "nightlife": 1
+      },
+      "style": [
+        "古韵文化"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 496,
+      "y": 486,
+      "images": [
+        {
+          "src": "/media/pois/changsha-museum/img1.jpg",
+          "alt": "长沙博物馆",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/changsha-museum/img2.jpg",
+          "alt": "长沙博物馆",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/changsha-museum/img3.jpg",
+          "alt": "长沙博物馆",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/changsha-museum/img4.jpg",
+          "alt": "长沙博物馆",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/changsha-museum/img5.jpg",
+          "alt": "长沙博物馆",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "jiangtan-park",
+      "name": "湘江江滩公园",
+      "district": "开福区",
+      "type": "nature",
+      "tags": [
+        "江滩",
+        "晚霞",
+        "风筝"
+      ],
+      "duration_min": 90,
+      "lat": 28.257,
+      "lon": 112.977,
+      "desc": "湘江北岸的滩涂公园，日落时分江面镀金，风筝与野餐的人群散落草坡。",
+      "scores": {
+        "nature": 4,
+        "photo": 4,
+        "family": 4,
+        "nightlife": 2,
+        "food": 1,
+        "shopping": 1,
+        "culture": 1
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 450,
+      "y": 409,
+      "images": [
+        {
+          "src": "/media/pois/jiangtan-park/img1.jpg",
+          "alt": "湘江江滩公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=%E9%95%BF%E6%B2%99%E5%AE%9E%E6%99%AF%E6%97%85%E6%B8%B8%E6%91%84%E5%BD%B1%EF%BC%8C%E6%B9%98%E6%B1%9F%E6%B1%9F%E6%BB%A9%E5%85%AC%E5%9B%AD%EF%BC%8C%E6%B9%98%E6%B1%9F%E5%8C%97%E5%B2%B8%E7%9A%84%E6%BB%A9%E6%B6%82%E5%85%AC%E5%9B%AD%EF%BC%8C%E6%97%A5%E8%90%BD%E6%97%B6%E5%88%86%E6%B1%9F%E9%9D%A2%E9%95%80%E9%87%91%EF%BC%8C%E9%A3%8E%E7%AD%9D%E4%B8%8E%E9%87%8E%E9%A4%90%E7%9A%84%E4%BA%BA%E7%BE%A4%E6%95%A3%E8%90%BD%E8%8D%89%E5%9D%A1%E3%80%82%EF%BC%8C%E6%99%B4%E5%A4%A9%E8%87%AA%E7%84%B6%E5%85%89%EF%BC%8C%E9%AB%98%E6%B8%85%E6%91%84%E5%BD%B1%E4%BD%9C%E5%93%81%EF%BC%8C%E6%9E%84%E5%9B%BE%E7%B2%BE%E7%BE%8E&image_size=landscape_16_9&seed=1",
+          "alt": "湘江江滩公园 景致 1"
+        },
+        {
+          "src": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=%E9%95%BF%E6%B2%99%E5%AE%9E%E6%99%AF%E6%97%85%E6%B8%B8%E6%91%84%E5%BD%B1%EF%BC%8C%E6%B9%98%E6%B1%9F%E6%B1%9F%E6%BB%A9%E5%85%AC%E5%9B%AD%EF%BC%8C%E6%B9%98%E6%B1%9F%E5%8C%97%E5%B2%B8%E7%9A%84%E6%BB%A9%E6%B6%82%E5%85%AC%E5%9B%AD%EF%BC%8C%E6%97%A5%E8%90%BD%E6%97%B6%E5%88%86%E6%B1%9F%E9%9D%A2%E9%95%80%E9%87%91%EF%BC%8C%E9%A3%8E%E7%AD%9D%E4%B8%8E%E9%87%8E%E9%A4%90%E7%9A%84%E4%BA%BA%E7%BE%A4%E6%95%A3%E8%90%BD%E8%8D%89%E5%9D%A1%E3%80%82%EF%BC%8C%E6%99%B4%E5%A4%A9%E8%87%AA%E7%84%B6%E5%85%89%EF%BC%8C%E9%AB%98%E6%B8%85%E6%91%84%E5%BD%B1%E4%BD%9C%E5%93%81%EF%BC%8C%E6%9E%84%E5%9B%BE%E7%B2%BE%E7%BE%8E&image_size=landscape_16_9&seed=2",
+          "alt": "湘江江滩公园 景致 2"
+        }
+      ]
+    },
+    {
+      "id": "chaozong-street",
+      "name": "潮宗街",
+      "district": "开福区",
+      "type": "culture",
+      "tags": [
+        "麻石路",
+        "教堂",
+        "老街"
+      ],
+      "duration_min": 60,
+      "lat": 28.201,
+      "lon": 112.97,
+      "desc": "长沙最老的麻石街之一，老教堂与咖啡店并肩，历史和新潮在这里擦肩。",
+      "scores": {
+        "culture": 4,
+        "photo": 4,
+        "food": 3,
+        "nightlife": 2,
+        "family": 2,
+        "shopping": 2,
+        "nature": 1
+      },
+      "style": [
+        "古韵文化"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 423,
+      "y": 569,
+      "images": [
+        {
+          "src": "/media/pois/chaozong-street/img1.jpg",
+          "alt": "潮宗街",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/chaozong-street/img2.jpg",
+          "alt": "潮宗街",
+          "ext": ".jpg"
+        },
+        {
+          "src": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=%E9%95%BF%E6%B2%99%E5%AE%9E%E6%99%AF%E6%97%85%E6%B8%B8%E6%91%84%E5%BD%B1%EF%BC%8C%E6%BD%AE%E5%AE%97%E8%A1%97%EF%BC%8C%E9%95%BF%E6%B2%99%E6%9C%80%E8%80%81%E7%9A%84%E9%BA%BB%E7%9F%B3%E8%A1%97%E4%B9%8B%E4%B8%80%EF%BC%8C%E8%80%81%E6%95%99%E5%A0%82%E4%B8%8E%E5%92%96%E5%95%A1%E5%BA%97%E5%B9%B6%E8%82%A9%EF%BC%8C%E5%8E%86%E5%8F%B2%E5%92%8C%E6%96%B0%E6%BD%AE%E5%9C%A8%E8%BF%99%E9%87%8C%E6%93%A6%E8%82%A9%E3%80%82%EF%BC%8C%E6%99%B4%E5%A4%A9%E8%87%AA%E7%84%B6%E5%85%89%EF%BC%8C%E9%AB%98%E6%B8%85%E6%91%84%E5%BD%B1%E4%BD%9C%E5%93%81%EF%BC%8C%E6%9E%84%E5%9B%BE%E7%B2%BE%E7%BE%8E&image_size=landscape_16_9&seed=1",
+          "alt": "潮宗街 景致 1"
+        },
+        {
+          "src": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=%E9%95%BF%E6%B2%99%E5%AE%9E%E6%99%AF%E6%97%85%E6%B8%B8%E6%91%84%E5%BD%B1%EF%BC%8C%E6%BD%AE%E5%AE%97%E8%A1%97%EF%BC%8C%E9%95%BF%E6%B2%99%E6%9C%80%E8%80%81%E7%9A%84%E9%BA%BB%E7%9F%B3%E8%A1%97%E4%B9%8B%E4%B8%80%EF%BC%8C%E8%80%81%E6%95%99%E5%A0%82%E4%B8%8E%E5%92%96%E5%95%A1%E5%BA%97%E5%B9%B6%E8%82%A9%EF%BC%8C%E5%8E%86%E5%8F%B2%E5%92%8C%E6%96%B0%E6%BD%AE%E5%9C%A8%E8%BF%99%E9%87%8C%E6%93%A6%E8%82%A9%E3%80%82%EF%BC%8C%E6%99%B4%E5%A4%A9%E8%87%AA%E7%84%B6%E5%85%89%EF%BC%8C%E9%AB%98%E6%B8%85%E6%91%84%E5%BD%B1%E4%BD%9C%E5%93%81%EF%BC%8C%E6%9E%84%E5%9B%BE%E7%B2%BE%E7%BE%8E&image_size=landscape_16_9&seed=2",
+          "alt": "潮宗街 景致 2"
+        }
+      ]
+    },
+    {
+      "id": "binjiang-culture",
+      "name": "滨江文化园",
+      "district": "开福区",
+      "type": "culture",
+      "tags": [
+        "三馆一厅",
+        "江景",
+        "地标"
+      ],
+      "duration_min": 90,
+      "lat": 28.228,
+      "lon": 112.99,
+      "desc": "博物馆、图书馆、规划馆与音乐厅沿江一字排开，夜色中灯光如带。",
+      "scores": {
+        "culture": 4,
+        "photo": 4,
+        "nightlife": 3,
+        "family": 3,
+        "nature": 2,
+        "food": 1,
+        "shopping": 1
+      },
+      "style": [
+        "古韵文化"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 500,
+      "y": 491,
+      "images": [
+        {
+          "src": "/media/pois/binjiang-culture/img1.jpg",
+          "alt": "滨江文化园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/binjiang-culture/img2.jpg",
+          "alt": "滨江文化园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/binjiang-culture/img3.jpg",
+          "alt": "滨江文化园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/binjiang-culture/img4.jpg",
+          "alt": "滨江文化园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/binjiang-culture/img5.jpg",
+          "alt": "滨江文化园",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "hunan-tv",
+      "name": "湖南广电",
+      "district": "开福区",
+      "type": "photo",
+      "tags": [
+        "芒果台",
+        "追星",
+        "打卡"
+      ],
+      "duration_min": 60,
+      "lat": 28.244,
+      "lon": 113.056,
+      "desc": "“芒果台”大本营，马栏山上的地标建筑，偶遇明星的概率最高的地方。",
+      "scores": {
+        "photo": 4,
+        "nightlife": 2,
+        "shopping": 2,
+        "food": 2,
+        "culture": 1,
+        "family": 2,
+        "nature": 1
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 754,
+      "y": 446,
+      "images": [
+        {
+          "src": "/media/pois/hunan-tv/img1.jpg",
+          "alt": "湖南广电",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/hunan-tv/img2.png",
+          "alt": "湖南广电",
+          "ext": ".png"
+        },
+        {
+          "src": "/media/pois/hunan-tv/img3.jpg",
+          "alt": "湖南广电",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "yuehu-park",
+      "name": "月湖公园",
+      "district": "开福区",
+      "type": "nature",
+      "tags": [
+        "湖景",
+        "雕塑",
+        "清幽"
+      ],
+      "duration_min": 90,
+      "lat": 28.232,
+      "lon": 113.045,
+      "desc": "一弯月形湖面环绕雕塑园，桥影与树影落进水里，散步骑行皆宜。",
+      "scores": {
+        "nature": 4,
+        "family": 4,
+        "photo": 3,
+        "culture": 2,
+        "food": 1,
+        "shopping": 1,
+        "nightlife": 1
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 712,
+      "y": 480,
+      "images": [
+        {
+          "src": "/media/pois/yuehu-park/img1.jpg",
+          "alt": "月湖公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuehu-park/img2.jpg",
+          "alt": "月湖公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuehu-park/img3.jpg",
+          "alt": "月湖公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuehu-park/img4.jpg",
+          "alt": "月湖公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuehu-park/img5.jpg",
+          "alt": "月湖公园",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "botanical-garden",
+      "name": "湖南省森林植物园",
+      "district": "雨花区",
+      "type": "nature",
+      "tags": [
+        "花海",
+        "樱花园",
+        "森林"
+      ],
+      "duration_min": 180,
+      "lat": 28.122,
+      "lon": 113.013,
+      "desc": "城郊的森林氧吧，樱花、杜鹃与郁金香按季盛放，徒步栈道穿林而过。",
+      "scores": {
+        "nature": 5,
+        "family": 5,
+        "photo": 5,
+        "culture": 1,
+        "food": 2,
+        "shopping": 1,
+        "nightlife": 1
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 588,
+      "y": 794,
+      "images": [
+        {
+          "src": "/media/pois/botanical-garden/img1.jpg",
+          "alt": "湖南省森林植物园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/botanical-garden/img2.jpg",
+          "alt": "湖南省森林植物园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/botanical-garden/img3.jpg",
+          "alt": "湖南省森林植物园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/botanical-garden/img4.jpg",
+          "alt": "湖南省森林植物园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/botanical-garden/img5.jpg",
+          "alt": "湖南省森林植物园",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "guitang-river",
+      "name": "圭塘河风光带",
+      "district": "雨花区",
+      "type": "nature",
+      "tags": [
+        "河畔",
+        "绿道",
+        "骑行"
+      ],
+      "duration_min": 90,
+      "lat": 28.145,
+      "lon": 113.033,
+      "desc": "穿城而过的生态河道，两岸绿道连成环线，晨跑夜骑都舒服。",
+      "scores": {
+        "nature": 4,
+        "family": 4,
+        "photo": 3,
+        "culture": 1,
+        "food": 2,
+        "shopping": 1,
+        "nightlife": 2
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 665,
+      "y": 729,
+      "images": [
+        {
+          "src": "/media/pois/guitang-river/img1.jpg",
+          "alt": "圭塘河风光带",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/guitang-river/img2.jpg",
+          "alt": "圭塘河风光带",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/guitang-river/img3.jpg",
+          "alt": "圭塘河风光带",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/guitang-river/img4.jpg",
+          "alt": "圭塘河风光带",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "desiqin",
+      "name": "德思勤城市广场",
+      "district": "雨花区",
+      "type": "shopping",
+      "tags": [
+        "商圈",
+        "24h书店",
+        "影院"
+      ],
+      "duration_min": 120,
+      "lat": 28.115,
+      "lon": 113.013,
+      "desc": "南城人气商圈，24 小时书店与影院餐厅云集，是雨花区的夜生活中心。",
+      "scores": {
+        "shopping": 5,
+        "food": 4,
+        "nightlife": 4,
+        "photo": 3,
+        "family": 3,
+        "culture": 1,
+        "nature": 1
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 588,
+      "y": 814,
+      "images": [
+        {
+          "src": "/media/pois/desiqin/img1.jpg",
+          "alt": "德思勤城市广场",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/desiqin/img2.jpg",
+          "alt": "德思勤城市广场",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/desiqin/img3.jpg",
+          "alt": "德思勤城市广场",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/desiqin/img4.jpg",
+          "alt": "德思勤城市广场",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/desiqin/img5.jpg",
+          "alt": "德思勤城市广场",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "hongxing-flowers",
+      "name": "红星花卉市场",
+      "district": "雨花区",
+      "type": "shopping",
+      "tags": [
+        "鲜花",
+        "绿植",
+        "便宜"
+      ],
+      "duration_min": 60,
+      "lat": 28.095,
+      "lon": 113.019,
+      "desc": "整条街都是花档，十元一捧的浪漫，挑一束带走整个好心情。",
+      "scores": {
+        "shopping": 4,
+        "photo": 4,
+        "family": 3,
+        "nature": 2,
+        "food": 1,
+        "culture": 1,
+        "nightlife": 1
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 612,
+      "y": 871,
+      "images": [
+        {
+          "src": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=%E9%95%BF%E6%B2%99%E5%AE%9E%E6%99%AF%E6%97%85%E6%B8%B8%E6%91%84%E5%BD%B1%EF%BC%8C%E7%BA%A2%E6%98%9F%E8%8A%B1%E5%8D%89%E5%B8%82%E5%9C%BA%EF%BC%8C%E6%95%B4%E6%9D%A1%E8%A1%97%E9%83%BD%E6%98%AF%E8%8A%B1%E6%A1%A3%EF%BC%8C%E5%8D%81%E5%85%83%E4%B8%80%E6%8D%A7%E7%9A%84%E6%B5%AA%E6%BC%AB%EF%BC%8C%E6%8C%91%E4%B8%80%E6%9D%9F%E5%B8%A6%E8%B5%B0%E6%95%B4%E4%B8%AA%E5%A5%BD%E5%BF%83%E6%83%85%E3%80%82%EF%BC%8C%E6%99%B4%E5%A4%A9%E8%87%AA%E7%84%B6%E5%85%89%EF%BC%8C%E9%AB%98%E6%B8%85%E6%91%84%E5%BD%B1%E4%BD%9C%E5%93%81%EF%BC%8C%E6%9E%84%E5%9B%BE%E7%B2%BE%E7%BE%8E&image_size=landscape_16_9&seed=1",
+          "alt": "红星花卉市场 景致 1"
+        },
+        {
+          "src": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=%E9%95%BF%E6%B2%99%E5%AE%9E%E6%99%AF%E6%97%85%E6%B8%B8%E6%91%84%E5%BD%B1%EF%BC%8C%E7%BA%A2%E6%98%9F%E8%8A%B1%E5%8D%89%E5%B8%82%E5%9C%BA%EF%BC%8C%E6%95%B4%E6%9D%A1%E8%A1%97%E9%83%BD%E6%98%AF%E8%8A%B1%E6%A1%A3%EF%BC%8C%E5%8D%81%E5%85%83%E4%B8%80%E6%8D%A7%E7%9A%84%E6%B5%AA%E6%BC%AB%EF%BC%8C%E6%8C%91%E4%B8%80%E6%9D%9F%E5%B8%A6%E8%B5%B0%E6%95%B4%E4%B8%AA%E5%A5%BD%E5%BF%83%E6%83%85%E3%80%82%EF%BC%8C%E6%99%B4%E5%A4%A9%E8%87%AA%E7%84%B6%E5%85%89%EF%BC%8C%E9%AB%98%E6%B8%85%E6%91%84%E5%BD%B1%E4%BD%9C%E5%93%81%EF%BC%8C%E6%9E%84%E5%9B%BE%E7%B2%BE%E7%BE%8E&image_size=landscape_16_9&seed=2",
+          "alt": "红星花卉市场 景致 2"
+        }
+      ]
+    },
+    {
+      "id": "dongtang",
+      "name": "东塘商圈",
+      "district": "雨花区",
+      "type": "shopping",
+      "tags": [
+        "老商圈",
+        "商场",
+        "小吃"
+      ],
+      "duration_min": 90,
+      "lat": 28.165,
+      "lon": 112.998,
+      "desc": "长沙的老牌商圈，百货与地下小吃街并存，市井与潮流各占一半。",
+      "scores": {
+        "shopping": 4,
+        "food": 4,
+        "nightlife": 3,
+        "photo": 2,
+        "family": 3,
+        "culture": 1,
+        "nature": 1
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 531,
+      "y": 671,
+      "images": [
+        {
+          "src": "/media/pois/dongtang/img1.jpg",
+          "alt": "东塘商圈",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/dongtang/img2.jpg",
+          "alt": "东塘商圈",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/dongtang/img3.jpg",
+          "alt": "东塘商圈",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/dongtang/img4.jpg",
+          "alt": "东塘商圈",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/dongtang/img5.jpg",
+          "alt": "东塘商圈",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "yuhua-feiwei",
+      "name": "雨花非遗馆",
+      "district": "雨花区",
+      "type": "culture",
+      "tags": [
+        "非遗",
+        "手作",
+        "体验"
+      ],
+      "duration_min": 90,
+      "lat": 28.15,
+      "lon": 113.01,
+      "desc": "湖南非遗技艺的集中展厅，湘绣、陶瓷、竹编可看可学可上手。",
+      "scores": {
+        "culture": 4,
+        "family": 4,
+        "photo": 3,
+        "shopping": 2,
+        "food": 1,
+        "nature": 1,
+        "nightlife": 1
+      },
+      "style": [
+        "古韵文化"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 577,
+      "y": 714,
+      "images": [
+        {
+          "src": "/media/pois/yuhua-feiwei/img1.jpg",
+          "alt": "雨花非遗馆",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuhua-feiwei/img2.jpg",
+          "alt": "雨花非遗馆",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuhua-feiwei/img3.jpg",
+          "alt": "雨花非遗馆",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuhua-feiwei/img4.jpg",
+          "alt": "雨花非遗馆",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/yuhua-feiwei/img5.jpg",
+          "alt": "雨花非遗馆",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "xiangfu-park",
+      "name": "湘府文化公园",
+      "district": "雨花区",
+      "type": "nature",
+      "tags": [
+        "湖园",
+        "广场",
+        "傍晚"
+      ],
+      "duration_min": 60,
+      "lat": 28.111,
+      "lon": 113.017,
+      "desc": "省府旁的宽阔湖园，傍晚喷泉与散步人流汇成南城的日常风景。",
+      "scores": {
+        "nature": 4,
+        "family": 4,
+        "photo": 3,
+        "culture": 1,
+        "food": 1,
+        "shopping": 1,
+        "nightlife": 1
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 604,
+      "y": 826,
+      "images": [
+        {
+          "src": "/media/pois/xiangfu-park/img1.jpg",
+          "alt": "湘府文化公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/xiangfu-park/img2.jpg",
+          "alt": "湘府文化公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/xiangfu-park/img3.jpg",
+          "alt": "湘府文化公园",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "gaoqiao-market",
+      "name": "高桥大市场",
+      "district": "雨花区",
+      "type": "shopping",
+      "tags": [
+        "批发",
+        "淘货",
+        "烟火"
+      ],
+      "duration_min": 120,
+      "lat": 28.178,
+      "lon": 113.035,
+      "desc": "中南地区最大的综合批发市场，从饰品到干货无所不有，淘货乐趣无穷。",
+      "scores": {
+        "shopping": 5,
+        "food": 3,
+        "nightlife": 1,
+        "photo": 2,
+        "family": 2,
+        "culture": 1,
+        "nature": 1
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 673,
+      "y": 634,
+      "images": [
+        {
+          "src": "/media/pois/gaoqiao-market/img1.jpg",
+          "alt": "高桥大市场",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/gaoqiao-market/img2.jpg",
+          "alt": "高桥大市场",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/gaoqiao-market/img3.jpg",
+          "alt": "高桥大市场",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/gaoqiao-market/img4.jpg",
+          "alt": "高桥大市场",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/gaoqiao-market/img5.jpg",
+          "alt": "高桥大市场",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "shawan-park",
+      "name": "沙湾公园",
+      "district": "雨花区",
+      "type": "nature",
+      "tags": [
+        "山丘",
+        "森林",
+        "步道"
+      ],
+      "duration_min": 90,
+      "lat": 28.155,
+      "lon": 113.052,
+      "desc": "掩在城市里的绿丘，石阶步道穿林，山顶小亭可远眺万家灯火。",
+      "scores": {
+        "nature": 4,
+        "family": 4,
+        "photo": 3,
+        "culture": 1,
+        "food": 1,
+        "shopping": 1,
+        "nightlife": 2
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 738,
+      "y": 700,
+      "images": [
+        {
+          "src": "/media/pois/shawan-park/img1.jpg",
+          "alt": "沙湾公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/shawan-park/img2.jpg",
+          "alt": "沙湾公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/shawan-park/img3.jpg",
+          "alt": "沙湾公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/shawan-park/img4.jpg",
+          "alt": "沙湾公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/shawan-park/img5.jpg",
+          "alt": "沙湾公园",
+          "ext": ".jpg"
+        }
+      ]
+    },
+    {
+      "id": "guihua-park",
+      "name": "桂花公园",
+      "district": "雨花区",
+      "type": "nature",
+      "tags": [
+        "桂香",
+        "晨练",
+        "清静"
+      ],
+      "duration_min": 60,
+      "lat": 28.148,
+      "lon": 113.003,
+      "desc": "秋日满园桂花香，园子不大却安静整洁，是老城居民的日常散步地。",
+      "scores": {
+        "nature": 4,
+        "family": 4,
+        "photo": 2,
+        "culture": 1,
+        "food": 1,
+        "shopping": 1,
+        "nightlife": 1
+      },
+      "style": [
+        "潮玩都市"
+      ],
+      "hours": {
+        "open": "09:00",
+        "close": "18:00",
+        "note": "以现场为准"
+      },
+      "ticket": "免费",
+      "x": 550,
+      "y": 720,
+      "images": [
+        {
+          "src": "/media/pois/guihua-park/img1.jpg",
+          "alt": "桂花公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/guihua-park/img2.jpg",
+          "alt": "桂花公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/guihua-park/img3.jpg",
+          "alt": "桂花公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/guihua-park/img4.jpg",
+          "alt": "桂花公园",
+          "ext": ".jpg"
+        },
+        {
+          "src": "/media/pois/guihua-park/img5.jpg",
+          "alt": "桂花公园",
+          "ext": ".jpg"
+        }
+      ]
+    }
+  ]
+}

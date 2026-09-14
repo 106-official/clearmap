@@ -9,6 +9,14 @@ build/
 # 用户上传数据（运行时生成）
 data/uploads/
 
+# 用户账号 / 会话数据（隐私，不推送；另一台笔记本部署时为全新环境）
+data/accounts.json
+data/sessions.json
+data/users/
+
+# 地图构建缓存
+build_cache/
+
 # 截图目录
 shots/
 

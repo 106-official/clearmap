@@ -62,13 +62,20 @@
            rect[1] <= v[3] + pad && rect[3] >= v[1] - pad;
   }
 
-  // ---- 数据装载 ----
+  // ---- 数据装载（多城市：/map/<city>.json，按城市缓存）----
+  var activeCity = "changsha";
+  var dataCache = {};
+  var dataPromise = null;
+
   function loadData() {
+    var c = activeCity;
+    if (dataCache[c]) return Promise.resolve(dataCache[c]);
     if (dataPromise) return dataPromise;
-    dataPromise = fetch("/map/changsha.json").then(function (r) {
+    dataPromise = fetch("/map/" + c + ".json").then(function (r) {
       if (!r.ok) throw new Error("map data " + r.status);
       return r.json();
     }).then(function (d) {
+      dataCache[c] = d;
       DATA = d;
       ORIGIN = d.meta.origin;
       CELL = d.meta.cell || 512;
@@ -76,6 +83,19 @@
       return d;
     });
     return dataPromise;
+  }
+
+  // 切换城市底图：重新装载 <city>.json 并复位视野
+  function setCity(c) {
+    activeCity = c;
+    dataPromise = null;   // 强制重新装载新城市数据
+    initDone = false;     // 走初始化适应
+    if (svg) {
+      loadData().then(function () {
+        fitToBox();
+        render();
+      }).catch(function (err) { console.error("map load failed:", err); });
+    }
   }
 
   // meta.bbox（w,s,e,n）四角投影 → 局部矩形
@@ -201,7 +221,9 @@
   // ---- SVG 结构 ----
   function ensureSvg(container) {
     if (svg && svg.parentNode === container) return;
-    container.innerHTML = "";
+    // 只移除旧的 svg，保留同级的缩放控件与城市选择器等静态节点
+    var prev = container.querySelector("svg");
+    if (prev) prev.remove();
     svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.setAttribute("class", "map--frame");
     svg.setAttribute("role", "img");
@@ -263,15 +285,27 @@
     if (viewG) viewG.style.setProperty("--unit", 1 / view.s);
   }
 
-  function scheduleRender() {
+  // —— 相机与内容解耦：平移/缩放先即时应用 transform（GPU 合成，丝滑），
+  //    仅当相机跨越阈值时才重建道路/标签/点位的 innerHTML，避免“每帧全量重建”导致的卡顿。
+  var riS = 1, riX = 0, riY = 0;   // 上次全量渲染时的相机
+  function needFullRender() {
+    if (!DATA || !initDone) return true;               // 首帧/切城市强制
+    if (Math.abs(view.s / riS - 1) > 0.07) return true;  // 缩放跨 LOD 档位
+    if (Math.abs(view.x - riX) + Math.abs(view.y - riY) > 150) return true; // 平移出缓潜带
+    return false;
+  }
+  function render() {
+    setTransform();
+    if (needFullRender()) renderAll();
+  }
+  function maybeRender() {
     if (raf) return;
     raf = requestAnimationFrame(function () {
       raf = null;
-      if (dirty) { renderAll(); dirty = false; }
+      render();
     });
   }
-
-  function markDirty() { dirty = true; scheduleRender(); }
+  function markDirty() { maybeRender(); }
 
   // ---- 相机 ----
   function fitToBox() {
@@ -293,12 +327,14 @@
     view.x = px - (px - view.x) * k;
     view.y = py - (py - view.y) * k;
     view.s = ns;
-    markDirty();
+    setTransform();
+    maybeRender();
   }
 
   function panBy(dx, dy) {
     view.x += dx; view.y += dy;
-    markDirty();
+    setTransform();   // 即时应用相机，丝滑；内容重建由 maybeRender 按需触发
+    maybeRender();
   }
 
   // ---- 道路 bbox 解析（惰性）----
@@ -322,6 +358,7 @@
   // ---- 渲染 ----
   function renderAll() {
     if (!svg || !viewG) return;
+    riS = view.s; riX = view.x; riY = view.y;   // 记录本次全量渲染时的相机
     setTransform();
     renderBase();
     renderRoads();
@@ -350,16 +387,17 @@
     var html = "";
 
     // tier1/2 始终尝试显示，随 upx 增长才隐藏极细等级
+    // 阈值放宽：让主干道/次干道在整城视野即可见，避免初始视图显得空旷
     var tiers = [
-      { t: "tier1", max: 30, cls: "road-t1" },
-      { t: "tier2", max: 12, cls: "road-t2" },
+      { t: "tier1", max: 90, cls: "road-t1" },
+      { t: "tier2", max: 55, cls: "road-t2" },
       { t: "tier3", max: 3.5, cls: "road-t3" },
       { t: "tier4", max: 1.2, cls: "road-t4" },
     ];
     tiers.forEach(function (cfg) {
       if (upx > cfg.max) return;
       var list = parseRoads(cfg.t);
-      var v = visibleRect(), pad = 40 * upx;
+      var v = visibleRect(), pad = 170 * upx;   // 潜带加宽，覆盖平滑平移的相机提前量
       list.forEach(function (item) {
         if (!fits(item.b, pad)) return;
         html += '<path class="' + cfg.cls + '" d="' + esc(item.r.path) + '"></path>';
@@ -434,7 +472,7 @@
     // 片区名：取「区界 ∩ 地图范围」的中心，钳制到可见区域；视口外整区剔除
     if (upx < 30) {
       var bb = localBBox();
-      var pad = 80 * upx;
+      var pad = 170 * upx;
       districtMeta().forEach(function (d) {
         if (!fits(d.b, pad)) return;
         var ix0 = Math.max(d.b[0], bb[0]), ix1 = Math.min(d.b[2], bb[2]);
@@ -444,17 +482,20 @@
         html += '<text class="map-label" x="' + lx.toFixed(0) + '" y="' + ly.toFixed(0) + '">' + esc(d.name) + "</text>";
       });
     }
-    // 路名（主干道放大时）
+    // 路名（主干道放大时）：同名道路只标注一次，避免重复文字相互重叠
     if (upx <= 6) {
+      var v = visibleRect(), pad = 160 * upx;
+      var shownRoad = {};
       parseRoads("tier1").concat(parseRoads("tier2")).forEach(function (item) {
         var nm = item.r.name;
-        if (!nm || item.r.path.length < 40) return;
-        var v = visibleRect(), pad = 80 * upx;
+        if (!nm || shownRoad[nm]) return;
+        if (item.r.path.length < 40) return;
         if (!fits(item.b, pad)) return;
         var mid = item.r.path.match(numRe);
         if (!mid || mid.length < 4) return;
         var cx = (+mid[0] + +mid[mid.length - 2]) / 2;
         var cy = (+mid[1] + +mid[mid.length - 1]) / 2;
+        shownRoad[nm] = true;
         html += '<text class="map-roadname" x="' + cx.toFixed(0) + '" y="' + cy.toFixed(0) + '">' + esc(nm) + "</text>";
       });
     }
@@ -464,25 +505,27 @@
   function renderMarkers() {
     if (!poiLayer) return;
     var upx = 1 / view.s;
-    var show = upx <= 30;   // 初始适配视野即可见景点标记（与区名同层阈值）
+    var redUpx = 300;   // 红色(高契合/重点) 在任何视野都显示
+    var allUpx = 300;   // 绿色(常规) 也在整城视野显示，避免地图“空白”
     var html = "";
-    if (show) {
-      var hotIds = {};
+    if (upx <= redUpx) {
       var maxAff = 1;
       pois.forEach(function (p) { if (p.affinity > maxAff) maxAff = p.affinity; });
-      // 图钉（恒定屏幕尺寸）：红色=高契合推荐，绿色=常规
-      var k = upx;  // 缩放系数，使 pin 保持约 18px 恒定
-      var pinD = "M0 0 C -1.3 -6, -8 -8.5, -8 -13 A 8 8 0 1 1 8 -13 C 8 -8.5, 1.3 -6, 0 0 Z";
+      // 红绿圆点 + 虚线包围（恒定屏幕尺寸）：红色=高契合推荐，绿色=常规
+      var k = upx;  // 缩放系数，使圆点保持约 11px 恒定
       pois.forEach(function (p) {
-        var l = poiLocal(p);
         var hot = p.affinity / maxAff >= 0.8;
+        // 分层：缩放不足时只显示高契合(红)点，绿色(常规)点放大后再出现
+        if (!hot && upx > allUpx) return;
+        var l = poiLocal(p);
         var sel = p.id === selectedId;
         var cls = "poi-marker" + (hot ? " is-hot" : "") + (sel ? " is-selected" : "");
         html +=
           '<g class="' + cls + '" data-id="' + esc(p.id) + '" transform="translate(' + l[0].toFixed(1) + "," + l[1].toFixed(1) + ')">' +
-          '<g class="pk-pin" transform="scale(' + (k > 0 ? k.toFixed(4) : 0.01) + ')">' +
-          '<path class="pk-pin-body" d="' + pinD + '"></path>' +
-          '<circle class="pk-pin-dot" cx="0" cy="-12.5" r="3.4"></circle>' +
+          '<g class="pk-marker" transform="scale(' + (k > 0 ? k.toFixed(4) : 0.01) + ')">' +
+          '<circle class="pk-hit" cx="0" cy="0" r="20"></circle>' +
+          '<circle class="pk-ring" cx="0" cy="0" r="9" fill="none"></circle>' +
+          '<circle class="pk-dot" cx="0" cy="0" r="5.2"></circle>' +
           '</g>' +
           '<title>' + esc(p.name) + " · " + esc(p.district) + "</title></g>";
         // 点位名：恒定屏幕像素抬高
@@ -493,47 +536,97 @@
       });
     }
     poiLayer.innerHTML = html;
-    poiLayer.querySelectorAll(".poi-marker").forEach(function (g) {
-      g.addEventListener("click", function () {
-        var id = g.getAttribute("data-id");
-        if (onClick) onClick(id);
-      });
-    });
   }
 
-  // ---- 拖拽 / 缩放事件（绑定在容器上，仅一次）----
+  // ---- 拖拽 / 缩放 / 双指捏合 / 点选（绑定在容器上，仅一次）----
   var bound = false;
   function bindInteraction(container) {
     if (bound) return;
     bound = true;
-    var dragging = false, moved = 0, sx = 0, sy = 0, svx = 0, svy = 0;
-    container.addEventListener("pointerdown", function (e) {
-      if (e.button !== 0) return;
-      if (e.target.closest && e.target.closest(".map-btn")) return;  // 控件不触发拖拽
-      dragging = true; moved = 0;
-      sx = e.clientX; sy = e.clientY;
-      svx = view.x; svy = view.y;
-      container.setPointerCapture && container.setPointerCapture(e.pointerId);
-    });
-    container.addEventListener("pointermove", function (e) {
-      if (!dragging) return;
-      var dx = e.clientX - sx, dy = e.clientY - sy;
-      moved = Math.max(moved, Math.abs(dx) + Math.abs(dy));
-      panBy(dx, dy);
-      sx = e.clientX; sy = e.clientY;
-    });
-    container.addEventListener("pointerup", function (e) {
-      var wasDragging = dragging;
-      dragging = false;
-      // 无拖拽的点击：交给 onClickMap（点选记录路线等）
-      if (wasDragging && moved < 5 && onClickMap && !(e.target.closest && e.target.closest(".poi-marker, .map-btn, .ck-marker"))) {
+
+    var pointers = {};   // pointerId -> {x,y}（client 坐标）
+    var pinch = null;    // {d0, s0, pivot:{lx,ly}}
+    var drag = null;     // 单指平移 {ox, oy}
+    var movedTot = 0, tapX = 0, tapY = 0;
+
+    function np() { var n = 0; for (var k in pointers) n++; return n; }
+    function pointersArr() { var a = []; for (var k in pointers) a.push(k); return a; }
+
+    function pickAt(cx, cy) {
+      var hit = document.elementFromPoint(cx, cy);
+      var marker = hit && hit.closest ? hit.closest(".poi-marker") : null;
+      if (marker) {
+        var mid = marker.getAttribute("data-id");
+        if (mid && onClick) { onClick(mid); return; }
+      }
+      if (onClickMap) {
         var rect = container.getBoundingClientRect();
-        var ll = screenToLatLon(e.clientX - rect.left, e.clientY - rect.top);
+        var ll = screenToLatLon(cx - rect.left, cy - rect.top);
         onClickMap(ll[0], ll[1]);
       }
+    }
+
+    container.addEventListener("pointerdown", function (e) {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      pointers[e.pointerId] = { x: e.clientX, y: e.clientY };
+      var n = np();
+      if (n === 1) {
+        movedTot = 0; tapX = e.clientX; tapY = e.clientY;
+        drag = { ox: e.clientX, oy: e.clientY };
+      } else if (n === 2) {
+        var ids = pointersArr();
+        var a = pointers[ids[0]], b = pointers[ids[1]];
+        var mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+        pinch = {
+          d0: Math.max(1, Math.sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y))),
+          s0: view.s,
+          pivot: { lx: (mx - view.x) / view.s, ly: (my - view.y) / view.s },
+        };
+        drag = null;
+      }
+      if (container.setPointerCapture) container.setPointerCapture(e.pointerId);
     });
-    function endDrag() { dragging = false; }
-    container.addEventListener("pointercancel", endDrag);
+
+    container.addEventListener("pointermove", function (e) {
+      if (!pointers[e.pointerId]) return;
+      pointers[e.pointerId] = { x: e.clientX, y: e.clientY };
+      var n = np();
+      if (n >= 2 && pinch) {
+        var ids = pointersArr();
+        var a = pointers[ids[0]], b = pointers[ids[1]];
+        var mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+        var d = Math.sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
+        var ns = Math.max(MIN_S, Math.min(MAX_S, pinch.s0 * (d / pinch.d0)));
+        view.s = ns;
+        view.x = mx - pinch.pivot.lx * ns;
+        view.y = my - pinch.pivot.ly * ns;
+        movedTot = 1e9;             // 捏合不算点选
+        setTransform(); maybeRender();
+      } else if (n === 1 && drag) {
+        var dx = e.clientX - drag.ox, dy = e.clientY - drag.oy;
+        view.x += dx; view.y += dy;
+        drag.ox = e.clientX; drag.oy = e.clientY;
+        movedTot += Math.abs(dx) + Math.abs(dy);
+        setTransform(); maybeRender();
+      }
+    });
+
+    function endPointer(e) {
+      delete pointers[e.pointerId];
+      var n = np();
+      if (n === 1) {
+        // 捏合剩一指 → 退化为平移
+        var id = pointersArr()[0];
+        drag = { ox: pointers[id].x, oy: pointers[id].y };
+        pinch = null;
+      } else if (n === 0) {
+        if (movedTot < 12) pickAt(tapX, tapY);   // 轻点：选景点 / 空白取坐标
+        drag = null; pinch = null; movedTot = 0;
+      }
+    }
+    container.addEventListener("pointerup", endPointer);
+    container.addEventListener("pointercancel", endPointer);
+
     container.addEventListener("wheel", function (e) {
       e.preventDefault();
       var rect = container.getBoundingClientRect();
@@ -603,6 +696,8 @@
   win.ClearMap = win.ClearMap || {};
   win.ClearMap.map = {
     renderMap: renderMap,
+    setCity: setCity,
+    getCity: function () { return activeCity; },
     renderBase: renderBaseCompat,
     renderMarkers: renderMarkersCompat,
     GEO: GEO,

@@ -1,33 +1,67 @@
 # -*- coding: utf-8 -*-
-"""构建真实地理地图数据：从 Overpass API 抓取长沙主城五区 OSM 数据，
-Web Mercator 投影量化后，离线落盘为 static/map/changsha.json。
+"""构建真实地理地图数据：从 Overpass API 抓取指定城市的 OSM 数据，
+Web Mercator 投影量化后，离线落盘为 static/map/<city>.json。
 
 仅使用 Python 标准库（urllib/json/math）。运行一次即可，产物供运行时离线加载。
+用法：python build_map.py [city]   # city ∈ changsha|shanghai|beijing，缺省 changsha
 """
-import json, math, os, sys, time, urllib.request, urllib.error
+import json, math, os, sys, time, urllib.request, urllib.error, http.client
 
 # ---- 常量（与前端 map.js 共用，务必一致）----
 WORLD = 1 << 23  # 8388608，世界坐标整数空间
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 项目根
 OUT_DIR = os.path.join(BASE, "static", "map")
-OUT_FILE = os.path.join(OUT_DIR, "changsha.json")
-
-# 主城区 + 近郊 bbox（含望城北、长沙县东、湘江两岸主城与南郊）
-BBOX = (28.02, 112.78, 28.56, 113.40)  # (south, west, north, east)
-DISTRICT_NAMES = {"岳麓区", "天心区", "芙蓉区", "开福区", "雨花区", "望城区", "长沙县"}
 
 ENDPOINTS = [
     "https://overpass-api.de/api/interpreter",
     "https://overpass.kumi.systems/api/interpreter",
 ]
 DISTRICTS_REQ = "relation['boundary'='administrative']['admin_level'='6']"
-WATER_REQ = '(way["natural"="water"](%f,%f,%f,%f);way["waterway"="river"](%f,%f,%f,%f););out geom;' % (BBOX + BBOX)
 
-# 建筑抓取：分块（避免单次超载），每块约 0.068° x 0.068°；块间留间隔避免打爆限流
-BTILE_X = 9
-BTILE_Y = 8
-TILE_BACKOFF = [8, 20, 40, 70]  # 每块失败重试等待（秒）
-TILE_PAUSE = 2.5  # 相邻块之间的礼貌间隔（秒）
+# 各城市配置：bbox=(s,w,n,e) · 区名(区界命中) · tiles=建筑分块(按 bbox 面积适配) · 输出名
+# 说明：当前主要为“核心城区”矢量底图；全境可后续把 bbox 扩大并按需调细分块。
+CITIES = {
+    "changsha": {
+        "bbox": (28.02, 112.78, 28.56, 113.40),
+        "districts": {"岳麓区", "天心区", "芙蓉区", "开福区", "雨花区", "望城区", "长沙县"},
+        "tiles": (9, 8),
+        "output": "changsha.json",
+    },
+    "shanghai": {
+        "bbox": (31.14, 121.395, 31.31, 121.575),   # 上海核心城区（黄浦/静安/徐汇东等）
+        "districts": {"黄浦区", "徐汇区", "长宁区", "静安区", "普陀区", "虹口区", "杨浦区", "浦东新区"},
+        "tiles": (8, 7),
+        "output": "shanghai.json",
+    },
+    "beijing": {
+        "bbox": (39.72, 116.16, 40.06, 116.62),       # 北京城六区（东城/西城/朝阳/海淀/丰台/石景山）
+        "districts": {"东城区", "西城区", "朝阳区", "海淀区", "丰台区", "石景山区"},
+        "tiles": (9, 8),        # 道路分块（道路已缓存，勿改）
+        "btiles": (15, 13),     # 建筑分块（更细→单次请求更小更快，减少 504/超载）
+        "output": "beijing.json",
+    },
+}
+
+TILE_BACKOFF = [3, 5, 10, 15]  # 每块失败重试等待（秒）
+TILE_PAUSE = 2  # 相邻块之间的礼貌间隔（秒）
+CACHE_DIR = os.path.join(BASE, "build_cache")  # 已抓取数据缓存，中断后可复用
+
+
+def load_cache(key):
+    p = os.path.join(CACHE_DIR, key + ".json")
+    if os.path.exists(p):
+        try:
+            with open(p, encoding="utf-8") as f:
+                return json.load(f)
+        except (OSError, ValueError):
+            return None
+    return None
+
+
+def save_cache(key, obj):
+    os.makedirs(CACHE_DIR, exist_ok=True)
+    with open(os.path.join(CACHE_DIR, key + ".json"), "w", encoding="utf-8") as f:
+        json.dump(obj, f, ensure_ascii=False)
 
 
 def proj(lon, lat):
@@ -49,7 +83,7 @@ def fetch(query, timeout=240, backoff=(5, 12, 30)):
                 # 顶层 socket 超时：防止僵死镜像无限挂起（重试逻辑再兜底）
                 with urllib.request.urlopen(req, timeout=timeout) as r:
                     return json.load(r)
-            except (urllib.error.URLError, OSError, ValueError) as e:
+            except (urllib.error.URLError, OSError, ValueError, http.client.HTTPException) as e:
                 last = e
         # 指数退避
         wait = backoff[attempt]
@@ -159,38 +193,151 @@ def to_local(world_pts, origin):
     return [[x - origin[0], y - origin[1]] for x, y in world_pts]
 
 
-def main():
-    os.makedirs(OUT_DIR, exist_ok=True)
-    s, w, n, e = BBOX
-    origin_world = proj(w, n)  # bbox 左上角
+MAX_SPLIT_DEPTH = 3  # 顶层失败最多递归拆成 4^3 个子块，覆盖最密的路网
 
-    print("== 抓取道路 ==")
-    road_feats = fetch(
-        'way["highway"](%f,%f,%f,%f);out geom;' % BBOX)
-    print("  道路 way 数:", len(road_feats.get("elements", [])))
 
-    print("== 抓取水域 ==")
-    water_feats = fetch(WATER_REQ)
+def collect_tile(qfilter, key, s, w, n, e, label, cache_dir, depth, src_label):
+    """抓取单个分块。成功写整块缓存；连续失败则递归拆成 2x2 四份子块再抓。
 
-    print("== 抓取区界 ==")
-    district_feats = fetch(DISTRICTS_REQ + "(%f,%f,%f,%f);out geom;" % BBOX)
+    每(子)块成功即写入独立缓存 <cache_dir>/<key>.json，重启可复用。
+    返回该块的 elements。所有重试仍失败的块返回空（不中断整城）。
+    """
+    os.makedirs(cache_dir, exist_ok=True)
+    cf = os.path.join(cache_dir, key + ".json")
+    if os.path.exists(cf):
+        try:
+            with open(cf, encoding="utf-8") as fh:
+                return json.load(fh)
+        except (OSError, ValueError):
+            pass
+    since = time.time()
+    try:
+        fy = fetch('%s(%.5f,%.5f,%.5f,%.5f);out geom;' % (qfilter, s, w, n, e),
+                   timeout=60, backoff=TILE_BACKOFF)
+        te = fy.get("elements", [])
+        with open(cf, "w", encoding="utf-8") as fh:
+            json.dump(te, fh, ensure_ascii=False)
+        print("  %s块 %s → %d（%.1fs）" % (src_label, key, len(te), time.time() - since), flush=True)
+        time.sleep(TILE_PAUSE)
+        return te
+    except Exception as ex:
+        if depth >= MAX_SPLIT_DEPTH:
+            print("  %s块 %s 已达最大拆分级仍失败，跳过: %s" % (src_label, key, ex), flush=True)
+            return []
+        # 拆成 2x2 子块递归（子块各自独立缓存/退避，避免大面积重试拖慢全局）
+        mid_s, mid_w, mid_n, mid_e = (s + n) / 2, (w + e) / 2, (s + n) / 2, (w + e) / 2
+        print("  %s块 %s 拆分重试" % (src_label, key), flush=True)
+        time.sleep(TILE_PAUSE)
+        te = []
+        for qy in (0, 1):
+            for qx in (0, 1):
+                sub = collect_tile(
+                    qfilter, "%s_%d_%d" % (key, qx, qy),
+                    (s if qy == 0 else mid_s),      # 子南界
+                    (w if qx == 0 else mid_w),      # 子西界
+                    (mid_n if qy == 0 else n),      # 子北界
+                    (mid_w if qx == 0 else e),      # 子东界
+                    label, cache_dir, depth + 1, src_label)
+                te.extend(sub)
+        return te
 
-    print("== 抓取建筑（分块）==")
-    bld_elems = []
-    sx, sy = (e - w) / BTILE_X, (n - s) / BTILE_Y
-    for iy in range(BTILE_Y):
-        for ix in range(BTILE_X):
-            since = time.time()
+
+def tiled_elements(qfilter, s, w, n, e, tx, ty, label, cache_tag, cache_dir):
+    """把某类要素按 bbox 网格分块抓取（避免超大单次请求被 Overpass 截断/超载）。
+
+    每块成功即写入独立缓存 <cache_dir>/<cache_tag>_<ix>_<iy>.json，重启可从中恢复。
+    单个分块在重试后仍失败时，会递归拆成 2x2 子块继续抓取，尽量不丢大城密区数据。
+    返回合并后的 elements 列表。
+    """
+    elems = []
+    os.makedirs(cache_dir, exist_ok=True)
+    sx, sy = (e - w) / tx, (n - s) / ty
+    for iy in range(ty):
+        for ix in range(tx):
             qs, qw = s + iy * sy, w + ix * sx
             qn, qe = qs + sy, qw + sx
-            try:
-                fy = fetch('way["building"](%.5f,%.5f,%.5f,%.5f);out geom;' % (qs, qw, qn, qe),
-                           timeout=240, backoff=TILE_BACKOFF)
-                bld_elems.extend(fy.get("elements", []))
-                print("  块(%d,%d) → %d（%.1fs）" % (ix, iy, len(fy.get("elements", [])), time.time() - since), flush=True)
-            except RuntimeError as ex:
-                print("  块(%d,%d) 失败跳过: %s" % (ix, iy, ex), flush=True)
-            time.sleep(TILE_PAUSE)
+            key = "%s_%d_%d" % (cache_tag, ix, iy)
+            if os.path.exists(os.path.join(cache_dir, key + ".json")):
+                # 整体命中缓存
+                te = collect_tile(qfilter, key, qs, qw, qn, qe, label, cache_dir, 0, label)
+                elems.extend(te)
+                continue
+            # 整块未命中：先尝试整块抓取，失败则由 collect_tile 自行拆分
+            elems.extend(_collect_root(qfilter, key, qs, qw, qn, qe, label, cache_dir))
+    return elems
+
+
+def _collect_root(qfilter, key, qs, qw, qn, qe, label, cache_dir):
+    """顶层分块入口：先尝试整块，若整块缓存不存在才进入 collect_tile（内含拆分）。"""
+    cf = os.path.join(cache_dir, key + ".json")
+    if os.path.exists(cf):
+        try:
+            with open(cf, encoding="utf-8") as fh:
+                return json.load(fh)
+        except (OSError, ValueError):
+            pass
+    return collect_tile(qfilter, key, qs, qw, qn, qe, label, cache_dir, 0, label)
+
+
+def main():
+    city = (sys.argv[1] if len(sys.argv) > 1 else "changsha").strip().lower()
+    cfg = CITIES.get(city)
+    if not cfg:
+        sys.exit("未知城市: %s（可选 %s）" % (city, "、".join(CITIES)))
+    s, w, n, e = cfg["bbox"]
+    DISTRICT_NAMES = cfg["districts"]
+    BTILE_X, BTILE_Y = cfg["tiles"]
+    BGX, BGY = cfg.get("btiles", (BTILE_X, BTILE_Y))  # 建筑可用更细分块（单次更小更快）
+    OUT_FILE = os.path.join(OUT_DIR, cfg["output"])
+
+    def WATER_REQ():
+        return ('(way["natural"="water"](%f,%f,%f,%f);way["waterway"="river"](%f,%f,%f,%f););out geom;'
+                % (s, w, n, e, s, w, n, e))
+
+    os.makedirs(OUT_DIR, exist_ok=True)
+    origin_world = proj(w, n)  # bbox 左上角
+
+    print("== 城市: %s · bbox=%s · 输出=%s ==" % (city, cfg["bbox"], cfg["output"]))
+
+    print("== 抓取道路（分块，避免超大城市单次超载）==")
+    road_ways = load_cache("%s_roads" % city)
+    if road_ways is not None:
+        print("  道路: 使用本地缓存，%d 条" % len(road_ways))
+    else:
+        road_ways = tiled_elements('way["highway"]', s, w, n, e, BTILE_X, BTILE_Y, "路",
+                                  "road_" + city, CACHE_DIR)
+        save_cache("%s_roads" % city, road_ways)
+    road_feats = {"elements": road_ways}
+    print("  道路 way 数:", len(road_feats["elements"]))
+
+    print("== 抓取水域 ==")
+    water_feats = load_cache("%s_water" % city)
+    if water_feats is not None:
+        print("  水域: 使用本地缓存")
+    else:
+        try:
+            water_feats = fetch(WATER_REQ())
+            save_cache("%s_water" % city, water_feats)
+        except RuntimeError as ex:
+            print("水域抓取失败，跳过: %s" % ex, flush=True)
+            water_feats = {"elements": []}
+
+    print("== 抓取区界 ==")
+    district_feats = load_cache("%s_districts" % city)
+    if district_feats is not None:
+        print("  区界: 使用本地缓存")
+    else:
+        try:
+            district_feats = fetch(DISTRICTS_REQ + "(%f,%f,%f,%f);out geom;" % (s, w, n, e))
+            save_cache("%s_districts" % city, district_feats)
+        except RuntimeError as ex:
+            print("区界抓取失败，跳过: %s" % ex, flush=True)
+            district_feats = {"elements": []}
+
+    print("== 建筑缓存检测 ==")
+    bld_elems = load_cache("%s_buildings" % city)
+    if bld_elems is not None:
+        print("  建筑: 使用本地缓存，%d 条" % len(bld_elems))
 
     # ---- 区界 ----
     districts = []
@@ -257,63 +404,76 @@ def main():
         name = (f.get("tags") or {}).get("name", "")
         roads["tier%d" % tier].append({"cls": cls, "name": name, "path": path})
 
-    # ---- 建筑（网格分桶）----
-    cell = 512
-    grid = {}
-    m2_per_wu2 = (4.22) ** 2  # 世界单位² → 平方米²
-    kept = 0
-    dropped = 0
-    for f in bld_elems:
-        pts = to_local(geom_points(f), origin_world)
-        if len(pts) < 4:
-            dropped += 1
-            continue
-        area_wu2 = polygon_area(pts)
-        if area_wu2 * m2_per_wu2 < 40:  # 过小，丢弃
-            dropped += 1
-            continue
-        flat = [round(c) for p in pts for c in p]
-        cx = sum(p[0] for p in pts) / len(pts)
-        cy = sum(p[1] for p in pts) / len(pts)
-        gk = "%d_%d" % (int(cx // cell), int(cy // cell))
-        grid.setdefault(gk, []).append({"area": round(area_wu2), "pts": flat})
-        kept += 1
+    # ---- 写盘（基础图层立即落盘，建筑随抓取进度补充）----
+    def write_map():
+        cell = 512
+        grid = {}
+        m2_per_wu2 = (4.22) ** 2  # 世界单位² → 平方米²
+        kept = 0
+        dropped = 0
+        for f in (bld_elems or []):
+            pts = to_local(geom_points(f), origin_world)
+            if len(pts) < 4:
+                dropped += 1
+                continue
+            area_wu2 = polygon_area(pts)
+            if area_wu2 * m2_per_wu2 < 40:  # 过小，丢弃
+                dropped += 1
+                continue
+            flat = [round(c) for p in pts for c in p]
+            cx = sum(p[0] for p in pts) / len(pts)
+            cy = sum(p[1] for p in pts) / len(pts)
+            gk = "%d_%d" % (int(cx // cell), int(cy // cell))
+            grid.setdefault(gk, []).append({"area": round(area_wu2), "pts": flat})
+            kept += 1
+        meta = {
+            "city": city,
+            "bbox": [round(w, 6), round(s, 6), round(e, 6), round(n, 6)],
+            "world": WORLD,
+            "origin": [round(origin_world[0]), round(origin_world[1])],
+            "cell": cell,
+            "m2PerWu2": m2_per_wu2,
+            "counts": {
+                "roads": {k: len(v) for k, v in roads.items()},
+                "buildings": kept,
+                "buildings_dropped": dropped,
+                "water": len(water),
+                "districts": len(districts),
+            },
+            "generated": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        }
+        payload = {
+            "meta": meta,
+            "districts": districts,
+            "water": water,
+            "roads": roads,
+            "buildings": {"grid": grid},
+        }
+        with open(OUT_FILE, "w", encoding="utf-8") as f:
+            json.dump(payload, f, ensure_ascii=False, separators=(",", ":"))
+        size_mb = os.path.getsize(OUT_FILE) / 1048576
+        print("\n== 写盘（建筑 %d）==  %.2f MB" % (kept, size_mb), flush=True)
+        print(json.dumps(meta["counts"], ensure_ascii=False, indent=2), flush=True)
+        if not seen:
+            print("!! 警告：未命中任何行政区！", flush=True)
+        return kept
 
-    meta = {
-        "city": "长沙",
-        "bbox": [round(w, 6), round(s, 6), round(e, 6), round(n, 6)],
-        "world": WORLD,
-        "origin": [round(origin_world[0]), round(origin_world[1])],
-        "cell": cell,
-        "m2PerWu2": m2_per_wu2,
-        "counts": {
-            "roads": {k: len(v) for k, v in roads.items()},
-            "buildings": kept,
-            "buildings_dropped": dropped,
-            "water": len(water),
-            "districts": len(districts),
-        },
-        "generated": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-    }
+    write_map()  # 基础图层：道路+水域+区界（建筑可能为空），立即可用
 
-    payload = {
-        "meta": meta,
-        "districts": districts,
-        "water": water,
-        "roads": roads,
-        "buildings": {"grid": grid},
-    }
-
-    with open(OUT_FILE, "w", encoding="utf-8") as f:
-        json.dump(payload, f, ensure_ascii=False, separators=(",", ":"))
-    size_mb = os.path.getsize(OUT_FILE) / 1048576
-    print("\n== 完成 ==")
-    print(json.dumps(meta["counts"], ensure_ascii=False, indent=2))
-    print("输出:", OUT_FILE)
-    print("大小: %.2f MB" % size_mb)
-    if not seen:
-        print("!! 警告：未命中任何行政区！")
+    # ---- 建筑（长耗时）：缺失才抓，完成后重写 ----
+    if bld_elems is None:
+        bld_elems = tiled_elements('way["building"]', s, w, n, e, BGX, BGY, "建",
+                                   "bld_" + city, CACHE_DIR)
+        save_cache("%s_buildings" % city, bld_elems)
+        write_map()  # 含建筑完整图层
 
 
 if __name__ == "__main__":
-    main()
+    import traceback
+    try:
+        main()
+    except BaseException as ex:
+        traceback.print_exc()
+        with open(os.path.join(BASE, "build_cache", "crash_log.txt"), "w", encoding="utf-8") as f:
+            f.write(traceback.format_exc())
+        raise

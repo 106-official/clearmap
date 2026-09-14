@@ -9,10 +9,18 @@ import os
 # ---- 路径 ----
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
-POI_FILE = os.path.join(DATA_DIR, "poi", "changsha.json")
+# 各城市 POI 数据文件（默认长沙，缺省文件回退为空列表）
+POI_FILES = {
+    "changsha": os.path.join(DATA_DIR, "poi", "changsha.json"),
+    "shanghai": os.path.join(DATA_DIR, "poi", "shanghai.json"),
+    "beijing":  os.path.join(DATA_DIR, "poi", "beijing.json"),
+}
+POI_FILE = POI_FILES["changsha"]   # 兼容旧引用：默认长沙
 USERS_DIR = os.path.join(DATA_DIR, "users")
 UPLOAD_DIR = os.path.join(DATA_DIR, "uploads")   # 用户上传的头像 / 打卡图片
 STATIC_DIR = os.path.join(BASE_DIR, "static")
+ACCOUNTS_FILE = os.path.join(DATA_DIR, "accounts.json")   # 手机号 -> user_id 映射
+SESSIONS_FILE = os.path.join(DATA_DIR, "sessions.json")   # token -> user_id 持久化
 
 # 保证数据目录存在（幂等）
 os.makedirs(USERS_DIR, exist_ok=True)
@@ -47,8 +55,42 @@ DEFAULT_PROFILE = {axis: 3 for axis in PREFERENCE_AXES}  # 默认中性偏好
 # 途中相邻两点间，每分钟可覆盖的“距离单位”
 TRAVEL_SPEED = 30.0
 
+# ---- 手机验证码（阿里云短信，验证码可开关）----
+# 填全以下四项即启用真实短信下发；留空则使用调试码 123456（用于本地联调）。
+SMS_ALIYUN = {
+    "access_key_id": "",      # 阿里云 AccessKeyId
+    "access_key_secret": "",  # 阿里云 AccessKeySecret
+    "sign_name": "",          # 短信签名，如 “长春旅行”
+    "template_code": "",      # 短信模板 Code
+    "region": "cn-hangzhou",  # 服务地域
+    "api_host": "dysmsapi.aliyuncs.com",
+}
+SMS_CODE_TTL = 300     # 验证码有效期（秒）= 5 分钟
+SMS_RESEND_SEC = 60    # 同一手机号重发间隔（秒）
+SMS_MAX_ATTEMPTS = 5   # 单条验证码最多尝试次数
+SMS_MOCK_CODE = "123456"   # 未配置短信时使用的调试码
+
+# 登录会话有效期（秒）= 30 天
+SESSION_TTL = 30 * 24 * 3600
+
+def sms_enabled():
+    """短信是否已配置（四项齐全才算就绪，否则走调试码）。"""
+    s = SMS_ALIYUN
+    return bool(s.get("access_key_id") and s.get("access_key_secret")
+                and s.get("sign_name") and s.get("template_code"))
+
+
+# ---- 阿里云云同步（个人信息存云端；可开关）----
+# 填入 http(s) 端点后在每次落盘时把用户数据推送到远端；留空则纯本地。
+# 远端约定：GET  <url>?token=<key> 拉取；POST <url>?token=<key> 推送 {user_id, user}。
+CLOUD_SYNC_URL = ""          # 例：https://your-ecs.example.com/clearmap/users
+CLOUD_SYNC_KEY = ""          # 云端用于识别客户端身份的静态密钥
+
+def cloud_sync_enabled():
+    return bool(CLOUD_SYNC_URL and CLOUD_SYNC_KEY)
+
+
 # ---- MBTI 风格分类 ----
-# 每个 POI 的 style 字段取自这些风格；MBTI 四字母按维度加分匹配。
 MBTI_STYLES = ["古韵文化", "自然山水", "潮玩都市", "美食烟火", "亲子休闲", "夜景打卡"]
 
 # 16 型人格：中文名 + 一句话性格描述（前端选择器/推荐卡片展示用）

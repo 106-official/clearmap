@@ -9,8 +9,10 @@ import json
 import os
 import time
 import uuid
+import urllib.parse
 
 import config
+import cloud
 
 # ---- 通用读写工具 ----------------------------------------------------------
 
@@ -33,9 +35,11 @@ def _write_json(path, obj):
 
 # ---- POI 单一数据源 --------------------------------------------------------
 
-def load_pois():
-    """返回 POI 列表；源缺失则回退为空列表（前端会给出友好空态）。"""
-    data = _read_json(config.POI_FILE, {"pois": []})
+def load_pois(city="changsha"):
+    """返回指定城市的 POI 列表；源缺失则回退为空列表（前端会给出友好空态）。"""
+    city = (str(city or "changsha")).strip().lower()
+    path = config.POI_FILES.get(city, config.POI_FILE)
+    data = _read_json(path, {"pois": []})
     return data.get("pois", [])
 
 
@@ -65,18 +69,27 @@ def ensure_user(user_id="guest"):
     path = _user_path(user_id)
     user = _read_json(path, None)
     if user is None:
-        user = {
-            "id": os.path.basename(path)[:-5],
-            "created": int(time.time()),
-            "profile": dict(config.DEFAULT_PROFILE),
-            "favorites": [],
-            "plans": [],
-        }
+        # 本地缺失时尝试从云端恢复
+        user = cloud.pull(user_id) if cloud.enabled() else None
+        if not isinstance(user, dict):
+            user = {
+                "id": os.path.basename(path)[:-5],
+                "created": int(time.time()),
+                "profile": dict(config.DEFAULT_PROFILE),
+                "favorites": [],
+                "plans": [],
+            }
+        user.setdefault("id", os.path.basename(path)[:-5])
+        user.setdefault("created", int(time.time()))
+        user.setdefault("profile", dict(config.DEFAULT_PROFILE))
+        user.setdefault("favorites", [])
+        user.setdefault("plans", [])
         _write_json(path, user)
     # 兼容旧档案：补齐新字段
     changed = False
     for key, default in (("nickname", ""), ("signature", ""), ("avatar", ""),
-                         ("mbti", None), ("checkins", []), ("routes", [])):
+                         ("mbti", None), ("checkins", []), ("routes", []),
+                         ("essays", [])):
         if key not in user:
             user[key] = default
             changed = True
@@ -87,6 +100,11 @@ def ensure_user(user_id="guest"):
 
 def save_user(user_id, user):
     _write_json(_user_path(user_id), user)
+    # 云端同步（尽力而为，不阻塞本地写）
+    try:
+        cloud.push(user_id, user)
+    except Exception:
+        pass
 
 
 def update_profile(user_id, profile):
@@ -206,3 +224,71 @@ def _route_distance(points):
             math.cos(math.radians(lat2)) * math.sin(dlon / 2) ** 2
         total += 2 * 6371000 * math.asin(min(1, math.sqrt(a)))
     return int(total)
+
+
+# ---- 旅游随笔 / 发现（preview-1.22）----------------------------------------
+
+def add_essay(user_id, essay):
+    """新增一篇随笔：{text, imgs:[文件名], lat?, lon?}，附作者信息，返回成品。"""
+    user = ensure_user(user_id)
+    e = {
+        "id": uuid.uuid4().hex[:10],
+        "created": int(time.time()),
+        "text": str(essay.get("text", "")).strip()[:2000],
+        "imgs": [f for f in (essay.get("imgs") or []) if f],
+        "lat": essay.get("lat"),
+        "lon": essay.get("lon"),
+    }
+    user.setdefault("essays", []).append(e)
+    save_user(user_id, user)
+    return _decorate_essay(e, user)
+
+
+def delete_essay(user_id, essay_id):
+    user = ensure_user(user_id)
+    before = len(user.get("essays", []))
+    user["essays"] = [e for e in user.get("essays", []) if e["id"] != essay_id]
+    if len(user["essays"]) == before:
+        return False
+    save_user(user_id, user)
+    return True
+
+
+def my_essays(user_id):
+    user = ensure_user(user_id)
+    return [_decorate_essay(e, user) for e in (user.get("essays") or [])]
+
+
+def _decorate_essay(e, author):
+    """补齐随笔导出字段：作者昵称/头像、图片 URL。"""
+    auth_id = (author or {}).get("id", "guest")
+    out = dict(e)
+    out["author_id"] = auth_id
+    out["author"] = (author or {}).get("nickname") or "旅人"
+    out["avatar"] = (author or {}).get("avatar", "")
+    out["imgs"] = [
+        "/api/media?user=" + urllib.parse.quote(str(auth_id)) +
+        "&file=" + urllib.parse.quote(f) for f in (e.get("imgs") or [])
+    ]
+    return out
+
+
+def feed_essays(limit=60):
+    """发现流：聚合所有用户（含游客）的随笔，按时间倒序。"""
+    limit = max(1, int(limit))
+    items = []
+    try:
+        names = os.listdir(config.USERS_DIR)
+    except OSError:
+        names = []
+    for name in names:
+        if not name.endswith(".json"):
+            continue
+        path = os.path.join(config.USERS_DIR, name)
+        user = _read_json(path, None)
+        if not isinstance(user, dict):
+            continue
+        for e in (user.get("essays") or []):
+            items.append(_decorate_essay(e, user))
+    items.sort(key=lambda e: e.get("created", 0), reverse=True)
+    return items[:limit]

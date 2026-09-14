@@ -82,6 +82,39 @@ if route.available() and pois:
         check("route-plan legs 合法", all(l.get("mode") in ("walk","subway","bus") for l in d1["legs"]), [l["mode"] for l in d1["legs"]])
         check("route-plan 总耗时>0", isinstance(d1["total_min"],(int,float)) and d1["total_min"]>0, d1.get("total_min"))
 
+print("== 认证 / 账号 ==")
+import auth
+import random as _r
+phone = "+86" + "".join(_r.choice("0123456789") for _ in range(11))
+c,d = call("POST","/api/sms",body=json.dumps({"phone":phone}))
+check("POST /api/sms 发送验证码", c==200 and d["ok"] and d.get("dev_code"), d.get("dev_code"))
+code = d.get("dev_code") or config.SMS_MOCK_CODE
+c,d = call("POST","/api/auth/login",body=json.dumps({"phone":phone,"code":code}))
+check("登录成功返回 token", c==200 and d["ok"] and d["session"]["token"], d.get("error"))
+sess = d.get("session",{})
+tok = sess.get("token","")
+check("session 绑定手机号", c==200 and sess.get("phone")==phone)
+c,d = call("GET","/api/auth/me",q="token="+tok)
+check("token 可解析出登录用户", c==200 and d["ok"] and d["me"]["signed_in"] is True and d["me"]["phone"]==phone)
+# token 鉴权：用 token 访问受保护资源，写入应落在该 user
+c,d = call("POST","/api/profile",body='{"profile":{"nature":5}}',q="token="+tok)
+check("token 鉴权写个人资料", c==200 and d["ok"] and d["profile"]["nature"]==5)
+# 错误验证码
+c,d = call("POST","/api/auth/login",body=json.dumps({"phone":phone,"code":"000000"}))
+check("错误验证码拒绝", c==400 or (c==200 and not d.get("ok")))
+# 无效验证码重试上限后失效
+for _ in range(config.SMS_MAX_ATTEMPTS+1):
+    c,d = call("POST","/api/auth/login",body=json.dumps({"phone":phone,"code":"000000"}))
+check("超次数后拒绝", c==400 or (c==200 and not d.get("ok")))
+# 退出登录
+c,d = call("POST","/api/auth/logout",body=json.dumps({"token":tok}))
+check("退出登录", c==200 and d["ok"])
+c,d = call("GET","/api/auth/me",q="token="+tok)
+check("退出后 token 失效", c==200 and d["ok"] and d["me"]["signed_in"] is False)
+# 非法手机号
+c,d = call("POST","/api/sms",body=json.dumps({"phone":"abc"}))
+check("非法手机号拒绝", c==200 and not d["ok"])
+
 print("\n== 结果 == 全部 %d 项检查，失败 %d ==" % (count[0], len(fail)))
 
 import os

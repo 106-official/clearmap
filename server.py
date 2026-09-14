@@ -111,8 +111,8 @@ class ClearMapHandler(BaseHTTPRequestHandler):
 
 
 def serve(host=None, port=None):
-    host = host or config.HOST
-    port = port or config.PORT
+    host = host or os.environ.get("CLEARMAP_HOST") or config.HOST
+    port = port or int(os.environ.get("CLEARMAP_PORT") or config.PORT)
     httpd = ThreadingHTTPServer((host, port), ClearMapHandler)
     print(f"ClearMap 已启动 →  http://{host}:{port}")
     try:

@@ -1,0 +1,9 @@
+{
+  "appId": "com.clearmap.app",
+  "appName": "ClearMap",
+  "webDir": "../static",
+  "backgroundColor": "#f4efe5",
+  "android": {
+    "allowMixedContent": true
+  }
+}

@@ -65,9 +65,9 @@ def score_poi(poi, profile):
     return round(sum(terms) / len(terms), 2)
 
 
-def recommend(profile, limit=None):
+def recommend(profile, limit=None, city="changsha"):
     """按匹配度从高到低返回所有 poi + 便携字段。"""
-    pois = data.load_pois()
+    pois = data.load_pois(city)
     sc = []
     for p in pois:
         sc.append({"poi": p, "affinity": score_poi(p, profile)})
@@ -77,7 +77,7 @@ def recommend(profile, limit=None):
     return sc
 
 
-def build_itinerary(profile, budget_key="full", limit=8):
+def build_itinerary(profile, budget_key="full", limit=8, city="changsha"):
     """
     返回 dict：
       {
@@ -88,7 +88,7 @@ def build_itinerary(profile, budget_key="full", limit=8):
       }
     """
     budget_minutes = config.ITINERARY_BUDGETS.get(budget_key, 8) * 60
-    pois = data.load_pois()
+    pois = data.load_pois(city)
     if not pois:
         return {"budget": budget_key, "budget_minutes": budget_minutes, "items": [], "score": 0.0}
 

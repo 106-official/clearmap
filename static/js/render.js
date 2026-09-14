@@ -321,6 +321,50 @@
       " 为你推荐</div><div class=\"mbti-me-cards\">" + cards + "</div>";
   }
 
+  // —— 随笔（我的随笔 / 发现流）preview-1.22 ——
+  function renderMyEssays(listEl, essays) {
+    if (!essays || essays.length === 0) {
+      listEl.innerHTML = '<div class="me-none">还没有随笔 —— 写一段旅途心情吧。</div>';
+      return;
+    }
+    const cards = essays.slice().reverse().map((e) => {
+      const imgs = (e.imgs || []).map((src) =>
+        '<img class="es-photo" src="' + escapeHTML(src) + '" alt="随笔配图" loading="lazy">').join("");
+      return '<div class="essay-card">' +
+        '<div class="essay-text">' + escapeHTML(e.text) + "</div>" +
+        (imgs ? '<div class="essay-photos">' + imgs + "</div>" : "") +
+        '<div class="essay-foot"><span>' + timeText(e.created) + "</span>" +
+        '<button class="icon-del" data-del-essay="' + escapeHTML(e.id) + '" aria-label="删除随笔">✕</button></div>' +
+        "</div>";
+    }).join("");
+    listEl.innerHTML = cards;
+  }
+
+  function renderFeed(listEl, items, myId) {
+    if (!items || items.length === 0) {
+      listEl.innerHTML = '<div class="me-none">还没有旅志 —— 来「个人」页发布第一篇随笔吧。</div>';
+      return;
+    }
+    const cards = items.map((e) => {
+      const mine = e.author_id === myId;
+      const av = e.avatar
+        ? '<img class="feed-av" src="' + escapeHTML(e.avatar) + '" alt="">'
+        : '<span class="feed-av feed-av--ph">' + escapeHTML((e.author || "旅").slice(0, 1)) + "</span>";
+      const imgs = (e.imgs || []).map((src) =>
+        '<img class="es-photo" src="' + escapeHTML(src) + '" alt="随笔配图" loading="lazy">').join("");
+      return '<article class="feed-card">' +
+        '<div class="feed-head">' + av +
+        '<div class="feed-author"><b>' + escapeHTML(e.author) + "</b>" +
+        '<span class="feed-time">' + timeText(e.created) + "</span></div>" +
+        (mine ? '<button class="icon-del" data-del-essay="' + escapeHTML(e.id) + '" aria-label="删除我的随笔">✕</button>' : "") +
+        "</div>" +
+        '<div class="essay-text">' + escapeHTML(e.text) + "</div>" +
+        (imgs ? '<div class="essay-photos">' + imgs + "</div>" : "") +
+        "</article>";
+    }).join("");
+    listEl.innerHTML = cards;
+  }
+
   // —— 工具 ——
   function budgetText(k) {
     return { quick: "半日", full: "全天", relax: "慢游" }[k] || "";
@@ -345,5 +389,6 @@
     renderSide, renderPrefs, renderItinerary, renderSaved,
     renderProfile, renderMbtiPicker, renderCheckins, renderRoutes,
     renderMbtiRecs, renderCheckinSelect, renderRoutePlan, renderMbtiRecsMe,
+    renderMyEssays, renderFeed,
   };
 })(window);
