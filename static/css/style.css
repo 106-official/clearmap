@@ -201,7 +201,7 @@ button { font-family: inherit; color: inherit; }
 .map-water.is-river { fill: none; stroke: #b7cbc2; stroke-width: 4; stroke-linecap: round; }
 
 /* 道路：宽度用 --unit（=1/scale）换算成恒定的屏幕像素 */
-.map-view { --unit: 1; }
+.map-view { --unit: 1; will-change: transform; }
 .road-t1 { fill: none; stroke: #b9a887; stroke-width: calc(3.2px * var(--unit)); stroke-linecap: round; stroke-linejoin: round; }
 .road-t2 { fill: none; stroke: #cdbfa2; stroke-width: calc(2.2px * var(--unit)); stroke-linecap: round; stroke-linejoin: round; }
 .road-t3 { fill: none; stroke: #d8cbb0; stroke-width: calc(1.5px * var(--unit)); stroke-linecap: round; stroke-linejoin: round; }
@@ -532,6 +532,11 @@ input[type="range"]::-moz-range-thumb {
   border: 1px solid var(--line); border-radius: 18px; padding: 22px;
   background: color-mix(in srgb, var(--paper) 88%, white);
   display: flex; flex-direction: column; gap: 12px;
+}
+/* 个人资料：直接铺在背景上，无卡片边框 */
+.me-profile {
+  display: flex; flex-direction: column; gap: 12px;
+  max-width: 560px; margin: 0 auto 10px; padding: 4px 0;
 }
 .me-title { font-family: var(--serif); font-weight: 600; font-size: 18px; margin: 0 0 6px; }
 .me-hint { font-size: 12px; color: var(--ink-faint); margin: 0 0 4px; }

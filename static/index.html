@@ -38,6 +38,7 @@
           <button class="map-btn" data-zoom="in" aria-label="放大">＋</button>
           <button class="map-btn" data-zoom="out" aria-label="缩小">－</button>
           <button class="map-btn" data-zoom="reset" aria-label="重置视图">⟲</button>
+          <button class="map-btn" id="mapLocate" aria-label="定位到我的位置" title="定位到我的位置">◎</button>
           <select class="map-city" id="mapCity" aria-label="切换城市">
             <option value="changsha">长沙</option>
             <option value="shanghai">上海</option>
@@ -48,15 +49,6 @@
 
       <!-- MBTI 推荐条（悬浮在地图上方） -->
       <div class="mbti-strip" id="mbtiStrip" hidden></div>
-
-      <!-- 路线记录条（悬浮在地图下方）：仅保留「选起点」用于纸飞机路线规划 -->
-      <div class="route-bar" id="routeBar">
-        <div class="start-box" id="startBox">
-          <button class="btn-ghost btn-sm" id="setStart">选起点</button>
-          <button class="icon-ghost" id="useGpsStart" title="用我的位置作起点" aria-label="用我的位置作起点">◎</button>
-          <span class="start-name" id="startName">未选起点</span>
-        </div>
-      </div>
 
       <!-- GPS 记录行程浮层（仅记录时出现，无默认文案） -->
       <div class="rec-hud" id="recHud" hidden>
@@ -125,28 +117,23 @@
     <section class="view" id="view-me" hidden>
       <div class="lead lead--compact">
         <p class="lead-kicker">个人</p>
-        <h2 class="lead-title lead-title--sm">我的<span class="lead-em">旅行志</span></h2>
-        <p class="lead-sub">资料与随笔记事，都收在这。</p>
+        <h2 class="lead-title lead-title--sm" id="meTitle">我的<span class="lead-em">旅行志</span></h2>
       </div>
 
-      <div class="me-grid">
-        <!-- 个人资料卡 -->
-        <div class="me-card">
-          <h3 class="me-title">个人资料</h3>
-          <button class="me-avatar" id="avatarBox" aria-label="上传头像">
-            <img id="avatarImg" class="me-avatar-img" alt="头像" hidden>
-            <span class="me-avatar-ph" id="avatarPh">＋</span>
-          </button>
-          <input type="file" id="avatarFile" accept="image/*" hidden>
-          <input class="me-input" id="nicknameInput" placeholder="你的昵称" maxlength="20">
-          <input class="me-input" id="signatureInput" placeholder="一句个性签名" maxlength="40">
-          <button class="btn-primary btn-block" id="saveMeBtn">保存资料</button>
-          <div class="mbti-box">
-            <div class="mbti-label">MBTI 性格</div>
-            <button class="mbti-badge" id="mbtiBadge">选择我的性格 →</button>
-          </div>
-          <button class="btn-primary btn-block btn-essay-go" id="essayGoBtn">写一篇随笔 →</button>
+      <!-- 个人资料：直接铺在背景上的文字，无边框卡片 -->
+      <div class="me-profile" id="meProfile">
+        <button class="me-avatar" id="avatarBox" aria-label="上传头像">
+          <img id="avatarImg" class="me-avatar-img" alt="头像" hidden>
+          <span class="me-avatar-ph" id="avatarPh">＋</span>
+        </button>
+        <input class="me-input" id="nicknameInput" placeholder="你的昵称" maxlength="20">
+        <input class="me-input" id="signatureInput" placeholder="一句个性签名" maxlength="40">
+        <button class="btn-primary btn-block" id="saveMeBtn">保存资料</button>
+        <div class="mbti-box">
+          <div class="mbti-label">MBTI 性格</div>
+          <button class="mbti-badge" id="mbtiBadge">选择我的性格 →</button>
         </div>
+        <button class="btn-primary btn-block btn-essay-go" id="essayGoBtn">写一篇随笔 →</button>
       </div>
 
       <!-- 我的随笔：嵌入式展示（不单独成卡片） -->

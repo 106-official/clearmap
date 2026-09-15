@@ -7,7 +7,6 @@
   let currentItinerary = null;
   let currentBudget = "full";
   let pendingCheckinPoi = "";
-  let startPoint = null;   // {lat, lon, name}
 
   /* 当前城市（地图底图 / POI / 行程均随之切换） */
   let ACTIVE_CITY = "changsha";
@@ -18,54 +17,32 @@
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
-  // ---- 起点选择 ----
-  function setStartPoint(pt, name) {
-    startPoint = { lat: pt.lat, lon: pt.lon, name: name || "起点" };
-    const el = document.getElementById("startName");
-    if (el) el.textContent = startPoint.name;
-    toast("起点已设为 " + (name || "地图所示位置"));
-    pickingStart = false;
-    map.setClickMap(null);
-    map.drawPlan(null); // 清除旧的规划线，方便重新规划
-  }
-  let pickingStart = false;
-  function enterPickStart() {
-    pickingStart = true;
-    map.setClickMap((lat, lon) => setStartPoint({ lat, lon }, "我点选的位置"));
-    toast("已进入选起点模式：点击地图空白处设为起点");
-  }
-  function useGpsStart() {
-    if (!navigator.geolocation) { toast("当前环境不支持定位"); return; }
-    navigator.geolocation.getCurrentPosition(
-      (pos) => setStartPoint({ lat: pos.coords.latitude, lon: pos.coords.longitude }, "我的位置"),
-      () => toast("无法获取位置，请改用「选起点」在地图上点选"),
-      { timeout: 8000, maximumAge: 30000 }
-    );
-  }
-
-  // ---- 纸飞机：规划前往景点的最省时路线 ----
+  // ---- 纸飞机：规划前往景点的最省时路线（默认从「我的位置」出发）----
   let lastPlanPoi = null;
   function planToPoi(poiId) {
     const poi = state.pois.find((p) => p.id === poiId);
     const routeEl = document.getElementById("sideRoutePanel");
     if (!poi || !routeEl) return;
-    if (!startPoint) {
-      routeEl.innerHTML = '<div class="rp-empty">请先在地图页「选起点」（或点 ◎ 用我的位置），再规划路线。</div>';
+    if (!navigator.geolocation) {
+      routeEl.innerHTML = '<div class="rp-empty">当前环境不支持定位，无法规划起点。</div>';
       return;
     }
+    routeEl.innerHTML = '<div class="rp-empty">正在获取您的位置，规划前往「' + escHtml(poi.name) + '」的路线…</div>';
     lastPlanPoi = poiId;
-    api.routePlan({
-      from: { lat: startPoint.lat, lon: startPoint.lon, name: startPoint.name },
-      to: { poi_id: poiId },
-    }).then((r) => {
-      if (r.ok) {
-        render.renderRoutePlan(routeEl, r, startPoint.name, poi.name);
-        map.drawPlan(r.legs);
-        toast("已为您规划前往「" + poi.name + "」的路线");
-      } else {
-        routeEl.innerHTML = '<div class="rp-empty">' + escHtml(r.error || "规划失败") + "</div>";
-      }
-    });
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const from = { lat: pos.coords.latitude, lon: pos.coords.longitude, name: "我的位置" };
+      api.routePlan({ from: from, to: { poi_id: poiId } }).then((r) => {
+        if (r.ok) {
+          render.renderRoutePlan(routeEl, r, from.name, poi.name);
+          map.drawPlan(r.legs);
+          toast("已为您规划前往「" + poi.name + "」的路线");
+        } else {
+          routeEl.innerHTML = '<div class="rp-empty">' + escHtml(r.error || "规划失败") + "</div>";
+        }
+      });
+    }, () => {
+      routeEl.innerHTML = '<div class="rp-empty">无法获取位置，路线规划已取消。</div>';
+    }, { timeout: 8000, maximumAge: 30000 });
   }
 
   // ---- 视图切换 ----
@@ -158,8 +135,9 @@
 
   function refreshAffinities() {
     api.pois(cityActive()).then((r) => {
-      if (r.ok) {
-        state.pois = r.pois || [];
+      // ok 但返回空数组也可能（云端未部署 POI 数据）：同样回退到随包内置，保证地图上有景点
+      if (r.ok && Array.isArray(r.pois) && r.pois.length) {
+        state.pois = r.pois;
         applyPois();
       } else {
         applyBundledPois();
@@ -180,6 +158,17 @@
   }
 
   function applyPois() {
+    const list = (state.pois || []).map(function (p) {
+      // 离线/内置 POI 无 affinity：按 scores 平均估算，保证地图上有“红=高契合 / 绿=常规”分层
+      if (p.affinity == null) {
+        const s = p.scores || {};
+        let sum = 0, n = 0;
+        for (const k in s) { if (s[k] != null) { sum += Number(s[k]); n++; } }
+        p.affinity = n ? sum / n : 1;
+      }
+      return p;
+    });
+    state.pois = list;
     renderMap();
     renderSideNow();
     renderCheckinSelect();
@@ -220,6 +209,11 @@
   }
 
   // ---- 个人中心 ----
+  function setMeTitle(name) {
+    const el = document.getElementById("meTitle");
+    if (!el) return;
+    el.innerHTML = escHtml((name && name.trim()) || "我") + "的<span class=\"lead-em\">旅行志</span>";
+  }
   function loadMe() {
     api.me().then((r) => {
       if (!r.ok) return;
@@ -229,6 +223,7 @@
       state.favorites = r.favorites || [];
       state.essays = r.essays || [];
       render.renderProfile(state.me);
+      setMeTitle(state.me.nickname);
       render.renderCheckins(document.getElementById("checkinList"), state.checkins);
       render.renderRoutes(document.getElementById("routeList"), state.routes);
       renderMyEssays();
@@ -618,6 +613,9 @@
       } else {
         setAuthErr(r.error || r.msg || "发送失败");
       }
+    }).catch((e) => {
+      setAuthErr("网络异常，无法连接服务器");
+      console.error("sendCode fail:", e);
     });
   }
   function submitAuth() {
@@ -745,9 +743,6 @@
     // 路线
     document.getElementById("recordStart").addEventListener("click", () => { showView("map"); startRecord(); });
     document.getElementById("recordStop").addEventListener("click", stopRecord);
-    // 起点选择 / 规划
-    document.getElementById("setStart").addEventListener("click", enterPickStart);
-    document.getElementById("useGpsStart").addEventListener("click", useGpsStart);
     // MBTI 专属推荐卡（个人中心）：点击卡片去地图看对应景点
     document.getElementById("mbtiRecsMe").addEventListener("click", (e) => {
       const card = e.target.closest("[data-mbti-poi]");
@@ -783,6 +778,20 @@
         };
         if (kickEl && kicker[c]) kickEl.textContent = kicker[c];
       });
+    }
+
+    // 定位到我的位置（requirement #4：访问设备位置方便实时定位）
+    const locateBtn = document.getElementById("mapLocate");
+    if (locateBtn) locateBtn.addEventListener("click", locator);
+    function locator() {
+      if (!navigator.geolocation) { toast("当前设备不支持定位"); return; }
+      toast("正在定位您的设备位置…");
+      navigator.geolocation.getCurrentPosition((pos) => {
+        map.locate(pos.coords.latitude, pos.coords.longitude);
+        toast("已定位到您的当前位置");
+      }, () => {
+        toast("无法获取位置，请在系统设置中允许定位权限");
+      }, { timeout: 8000, maximumAge: 30000 });
     }
 
     // 拉取数据

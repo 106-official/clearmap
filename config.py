@@ -70,6 +70,23 @@ SMS_RESEND_SEC = 60    # 同一手机号重发间隔（秒）
 SMS_MAX_ATTEMPTS = 5   # 单条验证码最多尝试次数
 SMS_MOCK_CODE = "123456"   # 未配置短信时使用的调试码
 
+# ---- 短信认证（号码认证服务 Dypnsapi，免资质免签名，App 验证码专用）----
+# 个人实名即可使用，签名/模板由平台赠送（此处填系统赠送的即可）。只填
+# access_key_id / access_key_secret 即启用；留空则回退到 SMS_ALIYUN / 调试码。
+SMS_AUTH = {
+    "access_key_id": "",          # 阿里云 AccessKeyId（RAM 用户，建议只授短信权限）
+    "access_key_secret": "",      # 阿里云 AccessKeySecret
+    "sign_name": "恒创联众",       # 系统赠送签名（短信认证参数配置里可查）
+    "template_code": "100001",    # 登录/注册模板 Code
+    "region": "cn-hangzhou",
+    "api_host": "dypnsapi.aliyuncs.com",
+}
+
+def sms_auth_enabled():
+    """短信认证是否已配置（仅需 AK/SK；签名与模板为平台赠送）。"""
+    s = SMS_AUTH
+    return bool(s.get("access_key_id") and s.get("access_key_secret"))
+
 # 登录会话有效期（秒）= 30 天
 SESSION_TTL = 30 * 24 * 3600
 

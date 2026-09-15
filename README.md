@@ -9,6 +9,15 @@ ClearMap 是一个基于 OpenStreetMap 数据的城市地图与个性化行程�
 ## 版本历史
 
 ```
+## cloud-app-preview-1.01 (2026-09-15)
+- 云端部署：后端正式上线阿里云 ECS（47.99.131.169:9100，systemd 自启），真实短信验证码登录端到端通过
+- 修复：WebView 跨域请求被后端 CORS 拦导致「获取验证码」无反应（补 CORS 头 + OPTIONS 预检）
+- 地图：红绿景点恢复（离线 POI 空数组回退 + 补算 affinity 分层）；新增「定位到我的位置」按钮（设备定位权限）
+- 移除：地图「选起点」起点条；纸飞机路线改为自动取「我的位置」
+- 个人：资料改为无边框背景文字区块；标题变「[昵称]的旅行志」；删副标题
+- 优化：拖拽顺滑（will-change / 平移重建阈值 120px / 潜带加宽）
+- 产出：dist/ClearMap-cloud-1.0.apk 与 dist/ClearMap-cloud-preview-1.01.apk（签名 clearmap2026，内置云后端地址）
+
 ## preview-1.23 (2026-09-14)
 - 登录策略：首页移除「检测登录状态」按钮；未登录点「进入地图」直接弹手机验证码注册/登录（不可跳过）
 - 修复：地图视图 hidden 状态下 SVG 底图尺寸为 0 导致切换后不显示（ResizeObserver + showView 时重算视口复位视野）
@@ -147,6 +156,17 @@ python app.py 8080     # 指定端口
 4. 手机 App 对接后端：preview-1.23 起，「个人」页已精简**不再显示「服务器 / 后端连接」设置卡片**。后端地址改由打包期指定（`store.js` 的 `clearmap_api_base`）并持久化于 `localStorage`；未配置时 App 以离线模式运行（底图/景点可用，登录/打卡/随笔等需后端的功能停用）。
 
 > 备份该笔记本数据目录 `data/` 即可实现账号 / 打卡 / 路线等数据迁移。
+
+### 部署到阿里云 ECS（云端正式版）
+
+当前 `dist/ClearMap-cloud-*.apk` 已内置云端后端地址 `http://47.99.131.169:9100/`，后端即在阿里云 ECS 上运行：
+
+1. 上传 `server.py / api.py / auth.py / data.py / recommend.py / cloud.py / config.py` 等后端源码到服务器（如 `/opt/clearmap/`）。
+2. 服务器 `config.py` 设 `HOST=0.0.0.0`（监听所有网卡，默认 `9100`），并填齐 `SMS_ALIYUN` 四项启用真实短信。
+3. 用 `systemd` 托管常驻（开机自启、崩溃自动拉起）：见服务器 `/etc/systemd/system/clearmap.service`（ExecStart 指向 `python3 server.py`）。
+4. **阿里云安全组**放行入方向 TCP `9100`（`0.0.0.0/0`）；后端已带 CORS 头，WebView/浏览器跨域可正常调用。
+5. 校验 `curl http://47.99.131.169:9100/api/health` 返回 `{"ok": true, ...}`。
+6. 用户数据（账号/随笔/打卡/行程）落盘服务器本地 `data/`，建议配置每日备份。
 
 ### 运行测试
 

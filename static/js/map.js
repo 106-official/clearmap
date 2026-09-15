@@ -291,7 +291,7 @@
   function needFullRender() {
     if (!DATA || !initDone) return true;               // 首帧/切城市强制
     if (Math.abs(view.s / riS - 1) > 0.07) return true;  // 缩放跨 LOD 档位
-    if (Math.abs(view.x - riX) + Math.abs(view.y - riY) > 150) return true; // 平移出缓潜带
+    if (Math.abs(view.x - riX) + Math.abs(view.y - riY) > 120) return true; // 平移出缓潜带
     return false;
   }
   function render() {
@@ -320,6 +320,17 @@
   }
 
   function resetView() { fitToBox(); }
+
+  // 定位到某经纬度：把相机移到该点为中心，缩放到街区/道路可见度
+  function locate(lat, lon) {
+    if (!DATA) return;
+    var w = proj(lon, lat);
+    var lx = w[0] - ORIGIN[0], ly = w[1] - ORIGIN[1];
+    view.s = Math.max(MIN_S, Math.min(MAX_S, 1 / 2.2));   // upx≈2.2：道路+点位清晰可见
+    view.x = W / 2 - lx * view.s;
+    view.y = H / 2 - ly * view.s;
+    markDirty();
+  }
 
   // —— 尺寸自适应：修复“SVG 底图不显示”。
   //    App 启动时地图视图处于 hidden，渲染时面板尺寸为 0（W/H 落到最小值 120）；
@@ -735,6 +746,7 @@
     renderMarkers: renderMarkersCompat,
     GEO: GEO,
     resetView: resetView,
+    locate: locate,
     refreshSize: refreshSize,
     zoomIn: function () { var r = svg && svg.getBoundingClientRect(); if (r) zoomAt(r.width / 2, r.height / 2, 1.6); },
     zoomOut: function () { var r = svg && svg.getBoundingClientRect(); if (r) zoomAt(r.width / 2, r.height / 2, 1 / 1.6); },

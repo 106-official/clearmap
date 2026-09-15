@@ -96,6 +96,56 @@ def _send_aliyun_sms(phone, code):
     return json.loads(body)
 
 
+def _send_aliyun_sms_auth(phone, code):
+    """短信认证（号码认证服务，免资质免签名）：SendSmsVerifyCode。
+
+    验证码由本端生成并直接作为模板变量下发（平台发送文案含 ${code}/${min}），
+    登录时按本地缓存的验证码校验，与现有流程一致。
+    """
+    s = config.SMS_AUTH
+    minutes = max(1, config.SMS_CODE_TTL // 60)
+    params = {
+        "AccessKeyId": s["access_key_id"],
+        "Action": "SendSmsVerifyCode",
+        "CodeType": "1",                       # 固定数字验证码（我们自填）
+        "Format": "JSON",
+        "Interval": str(max(1, config.SMS_RESEND_SEC // 60)),  # 重发间隔（分钟）
+        "PhoneNumber": phone.lstrip("+"),   # Dypns 接口不接受 '+' 前缀，需裸国内号
+        "RegionId": s.get("region", "cn-hangzhou"),
+        "ReturnVerifyCode": "true",
+        "SignName": s["sign_name"],
+        "SignatureMethod": "HMAC-SHA1",
+        "SignatureNonce": secrets.token_hex(16),
+        "SignatureVersion": "1.0",
+        "TemplateCode": s["template_code"],
+        "TemplateParam": json.dumps({"code": code, "min": minutes}, ensure_ascii=False),
+        "Timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "ValidTime": str(config.SMS_CODE_TTL),  # 有效期（秒）
+        "Version": "2017-05-25",
+    }
+    canon = "&".join(
+        "%s=%s" % (_percent_encode(k), _percent_encode(params[k]))
+        for k in sorted(params)
+    )
+    string_to_sign = "POST&%2F&" + _percent_encode(canon)
+    digest = hmac.new(
+        (s["access_key_secret"] + "&").encode("utf-8"),
+        string_to_sign.encode("utf-8"),
+        hashlib.sha1,
+    ).digest()
+    params["Signature"] = base64.b64encode(digest).decode("utf-8")
+
+    payload = urllib.parse.urlencode({k: params[k] for k in sorted(params)}).encode("utf-8")
+    host = s.get("api_host", "dypnsapi.aliyuncs.com")
+    req = urllib.request.Request(
+        "https://" + host, data=payload, method="POST",
+        headers={"Content-Type": "application/x-www-form-urlencoded"},
+    )
+    with urllib.request.urlopen(req, timeout=6) as resp:
+        body = resp.read().decode("utf-8", "ignore")
+    return json.loads(body)
+
+
 # ---- 对外：发送验证码 ------------------------------------------------------
 
 def send_code(phone):
@@ -116,10 +166,19 @@ def send_code(phone):
         "attempts": 0,
         "last_sent": now,
     }
+    # 优先级：短信认证(免资质) -> 传统短信服务 -> 调试码
+    if config.sms_auth_enabled():
+        try:
+            result = _send_aliyun_sms_auth(p, code)
+        except Exception:  # 发送失败则返回调试码并告知（避免钻死胡同）
+            return True, "短信服务暂不可用，已生成临时调试码", config.SMS_MOCK_CODE
+        if result.get("Code") == "OK":
+            return True, "验证码已发送", None
+        return True, "短信下发失败（%s）" % result.get("Message", "未知"), config.SMS_MOCK_CODE
     if config.sms_enabled():
         try:
             result = _send_aliyun_sms(p, code)
-        except Exception as e:  # 发送失败则返回调试码并告知（避免钻死胡同）
+        except Exception:  # 发送失败则返回调试码并告知（避免钻死胡同）
             return True, "短信服务暂不可用，已生成临时调试码", config.SMS_MOCK_CODE
         if result.get("Code") == "OK":
             return True, "验证码已发送", None

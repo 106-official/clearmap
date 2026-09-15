@@ -2,6 +2,30 @@
 
 记录每次功能迭代的详细内容。格式遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [cloud-app-preview-1.01] · 2026-09-15
+
+### 新增（云端部署 + 设备定位）
+
+- **后端正式部署到阿里云 ECS**：`47.99.131.169:9100`，托管服务 `systemd` 自启、崩溃自动拉起；`/api/health` 公网可达。存细分两个独立 service（`clearmap` 主 API），数据落盘服务器本地 `data/`。
+- **真实短信验证码上线**：配置阿里云 RAM 子账号（仅 `AliyunDysmsFullAccess`）+ 短信认证产品（免资质签名/模板），手机号 `13****9756` 端到端验证码登录通过；未配置时仍回退调试码 `123456`。
+- **跨域（CORS）修复**：打包 App/WebView 跨域请求云后端会被卡（`POST application/json` 触发预检），`api.py`/`server.py` 统一补 `Access-Control-Allow-Origin:*` 等头 + `do_OPTIONS` 预检处理；前端 `sendCode` 增 `.catch` 让网络异常改为可见提示而非静默无反应。
+- **离线/内置 POI 兜底增强**：`/api/pois` 返回 `ok:true` 但空数组时同样回退随包内置 `pois-<city>.json`，并给无 `affinity` 的离线 POI 按 `scores` 均值补算，恢复地图「红=高契合 / 绿=常规」红绿圆点分层。
+- **设备位置定位**：AndroidManifest 声明 `ACCESS_FINE/COARSE_LOCATION`；地图控件新增「定位到我的位置」按钮，`map.locate()` 把相机移到当前坐标并放大至街区级。
+- 产出云端版成品：`dist/ClearMap-cloud-1.0.apk`（修复版）与 `dist/ClearMap-cloud-preview-1.01.apk`（本轮功能版），均签名 `clearmap2026`、内置云后端地址 `http://47.99.131.169:9100/`。
+
+### 变更（地图 / 个人交互）
+
+- **移除地图「选起点」**：删除地图下方起点条（`选起点` / `用我的位置` / 起点名）；纸飞机路线改为自动取「我的位置」作起点。
+- **个人页改为非卡片资料**：资料从带边框卡片改为直接铺在背景上的文字区块（`.me-profile`，无边框）；标题变为动态「`[昵称]的旅行志`」（`meTitle`）；删除副标题「资料与随笔记事，都收在这」。
+
+### 优化（拖拽顺滑度）
+
+- `.map-view` 加 `will-change: transform`（已有 `touch-action:none`）；平移重建阈值 150→120px，建筑/道路潜带加宽，减少快速拖拽时边缘空白观感。
+
+### 验证
+
+- 前端 `app.js / map.js / render.js / store.js` 均通过 `node --check`；APK 内云端地址、affinity 逻辑、定位、GPS 权限均核验入包；签名 CN=ClearMap。
+
 ## [preview-1.23] · 2026-09-14
 
 ### 变更（登录策略与界面精简）
