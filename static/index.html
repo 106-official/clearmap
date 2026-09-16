@@ -113,7 +113,14 @@
       <div class="me-profile" id="meProfile">
         <button class="me-avatar" id="avatarBox" aria-label="上传头像">
           <img id="avatarImg" class="me-avatar-img" alt="头像" hidden>
-          <span class="me-avatar-ph" id="avatarPh">＋</span>
+          <span class="me-avatar-ph" id="avatarPh">
+            <!-- 默认头像：简约人物剪影（无头像时显示，不再是损坏图片框） -->
+            <svg class="avatar-ph-ico" viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" aria-hidden="true">
+              <circle cx="12" cy="8" r="3.8"></circle>
+              <path d="M4.6 20.5c.5-3.3 3.6-4.9 7.4-4.9s6.9 1.6 7.4 4.9"></path>
+            </svg>
+            <span class="avatar-ph-add">＋</span>
+          </span>
         </button>
         <div class="me-meta">
           <div class="me-name-row">
@@ -138,19 +145,21 @@
 
     <!-- 视图：发布随笔（从「个人」进入，专注写作） -->
     <section class="view" id="view-essay" hidden>
-      <div class="lead lead--compact">
-        <p class="lead-kicker">发布随笔</p>
-        <h2 class="lead-title lead-title--sm">此刻的<span class="lead-em">风景与心情</span></h2>
-        <p class="lead-sub">写几句感受，配几张此刻的照片。</p>
+      <div class="essay-hero">
+        <p class="essay-hero-kicker">发布随笔</p>
+        <h2 class="essay-hero-title">把此刻，<span class="lead-em">写下来</span></h2>
+        <p class="essay-hero-sub">几句心事，几张照片，汇成一枚属于你的城市印章。</p>
+        <button class="essay-hero-back btn-ghost btn-sm" id="essayBack" type="button">← 返回个人</button>
       </div>
-      <div class="me-card">
-        <textarea class="me-input me-textarea" id="essayText" maxlength="2000" placeholder="写写此刻的风景或心情…"></textarea>
+
+      <div class="essay-board">
+        <textarea class="essay-write" id="essayText" maxlength="2000" placeholder="记下此刻的风景与心情…"></textarea>
         <div class="essay-imgs" id="essayImgs"></div>
         <input type="file" id="essayFile" accept="image/*" multiple hidden>
-        <div class="essay-actions">
-          <button class="btn-ghost btn-sm" id="essayAddImg" type="button">＋ 相册配图</button>
-          <button class="btn-primary btn-sm" id="essayPublish" type="button">发布</button>
-          <button class="btn-ghost btn-sm" id="essayBack" type="button">← 返回个人</button>
+        <div class="essay-foot">
+          <button class="btn-ghost btn-sm essay-attach" id="essayAddImg" type="button">＋ 配图</button>
+          <span class="essay-hint">字斟句酌 · 随心所至</span>
+          <button class="btn-primary btn-sm essay-send" id="essayPublish" type="button">发布随笔</button>
         </div>
       </div>
     </section>

@@ -140,14 +140,28 @@
     listEl.innerHTML = lines;
   }
 
+  // 头像 URL 归一化：云端返回的相对路径加上 API_BASE，绝对路径/本地 data 原样保留
+  function avatarUrl(u) {
+    if (!u) return "";
+    if (/^https?:\/\/|^data:/i.test(u)) return u;
+    let base = "";
+    try { base = window.ClearMap.api.serverBase() || window.CLEARMAP_API_BASE || ""; } catch (e) { /* 忽略 */ }
+    base = String(base).replace(/\/+$/, "");
+    return base + (u.charAt(0) === "/" ? u : "/" + u);
+  }
+
   // —— 个人中心：资料 ——
   function renderProfile(me) {
     const avatar = document.getElementById("avatarImg");
     const ph = document.getElementById("avatarPh");
     if (me.avatar) {
-      avatar.src = me.avatar;
+      const src = avatarUrl(me.avatar);
+      avatar.src = src;
       avatar.hidden = false;
       ph.hidden = true;
+      avatar.onerror = () => {             // 图片加载失败时回退到默认剪影，避免损坏框
+        if (avatar) { avatar.hidden = true; ph.hidden = false; }
+      };
     } else {
       avatar.hidden = true;
       ph.hidden = false;

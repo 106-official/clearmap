@@ -860,29 +860,32 @@ body[data-view="map"] .route-bar {
   100% { box-shadow: 0 0 0 10px rgba(194,104,71,0); }
 }
 
-/* --- 选点详情：底部弹出层（点击红/绿点后在此弹景点介绍）--- */
+/* --- 选点详情：虚化的独立页面（居中悬浮，非底部栏；按钮不被底栏遮挡）--- */
 .poi-pop {
-  position: fixed; inset: 0; z-index: 70;
-  display: flex; align-items: flex-end; justify-content: center;
-  background: rgba(36,34,27,.38); backdrop-filter: blur(2px);
+  position: fixed; inset: 0; z-index: 80;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px clamp(18px, 5vw, 40px) 24px;
+  background: rgba(36,34,27,.55); backdrop-filter: blur(10px) saturate(1.1);
+  animation: fadeIn .25s var(--ease) both;
 }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 .poi-pop-sheet {
-  position: relative; width: 100%; max-width: 680px;
-  max-height: 82vh; overflow-y: auto;
-  background: var(--paper); border-radius: 20px 20px 0 0;
-  padding: 26px 24px calc(24px + env(safe-area-inset-bottom));
-  box-shadow: 0 -24px 70px -32px rgba(36,34,27,.55);
-  animation: rise .4s var(--ease) both;
+  position: relative; width: 100%; max-width: 480px;
+  max-height: 84vh; overflow-y: auto;
+  background: var(--paper); border-radius: 20px;
+  padding: 28px 22px 22px;
+  box-shadow: 0 32px 80px -30px rgba(36,34,27,.6);
+  animation: rise .35s var(--ease) both;
 }
 .poi-pop-close {
-  position: absolute; top: 16px; right: 16px; z-index: 2;
+  position: absolute; top: 14px; right: 14px; z-index: 2;
   border: 0; background: var(--paper-2); width: 30px; height: 30px; border-radius: 50%;
   cursor: pointer; color: var(--ink-soft); font-size: 16px; line-height: 1;
 }
 .poi-pop-close:active { transform: scale(.92); }
 .poi-pop-body .side { min-height: auto; border: 0; padding-left: 0; }
-.poi-pop-body .side-gallery { max-height: 42vh; }
-.poi-pop-body .side-gallery .gal-img { aspect-ratio: 16/9; object-fit: cover; }
+.poi-pop-body .side-gallery { max-height: 40vh; }
+.poi-pop-body .side-gallery .gal-img { aspect-ratio: 16/10; object-fit: cover; }
 
 /* --- 行程档案：列表小标题 --- */
 .me-list-title {
@@ -1017,3 +1020,55 @@ body[data-view="plan"] .view-plan {
 }
 .me-myessays-head .me-title { margin: 0; }
 .btn-primary:disabled { opacity: .4; cursor: not-allowed; }
+
+/* ==========================================================================
+   preview-1.03 · 默认头像 / 发布随笔版面 / 选点详情虚化页
+   ========================================================================== */
+
+/* --- 个人：默认头像剪影（无头像时显示，取代损坏图片框）--- */
+.me-avatar-ph { display: grid; place-items: center; position: relative; color: var(--ink-faint); }
+.avatar-ph-ico { display: block; }
+.avatar-ph-add {
+  position: absolute; right: -4px; bottom: -2px;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--clay); color: #fff; font-size: 13px; line-height: 22px; text-align: center;
+}
+
+/* --- 发布随笔：设计感版面 --- */
+.essay-hero {
+  position: relative; padding: 26px 22px 22px; border-radius: 20px; overflow: hidden;
+  color: #f7f1e6; margin-bottom: 16px;
+  background:
+    radial-gradient(220px 130px at 85% 0%, rgba(240,214,173,.35), transparent 62%),
+    linear-gradient(135deg, #3f5c54, #28413b 60%, #22342f);
+}
+.essay-hero::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(115deg, rgba(255,255,255,.04) 0 2px, transparent 2px 14px);
+}
+.essay-hero-kicker { font-size: 12px; letter-spacing: .28em; color: rgba(247,241,230,.72); margin: 0 0 10px; }
+.essay-hero-title { font-family: var(--serif); font-weight: 600; font-size: 30px; margin: 0; line-height: 1.2; }
+.essay-hero-title .lead-em { color: #eab77f; }
+.essay-hero-sub { font-size: 13px; color: rgba(247,241,230,.8); margin: 10px 0 0; }
+.essay-hero-back { position: absolute; top: 20px; right: 18px; color: rgba(247,241,230,.85); background: rgba(255,255,255,.12); }
+.essay-hero-back:hover { color: #fff; background: rgba(255,255,255,.2); }
+
+.essay-board {
+  background: color-mix(in srgb, var(--paper) 82%, white);
+  border-radius: 20px; padding: 20px;
+  box-shadow: 0 12px 32px -20px rgba(36,34,27,.4);
+}
+.essay-write {
+  width: 100%; min-height: 180px; border: 0; background: transparent; resize: vertical;
+  font-family: var(--serif); font-size: 20px; line-height: 1.8; color: var(--ink);
+  padding: 6px 2px; caret-color: var(--clay);
+}
+.essay-write:focus { outline: none; }
+.essay-write::placeholder { color: var(--ink-faint); }
+.essay-imgs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.essay-imgs .es-preview { width: 86px; height: 86px; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); }
+.essay-imgs .es-preview img { width: 100%; height: 100%; object-fit: cover; }
+.essay-foot { display: flex; align-items: center; gap: 12px; margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--line); }
+.essay-attach { flex: none; }
+.essay-hint { flex: 1; font-size: 12px; color: var(--ink-faint); letter-spacing: .06em; text-align: center; }
+.essay-send { flex: none; }

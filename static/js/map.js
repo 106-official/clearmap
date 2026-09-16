@@ -281,8 +281,9 @@
   }
 
   function setTransform() {
-    viewG.setAttribute("transform", "translate(" + view.x + "," + view.y + ") scale(" + view.s + ")");
-    if (viewG) viewG.style.setProperty("--unit", 1 / view.s);
+    // 用 CSS transform 驱动（配合 .map-view 的 will-change 走 GPU 合成），
+    // 避免逐帧改 SVG 属性/自定义属性触发回流，拖拽与捏合更顺滑、更低延迟。
+    viewG.style.transform = "translate(" + view.x + "px," + view.y + "px) scale(" + view.s + ")";
   }
 
   // —— 相机与内容解耦：平移/缩放先即时应用 transform（GPU 合成，丝滑），
@@ -403,6 +404,7 @@
     if (!svg || !viewG) return;
     riS = view.s; riX = view.x; riY = view.y;   // 记录本次全量渲染时的相机
     setTransform();
+    if (viewG) viewG.style.setProperty("--unit", 1 / view.s); // 重建时刷新道路宽度常量（既省/不逐帧改）
     renderBase();
     renderRoads();
     renderBuildings();
@@ -549,20 +551,33 @@
   function renderMarkers() {
     if (!poiLayer) return;
     var upx = 1 / view.s;
-    var redUpx = 300;   // 红色(高契合/重点) 在任何视野都显示
-    var allUpx = 300;   // 绿色(常规) 也在整城视野显示，避免地图“空白”
+    var redUpx = 300;   // 红点(高契合/重点) 任何视野都显示
+    var allUpx = 2;     // 绿点(常规) 放大到街区级才显示，避免整城视野拥挤
     var html = "";
     if (upx <= redUpx) {
       var maxAff = 1;
       pois.forEach(function (p) { if (p.affinity > maxAff) maxAff = p.affinity; });
       // 红绿圆点 + 虚线包围（恒定屏幕尺寸）：红色=高契合推荐，绿色=常规
       var k = upx;  // 缩放系数，使圆点保持约 11px 恒定
+      var kept = [];  // 已铺开的点（局部坐标），用于抗拥挤抽稀
       pois.forEach(function (p) {
         var hot = p.affinity / maxAff >= 0.8;
-        // 分层：缩放不足时只显示高契合(红)点，绿色(常规)点放大后再出现
-        if (!hot && upx > allUpx) return;
-        var l = poiLocal(p);
         var sel = p.id === selectedId;
+        // 分层：整城只显示红色重点 + 拉开间距；绿点放大后再浮现；选中点始终显示
+        if (upx > allUpx && !hot && !sel) return;
+        var l = poiLocal(p);
+        if (!sel && kept.length) {
+          var gap = hot ? 16 : 34;                 // 屏幕间距 px（绿点更疏，避免拥挤）
+          var minD = gap * upx;                    // 换算成局部单位
+          var tooClose = false;
+          for (var i = 0; i < kept.length; i++) {
+            var dd = Math.abs(l[0] - kept[i][0]) * Math.abs(l[0] - kept[i][0]) +
+                     Math.abs(l[1] - kept[i][1]) * Math.abs(l[1] - kept[i][1]);
+            if (dd < minD * minD) { tooClose = true; break; }
+          }
+          if (tooClose) return;
+        }
+        kept.push(l);
         var cls = "poi-marker" + (hot ? " is-hot" : "") + (sel ? " is-selected" : "");
         html +=
           '<g class="' + cls + '" data-id="' + esc(p.id) + '" transform="translate(' + l[0].toFixed(1) + "," + l[1].toFixed(1) + ')">' +
