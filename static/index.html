@@ -65,42 +65,31 @@
       </div>
     </section>
 
-    <!-- 视图：行程（打卡 + 足迹档案） -->
-    <section class="view" id="view-plan" hidden>
-      <div class="lead lead--compact">
+    <!-- 视图：行程（相册/邮戳卡片，集成一屏） -->
+    <section class="view view-plan" id="view-plan" hidden>
+      <div class="plan-head">
         <p class="lead-kicker">行程档案</p>
         <h2 class="lead-title lead-title--sm">走过的路，<span class="lead-em">到过的角落</span></h2>
-        <p class="lead-sub">记录一段足迹、打卡一处风景，全都归档在这里。</p>
-      </div>
-
-      <div class="me-grid">
-        <!-- 行程打卡 -->
-        <div class="me-card">
-          <h3 class="me-title">行程打卡</h3>
-          <p class="me-hint">在地图上点开景点「在此打卡」，上传照片点亮你的旅程。</p>
-          <form class="checkin-form" id="checkinForm">
-            <label class="checkin-img" id="checkinImgBox">
-              <input type="file" id="checkinFile" accept="image/*" hidden>
-              <span class="checkin-img-ph" id="checkinImgPh">＋ 添加照片</span>
-              <img class="checkin-img-prev" id="checkinImgPrev" alt="预览" hidden>
-            </label>
-            <select class="me-input" id="checkinPoi"></select>
-            <input class="me-input" id="checkinCaption" placeholder="写一句当时的心情…" maxlength="200">
-            <button class="btn-ghost" type="submit" id="checkinSubmit">记录打卡</button>
-          </form>
-          <h4 class="me-list-title">打卡景点</h4>
-          <div class="me-list" id="checkinList"></div>
-        </div>
-
-        <!-- 足迹路线 -->
-        <div class="me-card">
-          <h3 class="me-title">足迹路线</h3>
-          <p class="me-hint">点击「开始记录行程」，地图会用 GPS 画下你走过的路，记完回来这里查看归档。</p>
+        <div class="plan-toolbar">
           <button class="btn-primary btn-sm" id="recordStart" type="button">开始记录行程</button>
-          <h4 class="me-list-title">记录路线</h4>
-          <div class="me-list" id="routeList"></div>
+          <button class="btn-ghost btn-sm" id="checkinToggle" type="button">＋ 加一张打卡</button>
         </div>
       </div>
+
+      <!-- 打卡小表单（默认收起，点「加一张打卡」展开） -->
+      <form class="checkin-form checkin-sheet" id="checkinForm" hidden>
+        <label class="checkin-img" id="checkinImgBox">
+          <input type="file" id="checkinFile" accept="image/*" hidden>
+          <span class="checkin-img-ph" id="checkinImgPh">＋ 添加照片</span>
+          <img class="checkin-img-prev" id="checkinImgPrev" alt="预览" hidden>
+        </label>
+        <select class="me-input" id="checkinPoi"></select>
+        <input class="me-input" id="checkinCaption" placeholder="写一句当时的心情…" maxlength="200">
+        <button class="btn-primary btn-sm" type="submit" id="checkinSubmit">记录打卡</button>
+      </form>
+
+      <!-- 相册/邮戳卡片网格：打卡照片卡 与 足迹路线卡 交叉排列，占满一屏 -->
+      <div class="album" id="albumGrid"></div>
     </section>
 
     <!-- 视图：发现（别人的旅游随笔） -->
@@ -120,25 +109,29 @@
         <h2 class="lead-title lead-title--sm" id="meTitle">我的<span class="lead-em">旅行志</span></h2>
       </div>
 
-      <!-- 个人资料：直接铺在背景上的文字，无边框卡片 -->
+      <!-- 个人资料：滑圆头像(左) + 名称/MBTI徽标/签名(右)，直接铺在背景上 -->
       <div class="me-profile" id="meProfile">
         <button class="me-avatar" id="avatarBox" aria-label="上传头像">
           <img id="avatarImg" class="me-avatar-img" alt="头像" hidden>
           <span class="me-avatar-ph" id="avatarPh">＋</span>
         </button>
-        <input class="me-input" id="nicknameInput" placeholder="你的昵称" maxlength="20">
-        <input class="me-input" id="signatureInput" placeholder="一句个性签名" maxlength="40">
-        <button class="btn-primary btn-block" id="saveMeBtn">保存资料</button>
-        <div class="mbti-box">
-          <div class="mbti-label">MBTI 性格</div>
-          <button class="mbti-badge" id="mbtiBadge">选择我的性格 →</button>
+        <div class="me-meta">
+          <div class="me-name-row">
+            <input class="me-field me-name" id="nicknameInput" placeholder="你的昵称" maxlength="20">
+            <button class="mbti-chip" id="mbtiBadge" aria-label="选择 MBTI 性格">MBTI</button>
+          </div>
+          <input class="me-field me-sig" id="signatureInput" placeholder="一句个性签名" maxlength="40">
+          <button class="me-save" id="saveMeBtn" type="button">保存资料</button>
         </div>
-        <button class="btn-primary btn-block btn-essay-go" id="essayGoBtn">写一篇随笔 →</button>
       </div>
+      <input type="file" id="avatarFile" accept="image/*" hidden>
 
       <!-- 我的随笔：嵌入式展示（不单独成卡片） -->
       <section class="me-myessays">
-        <h3 class="me-title me-myessays-title">我的随笔</h3>
+        <div class="me-myessays-head">
+          <h3 class="me-title me-myessays-title">我的随笔</h3>
+          <button class="btn-primary btn-sm" id="essayGoBtn" type="button">写一篇随笔</button>
+        </div>
         <div class="me-list me-list--essays" id="myEssaysList"></div>
       </section>
     </section>

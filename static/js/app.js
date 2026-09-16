@@ -63,7 +63,11 @@
     });
     // 切到地图时，若面板刚可见则校正尺寸并复位视野（修复 SVG 底图不显示）
     if (name === "map") map.refreshSize();
-    if (name === "plan") { renderCheckinSelect(); loadArchive(); }
+    if (name === "plan") {
+      renderCheckinSelect(); loadArchive();
+      const f = document.getElementById("checkinForm");
+      if (f) f.hidden = !pendingCheckinPoi;   // 从景点「在此打卡」进入时自动展开打卡表单
+    }
     if (name === "discover") { loadFeed(); }
     if (name === "me") { renderCheckinSelect(); loadMyEssays(); }
   }
@@ -224,8 +228,7 @@
       state.essays = r.essays || [];
       render.renderProfile(state.me);
       setMeTitle(state.me.nickname);
-      render.renderCheckins(document.getElementById("checkinList"), state.checkins);
-      render.renderRoutes(document.getElementById("routeList"), state.routes);
+      render.renderAlbum(document.getElementById("albumGrid"), state.checkins, state.routes);
       renderMyEssays();
       renderCheckinSelect();
       loadMbtiRecs();
@@ -258,8 +261,7 @@
       state.checkins = r.checkins || [];
       state.routes = r.routes || [];
       archiveLoaded = true;
-      render.renderCheckins(document.getElementById("checkinList"), state.checkins);
-      render.renderRoutes(document.getElementById("routeList"), state.routes);
+      render.renderAlbum(document.getElementById("albumGrid"), state.checkins, state.routes);
       map.drawCheckins(state.checkins);
     });
   }
@@ -313,8 +315,10 @@
         toast("已认证 " + code + "，地图为你换了一批风景");
         loadMe();
         refreshAffinities();
+      } else {
+        toast(r.error || "MBTI 保存失败");
       }
-    });
+    }).catch((e) => { console.error("saveMbti fail:", e); toast("MBTI 保存失败：请检查网络"); });
   }
 
   // ---- 头像 / 资料 ----
@@ -328,23 +332,28 @@
           state.me.avatar = r.avatar;
           render.renderProfile(state.me);
           toast("头像已更新");
+        } else {
+          toast(r.error || "头像保存失败");
         }
-      });
+      }).catch((e) => { console.error("avatar fail:", e); toast("头像上传失败：请检查网络"); });
     };
     fr.readAsDataURL(file);
   }
 
   function saveMe() {
-    api.updateMe({
-      nickname: document.getElementById("nicknameInput").value.trim(),
-      signature: document.getElementById("signatureInput").value.trim(),
-    }).then((r) => {
+    const nickname = document.getElementById("nicknameInput").value.trim();
+    const signature = document.getElementById("signatureInput").value.trim();
+    if (!nickname && !signature) { toast("昵称与签名都为空，无需保存"); return; }
+    api.updateMe({ nickname, signature }).then((r) => {
       if (r.ok) {
         state.me = r.me;
         render.renderProfile(state.me);
+        setMeTitle(state.me.nickname);
         toast("资料已保存");
+      } else {
+        toast(r.error || "资料保存失败");
       }
-    });
+    }).catch((e) => { console.error("saveMe fail:", e); toast("资料保存失败：请检查网络"); });
   }
 
   // ---- 打卡 ----
@@ -359,6 +368,8 @@
           document.getElementById("checkinImgPrev").hidden = true;
           document.getElementById("checkinImgPh").hidden = false;
           pendingCheckinPoi = "";
+          const cf = document.getElementById("checkinForm");
+          if (cf) cf.hidden = true;
           loadMe();
         } else {
           toast(r.error || "打卡失败");
@@ -551,7 +562,7 @@
       } else {
         toast(r.error || "发布失败");
       }
-    });
+    }).catch((e) => { console.error("essay fail:", e); toast("发布失败：请检查网络"); });
     void text;
   }
 
@@ -718,10 +729,15 @@
     });
     // 行程打卡 / 路线 / 随笔的事件委托
     document.getElementById("checkinForm").addEventListener("submit", onCheckinSubmit);
-    document.getElementById("checkinList").addEventListener("click", onMeClick);
-    document.getElementById("routeList").addEventListener("click", onMeClick);
+    document.getElementById("albumGrid").addEventListener("click", onMeClick);
     document.getElementById("feedList").addEventListener("click", onMeClick);
     document.getElementById("myEssaysList").addEventListener("click", onMeClick);
+    // 「加一张打卡」：展开/收起打卡小表单
+    const checkinToggleBtn = document.getElementById("checkinToggle");
+    if (checkinToggleBtn) checkinToggleBtn.addEventListener("click", () => {
+      const f = document.getElementById("checkinForm");
+      if (f) f.hidden = !f.hidden;
+    });
 
     // 随笔：从「个人」进入发布页 / 从发布页返回
     document.getElementById("essayGoBtn").addEventListener("click", () => showView("essay"));
@@ -741,10 +757,15 @@
     });
 
     // 路线
-    document.getElementById("recordStart").addEventListener("click", () => { showView("map"); startRecord(); });
+    document.getElementById("recordStart").addEventListener("click", () => {
+      toast("开始记录足迹，去地图沿 GPS 走走吧");
+      showView("map");
+      startRecord();
+    });
     document.getElementById("recordStop").addEventListener("click", stopRecord);
-    // MBTI 专属推荐卡（个人中心）：点击卡片去地图看对应景点
-    document.getElementById("mbtiRecsMe").addEventListener("click", (e) => {
+    // MBTI 专属推荐卡（个人中心）：点击卡片去地图看对应景点（preview-1.02 该卡已移除，留空避免启动报错）
+    const mbtiRecsBox = document.getElementById("mbtiRecsMe");
+    if (mbtiRecsBox) mbtiRecsBox.addEventListener("click", (e) => {
       const card = e.target.closest("[data-mbti-poi]");
       if (card) {
         showView("map");

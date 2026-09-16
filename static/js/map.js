@@ -290,8 +290,8 @@
   var riS = 1, riX = 0, riY = 0;   // 上次全量渲染时的相机
   function needFullRender() {
     if (!DATA || !initDone) return true;               // 首帧/切城市强制
-    if (Math.abs(view.s / riS - 1) > 0.07) return true;  // 缩放跨 LOD 档位
-    if (Math.abs(view.x - riX) + Math.abs(view.y - riY) > 120) return true; // 平移出缓潜带
+    if (Math.abs(view.s / riS - 1) > 0.12) return true; // 缩放跨 LOD 档位（放宽，减少重建）
+    if (Math.abs(view.x - riX) + Math.abs(view.y - riY) > 160) return true; // 平移出缓潜带（放宽，更顺滑）
     return false;
   }
   function render() {
@@ -429,13 +429,14 @@
     var layer = svg.querySelector(".road-layer");
     var html = "";
 
-    // tier1/2 始终尝试显示，随 upx 增长才隐藏极细等级
-    // 阈值放宽：让主干道/次干道在整城视野即可见，避免初始视图显得空旷
+    // LOD 分级（preview-1.02）：默认整城视野只显示最深的干道(road-t1)，
+    // 较浅的颜色(road-t2)与更细分的路(road-t3/t4)需放大到相应尺度才浮现，
+    // 避免初始视野道路堆叠显得杂乱。
     var tiers = [
-      { t: "tier1", max: 90, cls: "road-t1" },
-      { t: "tier2", max: 55, cls: "road-t2" },
-      { t: "tier3", max: 3.5, cls: "road-t3" },
-      { t: "tier4", max: 1.2, cls: "road-t4" },
+      { t: "tier1", max: 130, cls: "road-t1" },    // 深色主干道：任何视野都可见
+      { t: "tier2", max: 18,  cls: "road-t2" },    // 浅色次干道：放大后出现
+      { t: "tier3", max: 6.5, cls: "road-t3" },    // 更细道路：进一步放大
+      { t: "tier4", max: 1.6, cls: "road-t4" },    // 最细街巷：接近街区级才显
     ];
     tiers.forEach(function (cfg) {
       if (upx > cfg.max) return;

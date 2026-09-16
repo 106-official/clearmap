@@ -156,10 +156,12 @@
     document.getElementById("signatureInput").value = me.signature || "";
     const badge = document.getElementById("mbtiBadge");
     if (me.mbti) {
-      badge.textContent = me.mbti + " · " + (me.mbti_name || MBTI_NAMES[me.mbti] || "") + " 更换 →";
+      badge.textContent = me.mbti;
+      badge.title = "MBTI " + me.mbti + " · " + (me.mbti_name || MBTI_NAMES[me.mbti] || "");
       badge.classList.add("is-set");
     } else {
-      badge.textContent = "选择我的性格 →";
+      badge.textContent = "MBTI";
+      badge.title = "选择你的 MBTI 性格";
       badge.classList.remove("is-set");
     }
   }
@@ -233,6 +235,43 @@
         "</div></div>";
     }).join("");
     listEl.innerHTML = lines;
+  }
+
+  // —— 行程：相册/邮戳卡片（打卡照片卡 与 足迹路线卡 交叉排列）——preview-1.02
+  function renderAlbum(listEl, checkins, routes) {
+    if ((!checkins || !checkins.length) && (!routes || !routes.length)) {
+      listEl.innerHTML = '<div class="me-none">还没有记录 —— 点左上角「开始记录行程」或「加一张打卡」吧。</div>';
+      return;
+    }
+    const ck = (checkins || []).slice().reverse().map(function (c) {
+      const img = c.img
+        ? '<img class="stamp-photo" src="' + escapeHTML(c.img) + '" alt="打卡照片" loading="lazy">'
+        : '<div class="stamp-photo stamp-photo--none">📷</div>';
+      const poi = c.poi_name ? '<span class="stamp-poi">@' + escapeHTML(c.poi_name) + "</span>" : "";
+      return '<figure class="stamp-card">' + img +
+        '<figcaption class="stamp-caption">' + escapeHTML(c.caption || "无题") + "</figcaption>" +
+        '<div class="stamp-meta">' + poi + " " + timeText(c.created) + "</div>" +
+        '<button class="icon-del" data-del-checkin="' + escapeHTML(c.id) + '" aria-label="删除打卡">✕</button></figure>';
+    });
+    const rt = (routes || []).slice().reverse().map(function (r) {
+      const km = (r.distance_m / 1000).toFixed(1);
+      return '<div class="stamp-route">' +
+        '<div class="stamp-route-title">' + escapeHTML(r.title || "我的足迹") + "</div>" +
+        '<div class="stamp-route-meta">' + timeText(r.start) + " · " + r.duration_min + " 分钟 · " +
+        km + " km · " + (r.points || []).length + " 点</div>" +
+        '<div class="stamp-route-acts">' +
+        '<button class="btn-ghost btn-sm" data-view-route="' + escapeHTML(r.id) + '">查看轨迹</button>' +
+        '<button class="icon-del" data-del-route="' + escapeHTML(r.id) + '" aria-label="删除路线">✕</button>' +
+        "</div></div>";
+    });
+    // 交叉排列：照片卡与路线卡交错，拼成一张“相册墙”
+    const cells = [];
+    let i = 0, j = 0;
+    while (i < ck.length || j < rt.length) {
+      if (i < ck.length) cells.push(ck[i++]);
+      if (j < rt.length) cells.push(rt[j++]);
+    }
+    listEl.innerHTML = cells.join("");
   }
 
   // —— 地图页：MBTI 推荐条 ——
@@ -387,7 +426,7 @@
 
   window.ClearMap.render = {
     renderSide, renderPrefs, renderItinerary, renderSaved,
-    renderProfile, renderMbtiPicker, renderCheckins, renderRoutes,
+    renderProfile, renderMbtiPicker, renderCheckins, renderRoutes, renderAlbum,
     renderMbtiRecs, renderCheckinSelect, renderRoutePlan, renderMbtiRecsMe,
     renderMyEssays, renderFeed,
   };

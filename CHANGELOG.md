@@ -2,6 +2,29 @@
 
 记录每次功能迭代的详细内容。格式遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [cloud-app-preview-1.02] · 2026-09-16
+
+### 变更（地图 / 行程 / 个人页面重构）
+
+- **道路分层分级显示（LOD）**：`map.js` 各档道路由“整城视野全显”改为分级——默认整城视野只显示最深的干道 `road-t1`，较浅的 `road-t2` 需放大后才浮现，更细的 `road-t3/t4` 依次在更高放大倍数才出现，避免初始视野道路堆叠。
+- **定位按钮避开底部栏**：`.map-controls` 由 `bottom:14px` 上移至 `bottom:104px`，不再被固定底栏遮挡；修复定位按钮“点不到/点击后无反应”。
+- **行程页重构为相册/邮戳卡片墙**：`view-plan` 重构为单屏布局——顶部「开始记录行程 / ＋加一张打卡」工具条 + 打卡小表单（默认收起，可展开/随「在此打卡」自动弹出）+ 打卡照片卡与足迹路线卡**交叉排列**成 2 列卡片网格（`render.renderAlbum`），整页不滚动，卡片溢出时仅在卡片区内滚动；删除原「记录一段足迹、打卡一处风景…」文案。
+- **修复「开始记录行程」无响应**：点击即弹 toast 引导并切到地图开始 GPS 记录，避免按钮处于底栏遮挡区。
+- **个人页改为 O= 形布局**：左侧滑圆头像（整体左移），右侧为无边框铺底文字——名称行（名称输入 + 右侧 MBTI 小徽标）+ 个性签名，均为直接显示在背景上的透明输入，不再是按钮/卡片；删除 MBTI 大按钮块与「写一篇随笔」按钮；「写一篇随笔」迁入「我的随笔」表头右侧。
+- **删除按钮蓝色聚焦框**：全局 `:focus / :focus-visible { outline: none }` + `-webkit-tap-highlight-color: transparent`，移除点击出现的蓝色矩阵框。
+- **地图进一步顺滑**：`needFullRender` 平移重建阈值放宽至 160px、缩放档位宽容至 0.12，减少平移/缩放过程中不必要的全量重绘，配合既有 `will-change: transform` 让拖拽/缩放更跟手。
+
+### 修复（资料 / 图片 / MBTI / 随笔保存）
+
+- **头像上传失效根因修复**：个人页重构时补回缺失的隐藏文件输入 `#avatarFile`，修复上传头像无反应/无法保存。
+- **保存操作统一加固**：`uploadAvatar / saveMe / saveMbti / publishEssay` 均补 `.catch` 与 `!r.ok` 分支的可视化 toast（含网络异常），不再静默失败；`saveMe` 保存后同步刷新底部个人标题。
+- 修复个人页重构后 `#mbtiRecsMe` 空引用导致的启动风险（改为判空绑定）。
+
+### 验证
+
+- 前端 `app.js / render.js / map.js` 通过 `node --check`；Android 构建 `assembleRelease` 成功（`-x lint`）；APK 内置云地址、签名别名 `clearmap2026` 核验入包。
+- 成品：`dist/ClearMap-cloud-preview-1.02.apk`。
+
 ## [cloud-app-preview-1.01] · 2026-09-15
 
 ### 新增（云端部署 + 设备定位）
