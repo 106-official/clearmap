@@ -382,7 +382,7 @@
     }
     const cards = essays.slice().reverse().map((e) => {
       const imgs = (e.imgs || []).map((src) =>
-        '<img class="es-photo" src="' + escapeHTML(src) + '" alt="随笔配图" loading="lazy">').join("");
+        '<img class="es-photo" src="' + escapeHTML(avatarUrl(src)) + '" alt="随笔配图" loading="lazy">').join("");
       return '<div class="essay-card">' +
         '<div class="essay-text">' + escapeHTML(e.text) + "</div>" +
         (imgs ? '<div class="essay-photos">' + imgs + "</div>" : "") +
@@ -401,10 +401,10 @@
     const cards = items.map((e) => {
       const mine = e.author_id === myId;
       const av = e.avatar
-        ? '<img class="feed-av" src="' + escapeHTML(e.avatar) + '" alt="">'
+        ? '<img class="feed-av" src="' + escapeHTML(avatarUrl(e.avatar)) + '" alt="">'
         : '<span class="feed-av feed-av--ph">' + escapeHTML((e.author || "旅").slice(0, 1)) + "</span>";
       const imgs = (e.imgs || []).map((src) =>
-        '<img class="es-photo" src="' + escapeHTML(src) + '" alt="随笔配图" loading="lazy">').join("");
+        '<img class="es-photo" src="' + escapeHTML(avatarUrl(src)) + '" alt="随笔配图" loading="lazy">').join("");
       return '<article class="feed-card">' +
         '<div class="feed-head">' + av +
         '<div class="feed-author"><b>' + escapeHTML(e.author) + "</b>" +

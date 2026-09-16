@@ -2,6 +2,19 @@
 
 记录每次功能迭代的详细内容。格式遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [cloud-app-preview-1.04] · 2026-09-16
+
+### 修复
+
+- **随笔/发现配图无法显示**：随笔图片与发现流里的配图、作者头像由后端返回 `/api/media?...` 相对路径，在 APK（WebView 相对本地资源解析）中会 404 空图。`render.js` 的 `renderMyEssays / renderFeed / restore` 改经 `avatarUrl()` 统一把相对路径自动拼上 `API_BASE`，我的随笔配图、发现流他人配图与头像均可正常显示。
+- **选点详情全屏展示**：`.poi-pop` 由居中悬浮小卡片改为真正的全屏独立页面（透明虚化 → 整页纸色 + 右上 sticky 关闭按钮 + 内容内滚 `overscroll-behavior:contain`），点击红绿景点后整屏呈现，不再是小卡片。
+- **行程页删除景点选择**：打卡表单移除景点下拉「选择区」，打卡地点由地图「在此打卡」自动确定；随按钮收起详情页并跳转行程。
+- **「关联的景点不存在」修复**：打卡原来从可能为空的 `checkinPoi` 下拉取值导致 `poi_id` 为空/不匹配；现在直接使用地图传来的 `pendingCheckinPoi`（必为真实景点 id），并校验 `state.pois` 命中，未选景点时给出明确提示。
+
+### 验证
+- `app.js / render.js / map.js` 通过 `node --check`；`assembleRelease` 构建成功（`-x lint`），内置云后端 `http://47.99.131.169:9100/`、签名 `clearmap2026`。
+- 成品：`dist/ClearMap-cloud-preview-1.04.apk`。
+
 ## [cloud-app-preview-1.03] · 2026-09-16
 
 ### 地图（顺滑 / 景点分层 / 选点详情）

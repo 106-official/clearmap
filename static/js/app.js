@@ -114,10 +114,10 @@
     }
     const ck = e.target.closest("[data-checkin-poi]");
     if (ck) {
-      pendingCheckinPoi = ck.getAttribute("data-checkin-poi");
+      pendingCheckinPoi = ck.getAttribute("data-checkin-poi");   // 自动确定打卡景点（preview-1.04）
+      closePoiPop();                                             // 收起全屏详情页去行程打卡
       showView("plan");
-      renderCheckinSelect();
-      toast("选好景点后，上传照片即可打卡");
+      toast("已选景点，上传照片即可打卡");
       return;
     }
     // 纸飞机：规划前往景点的最省时路线
@@ -277,7 +277,7 @@
   }
 
   function renderCheckinSelect() {
-    render.renderCheckinSelect(document.getElementById("checkinPoi"), state.pois, pendingCheckinPoi);
+    // preview-1.04：打卡地点由地图「在此打卡」自动确定，不再提供景点下拉选择
   }
 
   function loadMbtiRecs() {
@@ -384,20 +384,12 @@
     const img = document.getElementById("checkinFile").files[0];
     if (!img) { toast("请先添加一张照片"); return; }
     if (img.size > 4 * 1024 * 1024) { toast("图片需小于 4MB"); return; }
-    const poiId = document.getElementById("checkinPoi").value;
-    const caption = document.getElementById("checkinCaption").value.trim();
+    // 景点由地图「在此打卡」自动确定，无需手动选择（preview-1.04）
+    const poiId = pendingCheckinPoi;
     const poi = state.pois.find((p) => p.id === poiId);
-    if (poi) {
-      submitCheckin(img, poi.lat, poi.lon, poiId, caption);
-    } else if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => submitCheckin(img, pos.coords.latitude, pos.coords.longitude, "", caption),
-        () => toast("无法获取位置，请关联一个景点后打卡"),
-        { timeout: 8000, maximumAge: 30000 }
-      );
-    } else {
-      toast("无法获取位置，请关联一个景点后打卡");
-    }
+    if (!poi) { toast("请先在地图点开景点选择「在此打卡」"); return; }
+    const caption = document.getElementById("checkinCaption").value.trim();
+    submitCheckin(img, poi.lat, poi.lon, poiId, caption);
   }
 
   // ---- 路线记录（实时 GPS，失败降级点选）----
