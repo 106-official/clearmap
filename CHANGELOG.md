@@ -2,6 +2,28 @@
 
 记录每次功能迭代的详细内容。格式遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.05 二次修复] · 2026-09-17（不升级版本号，覆盖 ClearMap-cloud-preview-1.05）
+
+### 界面
+
+- **地图城市选择器重构为自定义动效控件**：将左上角原生 `<select>`（长沙/上海/北京）替换为「胶囊按钮 + 展开列表」样式，贴合纸墨/河绿设计语言：
+  - 胶囊：河绿圆点 + 城市名 + 可旋转箭头，hover 徽标变色浮起；
+  - 展开列表：半透明毛玻璃、纸色底、带 `cityIn` 入场动画（淡入 + 位移 + 缩放）、选中项高亮，点击外部自动收起。
+- **地图缩放/定位按钮不再被底栏遮挡**：`.map-controls` 在固定底栏与安全区之上抬升（`bottom: calc(116px + env(safe-area-inset-bottom))`），最下方按钮（定位）完整可见。
+
+### 修复
+
+- **POI 景点图显示「The Image is generating…」占位**：部分景点 `images` 里的 `src` 指向 AI 生成占位地址（`trae-api-cn.mchost.guru/.../text_to_image?...`），无法渲染为真实图片，被内部提示文案占位。已从全部 POI 数据（前端 `static/pois*.json` 离线包 + 后端 `data/poi/*.json`）移除这类占位项：
+  - 长沙：移除 18 处占位，本地真实图片 234 张保留，地图详情照常显示实景照片；
+  - 上海 / 北京：移除 30 / 28 处占位（该两城未捆绑本地大图，移除后对应景点不再显示图集，避免坏占位）。
+- **头像显示链路复查**：逐项核对上传→落盘→回读→`avatarUrl()` 拼接→`renderProfile`/`renderFeed` 渲染，代码逻辑无误；根因仍是旧 APK 未含修复，本次经 `cap sync` + 注入云后端重建，确保进入安装包。
+
+### 核验
+
+- `app.js / render.js / store.js` 通过 `node --check`。
+- 4 份 POI JSON 过滤后移除数量核验：长沙 18、上海 30、北京 28。
+- 成品：`dist/ClearMap-cloud-preview-1.05.apk`（覆盖同名文件，内置云后端 `http://47.99.131.169:9100/`，签名 `clearmap2026`，证书 SHA-256 `e0a3fbbc…`）。
+
 ## [cloud-app-preview-1.05] · 2026-09-17
 
 ### 界面

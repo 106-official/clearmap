@@ -40,13 +40,18 @@
           <button class="map-btn" data-zoom="reset" aria-label="重置视图">⟲</button>
           <button class="map-btn" id="mapLocate" aria-label="定位到我的位置" title="定位到我的位置">◎</button>
         </div>
-        <!-- 城市选择器：固定在左上角（preview-1.05） -->
-        <div class="map-citywrap">
-          <select class="map-city" id="mapCity" aria-label="切换城市">
-            <option value="changsha">长沙</option>
-            <option value="shanghai">上海</option>
-            <option value="beijing">北京</option>
-          </select>
+        <!-- 城市选择器：左上角固定，自定义胶囊 + 展开动效（preview-1.05-fix） -->
+        <div class="map-citywrap" id="mapCityWrap">
+          <button class="map-city-btn" id="mapCityBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+            <span class="map-city-dot" aria-hidden="true"></span>
+            <span class="map-city-name" id="mapCityName">长沙</span>
+            <span class="map-city-caret" aria-hidden="true">⌵</span>
+          </button>
+          <ul class="map-city-list" id="mapCityList" role="listbox" hidden>
+            <li class="map-city-item" role="option" data-city="changsha">长沙</li>
+            <li class="map-city-item" role="option" data-city="shanghai">上海</li>
+            <li class="map-city-item" role="option" data-city="beijing">北京</li>
+          </ul>
         </div>
       </div>
 

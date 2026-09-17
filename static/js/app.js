@@ -770,32 +770,64 @@
       }
     });
 
-    // 切换城市底图
-    const citySel = document.getElementById("mapCity");
-    if (citySel) {
-      citySel.value = map.getCity();
-      citySel.addEventListener("change", () => {
-        const c = citySel.value;
-        setActiveCity(c);
-        map.setCity(c);
-        state.selected = null;
-        closePoiPop();
-        refreshAffinities();          // 各城市都加载对应 POI（接口 / 离线包）
-        const cap = {
-          changsha: "从河心洲与千年书院，到夜色不熄的街巷 —— 点一粒光，看它的模样。",
-          shanghai: "外滩灯火与弄堂晨光之间 —— 摩登与市井，都在这城漫游。",
-          beijing:  "皇城根下的胡同与高楼 —— 千年古都，任你穿行。",
-        };
-        const capEl = document.getElementById("mapCaption");
-        if (capEl && cap[c]) capEl.textContent = cap[c];
-        const kickEl = document.getElementById("cityKicker");
-        const kicker = {
-          changsha: "长沙 · 湘江边的山水之城",
-          shanghai: "上海 · 黄浦江畔的摩登之城",
-          beijing:  "北京 · 皇城根下的千年古都",
-        };
-        if (kickEl && kicker[c]) kickEl.textContent = kicker[c];
+    // 切换城市底图（自定义选择器：胶囊 + 展开动效，preview-1.05-fix）
+    const cityWrap = document.getElementById("mapCityWrap");
+    const cityBtn = document.getElementById("mapCityBtn");
+    const cityList = document.getElementById("mapCityList");
+    const cityName = document.getElementById("mapCityName");
+    const cityMeta = { changsha: "长沙", shanghai: "上海", beijing: "北京" };
+    function syncCityUI(c) {
+      cityName.textContent = cityMeta[c] || c;
+      if (cityList) cityList.querySelectorAll(".map-city-item").forEach((li) => {
+        li.classList.toggle("is-active", li.getAttribute("data-city") === c);
       });
+    }
+    function closeCityList() {
+      if (cityWrap) cityWrap.classList.remove("is-open");
+      if (cityList) cityList.hidden = true;
+      if (cityBtn) cityBtn.setAttribute("aria-expanded", "false");
+    }
+    function applyCity(c) {
+      c = cityMeta[c] ? c : "changsha";
+      setActiveCity(c);
+      map.setCity(c);
+      state.selected = null;
+      closePoiPop();
+      refreshAffinities();          // 各城市都加载对应 POI（接口 / 离线包）
+      const cap = {
+        changsha: "从河心洲与千年书院，到夜色不熄的街巷 —— 点一粒光，看它的模样。",
+        shanghai: "外滩灯火与弄堂晨光之间 —— 摩登与市井，都在这城漫游。",
+        beijing:  "皇城根下的胡同与高楼 —— 千年古都，任你穿行。",
+      };
+      const capEl = document.getElementById("mapCaption");
+      if (capEl && cap[c]) capEl.textContent = cap[c];
+      const kickEl = document.getElementById("cityKicker");
+      const kicker = {
+        changsha: "长沙 · 湘江边的山水之城",
+        shanghai: "上海 · 黄浦江畔的摩登之城",
+        beijing:  "北京 · 皇城根下的千年古都",
+      };
+      if (kickEl && kicker[c]) kickEl.textContent = kicker[c];
+      syncCityUI(c);
+      closeCityList();
+    }
+    if (cityBtn && cityWrap) {
+      syncCityUI(map.getCity());
+      cityBtn.addEventListener("click", (ev) => {
+        ev.stopPropagation();
+        const open = cityWrap.classList.toggle("is-open");
+        if (cityList) cityList.hidden = !open;
+        cityBtn.setAttribute("aria-expanded", String(open));
+      });
+      if (cityList) {
+        cityList.addEventListener("click", (e) => {
+          const li = e.target.closest(".map-city-item");
+          if (li) applyCity(li.getAttribute("data-city"));
+        });
+        document.addEventListener("click", (e) => {
+          if (!cityWrap.contains(e.target)) closeCityList();
+        });
+      }
     }
 
     // 定位到我的位置（requirement #4：访问设备位置方便实时定位）
