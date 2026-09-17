@@ -295,13 +295,49 @@
     }).catch((e) => { console.error("saveMbti fail:", e); toast("MBTI 保存失败：请检查网络"); });
   }
 
+  // ---- 图片压缩（相机原图常超 4MB；后端 1MB 请求体上限，需先压到远小于它）----
+  function compressImage(file, maxW) {
+    return new Promise(function (resolve, reject) {
+      // 小图 / GIF / SVG：原样读取，避免画质与动画损失
+      if (file.size <= 600 * 1024 || file.type === "image/gif" || /^image\/svg/.test(file.type)) {
+        var fr = new FileReader();
+        fr.onerror = reject;
+        fr.onload = function () { resolve(fr.result); };
+        fr.readAsDataURL(file);
+        return;
+      }
+      var img = new Image();
+      var url = URL.createObjectURL(file);
+      img.onload = function () {
+        try {
+          var w = img.naturalWidth || 0, h = img.naturalHeight || 0;
+          if (!w || !h) throw new Error("img");
+          var scale = w > maxW ? maxW / w : 1;
+          w = Math.round(w * scale); h = Math.round(h * scale);
+          var c = document.createElement("canvas");
+          c.width = w; c.height = h;
+          var ctx = c.getContext("2d");
+          ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, w, h);
+          ctx.drawImage(img, 0, 0, w, h);
+          URL.revokeObjectURL(url);
+          var q = 0.78, out = c.toDataURL("image/jpeg", q);
+          // base64 膨胀 ≈1.33x，控在 0.9MB 内以兼容后端 1MB 请求体上限
+          while (out.length > 0.9 * 1024 * 1024 && q > 0.3) {
+            q -= 0.15; out = c.toDataURL("image/jpeg", q);
+          }
+          resolve(out);
+        } catch (e) { try { URL.revokeObjectURL(url); } catch (_) {} reject(e); }
+      };
+      img.onerror = function () { try { URL.revokeObjectURL(url); } catch (_) {} reject(new Error("imgLoad")); };
+      img.src = url;
+    });
+  }
+
   // ---- 头像 / 资料 ----
   function uploadAvatar(file) {
     if (!file) return;
-    if (file.size > 4 * 1024 * 1024) { toast("图片需小于 4MB"); return; }
-    const fr = new FileReader();
-    fr.onload = () => {
-      api.uploadAvatar(fr.result).then((r) => {
+    compressImage(file, 512).then((dataUrl) => {
+      api.uploadAvatar(dataUrl).then((r) => {
         if (r.ok) {
           state.me.avatar = r.avatar;
           render.renderProfile(state.me);
@@ -310,8 +346,7 @@
           toast(r.error || "头像保存失败");
         }
       }).catch((e) => { console.error("avatar fail:", e); toast("头像上传失败：请检查网络"); });
-    };
-    fr.readAsDataURL(file);
+    }).catch((e) => { console.error("compress avatar fail:", e); toast("头像图片处理失败"); });
   }
 
   function saveMe() {
@@ -332,9 +367,8 @@
 
   // ---- 打卡 ----
   function submitCheckin(img, lat, lon, poiId, caption) {
-    const fr = new FileReader();
-    fr.onload = () => {
-      api.addCheckin({ img: fr.result, lat, lon, poi_id: poiId, caption }).then((r) => {
+    compressImage(img, 1600).then((dataUrl) => {
+      api.addCheckin({ img: dataUrl, lat, lon, poi_id: poiId, caption }).then((r) => {
         if (r.ok) {
           toast("打卡已记录");
           document.getElementById("checkinFile").value = "";
@@ -349,15 +383,14 @@
           toast(r.error || "打卡失败");
         }
       });
-    };
-    fr.readAsDataURL(img);
+    }).catch((e) => { console.error("compress checkin fail:", e); toast("打卡图片处理失败"); });
   }
 
   function onCheckinSubmit(e) {
     e.preventDefault();
     const img = document.getElementById("checkinFile").files[0];
     if (!img) { toast("请先添加一张照片"); return; }
-    if (img.size > 4 * 1024 * 1024) { toast("图片需小于 4MB"); return; }
+    // 图片先经 canvas 压缩再上传，相机大图不再受 4MB 硬拒
     // 景点由地图「在此打卡」自动确定，无需手动选择（preview-1.04）
     const poiId = pendingCheckinPoi;
     const poi = state.pois.find((p) => p.id === poiId);
@@ -488,20 +521,18 @@
 
   // ---- 随笔发布（文字 + 可选相册配图，最多 6 张）----
   const ESSAY_IMG_MAX = 6;
-  const ESSAY_IMG_MAX_BYTES = 4 * 1024 * 1024;
   let essayImgs = [];   // 待发布的图片 dataURL
   function addEssayImgs(files) {
     const box = document.getElementById("essayImgs");
     for (const f of files) {
       if (essayImgs.length >= ESSAY_IMG_MAX) { toast("最多上传 " + ESSAY_IMG_MAX + " 张图"); break; }
       if (!f.type || f.type.indexOf("image/") !== 0) { toast("只能选图片"); continue; }
-      if (f.size > ESSAY_IMG_MAX_BYTES) { toast("单张图片需小于 4MB"); continue; }
-      const fr = new FileReader();
-      fr.onload = () => {
-        essayImgs.push(fr.result);
+      // 相机大图先压缩再入队，不再受 4MB 硬拒
+      compressImage(f, 1600).then((dataUrl) => {
+        if (essayImgs.length >= ESSAY_IMG_MAX) return;
+        essayImgs.push(dataUrl);
         renderEssayImgs();
-      };
-      fr.readAsDataURL(f);
+      }).catch(() => toast("图片处理失败"));
       void box;
     }
   }
