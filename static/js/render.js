@@ -155,13 +155,11 @@
     const avatar = document.getElementById("avatarImg");
     const ph = document.getElementById("avatarPh");
     if (me.avatar) {
-      const src = avatarUrl(me.avatar);
-      avatar.src = src;
-      avatar.hidden = false;
+      // 走 fetch→Blob 通道取头像，避免 <img> 直连 http 偶发失败（preview-1.05-fix）
+      loadRemoteImg(avatar, avatarUrl(me.avatar), () => {
+        if (avatar) { avatar.hidden = true; if (ph) ph.hidden = false; }
+      });
       ph.hidden = true;
-      avatar.onerror = () => {             // 图片加载失败时回退到默认剪影，避免损坏框
-        if (avatar) { avatar.hidden = true; ph.hidden = false; }
-      };
     } else {
       avatar.hidden = true;
       ph.hidden = false;
@@ -401,7 +399,7 @@
     const cards = items.map((e) => {
       const mine = e.author_id === myId;
       const av = e.avatar
-        ? '<img class="feed-av" src="' + escapeHTML(avatarUrl(e.avatar)) + '" alt="">'
+        ? '<img class="feed-av" data-src="' + escapeHTML(avatarUrl(e.avatar)) + '" alt="">'
         : '<span class="feed-av feed-av--ph">' + escapeHTML((e.author || "旅").slice(0, 1)) + "</span>";
       const imgs = (e.imgs || []).map((src) =>
         '<img class="es-photo" src="' + escapeHTML(avatarUrl(src)) + '" alt="随笔配图" loading="lazy">').join("");
@@ -416,6 +414,15 @@
         "</article>";
     }).join("");
     listEl.innerHTML = cards;
+    // 发现流头像同样走 fetch→Blob 通道（preview-1.05-fix）
+    listEl.querySelectorAll("img.feed-av[data-src]").forEach((el) => {
+      loadRemoteImg(el, el.getAttribute("data-src"), () => {
+        const ph = document.createElement("span");
+        ph.className = "feed-av feed-av--ph";
+        ph.textContent = "旅";
+        el.replaceWith(ph);
+      });
+    });
   }
 
   // —— 工具 ——
@@ -436,6 +443,23 @@
   }
   function escapeHTML(s) {
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  /* 网络图片加载（preview-1.05-fix）：改用 fetch→Blob→对象URL 填充 <img>，
+     与上传接口走同一已验证的网络通道，规避 WebView 直接加载 http 图片偶发失败的问题；
+     失败时交给 onFail 回退（如显示默认剪影）。 */
+  function loadRemoteImg(el, url, onFail) {
+    if (!el || !url) { if (onFail) onFail(); return; }
+    if (/^data:/i.test(url)) { el.src = url; if (el.hidden) el.hidden = false; return; }
+    fetch(url, { cache: "no-cache" }).then((r) => {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.blob();
+    }).then((b) => {
+      const obj = URL.createObjectURL(b);
+      el.src = obj;
+      if (el.hidden) el.hidden = false;
+      el.onerror = () => { URL.revokeObjectURL(obj); if (onFail) onFail(); };
+    }).catch(() => { if (onFail) onFail(); });
   }
 
   window.ClearMap.render = {

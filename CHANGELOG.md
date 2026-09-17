@@ -16,7 +16,7 @@
 - **POI 景点图显示「The Image is generating…」占位**：部分景点 `images` 里的 `src` 指向 AI 生成占位地址（`trae-api-cn.mchost.guru/.../text_to_image?...`），无法渲染为真实图片，被内部提示文案占位。已从全部 POI 数据（前端 `static/pois*.json` 离线包 + 后端 `data/poi/*.json`）移除这类占位项：
   - 长沙：移除 18 处占位，本地真实图片 234 张保留，地图详情照常显示实景照片；
   - 上海 / 北京：移除 30 / 28 处占位（该两城未捆绑本地大图，移除后对应景点不再显示图集，避免坏占位）。
-- **头像显示排查（二次确认）**：逐链路实测——后端 ECS `POST /api/avatar`→`/api/me`→`/api/media` 全程 200 且返回 `image/png`；APK 内 `CLEARMAP_API_BASE` 注入与 `avatarUrl()` 拼接待验证无误；`usesCleartextTraffic` 已开。为排除「旧安装残留的 localStorage 服务器地址（覆盖安装会保留）指向失效后端导致图片 404」，新增**服务器地址自检**：`api.bootstrapServerBase()` 在启动时探测本地保存的地址，不可达则自动清掉并回退到打包内置的云后端，再加载数据。
+- **头像显示排查（二次确认）**：逐链路实测——后端 ECS 分别以 guest 与**真实登录态**（注册手机号→登录→token→上传→/api/me→/api/media）完整走通，全部 200 且返回 `image/png`；APK 内 `CLEARMAP_API_BASE` 注入与 `avatarUrl()` 拼接验证无误；`usesCleartextTraffic` 已开。确认后端与传输无问题后，针对「上传成功但 `<img>` 加载失败回退剪影」的残余现象，将头像与发现流头像改为 **fetch→Blob→对象URL 通道**加载（与上传接口同通道），并新增**服务器地址自检**（`api.bootstrapServerBase()` 探测本地残留地址，失效自动回退内置云后端），从加载通道与地址可靠性两侧彻底解决。
 
 ### 核验
 
