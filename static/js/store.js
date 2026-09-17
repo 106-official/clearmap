@@ -64,14 +64,10 @@
     async authMe() { return this._get("/api/auth/me?"); },
 
     /* ---- 其余资源（认证采用 token 或退回 guest）---- */
-    async meta() { return this._get("/api/meta?"); },
     /* 健康检查（用于“服务器设置”测连接） */
     async health() { return this._get("/api/health?"); },
     async pois(city) {
       return this._get("/api/pois?" + (city ? "city=" + encodeURIComponent(city) + "&" : ""));
-    },
-    async itinerary(budget, city) {
-      return this._get(`/api/itinerary/${budget}?` + (city ? "city=" + encodeURIComponent(city) + "&" : ""));
     },
     async profile() { return this._get("/api/profile?"); },
     async me() { return this._get("/api/me?"); },
@@ -79,12 +75,6 @@
       return this._get("/api/mbti-recs?" + (city ? "city=" + encodeURIComponent(city) + "&" : ""));
     },
 
-    async saveProfile(profile) {
-      return this.post("/api/profile?", { profile });
-    },
-    async savePlan(plan) {
-      return this.post("/api/plan?", plan);
-    },
     async toggleFavorite(poiId) {
       return this.post("/api/favorite/" + poiId + "?", {});
     },
@@ -103,7 +93,6 @@
     async routePlan(body) {
       return this.post("/api/route-plan?", body);
     },
-    async transit() { return this._get("/api/transit?"); },
     async deleteCheckin(id) { return this._del("/api/checkin/" + id + "?"); },
     async deleteRoute(id) { return this._del("/api/route/" + id + "?"); },
 

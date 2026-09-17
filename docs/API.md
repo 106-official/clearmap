@@ -16,7 +16,7 @@
 服务端 `resolve(token)` 校验会话；失效/过期自动回退为游客 `guest`，不报错。
 
 ### 哪些接口"无需身份"（不认 token/user）
-`POST /api/sms`、`POST /api/auth/login`、`POST /api/auth/logout`（token 在 body）、`GET /api/auth/me`、`GET /api/health`、`GET /api/meta`。
+`POST /api/sms`、`POST /api/auth/login`、`POST /api/auth/logout`（token 在 body）、`GET /api/auth/me`、`GET /api/health`。
 
 ## 认证接口
 
@@ -74,32 +74,16 @@
 ```
 「服务器设置」用它检测后端连通性。
 
-### GET `/api/meta?`
-```json
-{ "ok": true, "city": "长沙", "city_en": "Changsha", "axes": {...}, "budgets": {...}, "poi_count": 50 }
-```
-
 ### GET `/api/pois?city=changsha&`
 返回按偏好与 MBTI 排序的景点（含地理坐标 `x/y` 为 Web Mercator 局部坐标）。
 ```json
 { "ok": true, "pois": [ { "id": "...", "name": "...", "district": "", "type": "", "tags": [], "duration_min": 60, "desc": "", "x": ..., "y": ..., "lat": ..., "lon": ..., "affinity": 0.9, "mbti_affinity": null, "style": [], "hours": {}, "ticket": "", "images": [] } ] }
 ```
 
-### GET `/api/recommend?city=&limit=`
-```json
-{ "ok": true, "recommended": [ { "poi": { "id","name","district","type","x","y" }, "affinity": 0.9 } ] }
-```
-
-### GET `/api/itinerary/{budget}?city=`
-`budget ∈ quick|full|relax`。返回贪心行程：站点顺序、总时长、途经坐标。
-
 ### GET `/api/profile?`
 ```json
 { "ok": true, "profile": { "nature": 3, "culture": 3, ... }, "favorites": [], "plans": [] }
 ```
-
-### POST `/api/profile?`
-更新偏好标尺。请求体：`{ "profile": { "nature": 5, ... } }`
 
 ### GET `/api/me?`
 个人中心聚合：资料、偏好、收藏、行程、打卡、路线。
@@ -124,19 +108,11 @@
 
 ### DELETE `/api/route/{id}?`
 
-### POST `/api/plan?`
-保存行程。请求体：`{ "title": "", "budget": "full", "items": [ { "id","name","district" } ] }`
-
 ### POST `/api/favorite/{poi_id}?`
 切换收藏。响应：`{ "ok": true, "action": "added"|"removed", "favorites": [...] }`
 
 ### GET `/api/mbti-recs?city=&limit=`
 未认证 MBTI 时返回空 `recommended`；已认证返回风格推荐。
-
-### GET `/api/transit?`
-```json
-{ "ok": true, "available": true, "stats": { "stations": 0, "lines": 0, "edges": 0 } }
-```
 
 ### POST `/api/route-plan?`
 换乘路线规划（公交/地铁）。请求体：

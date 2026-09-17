@@ -259,7 +259,7 @@
     }
     const ck = (checkins || []).slice().reverse().map(function (c) {
       const img = c.img
-        ? '<img class="stamp-photo" src="' + escapeHTML(c.img) + '" alt="打卡照片" loading="lazy">'
+        ? '<img class="stamp-photo" src="' + escapeHTML(avatarUrl(c.img)) + '" alt="打卡照片" loading="lazy">'
         : '<div class="stamp-photo stamp-photo--none">📷</div>';
       const poi = c.poi_name ? '<span class="stamp-poi">@' + escapeHTML(c.poi_name) + "</span>" : "";
       return '<figure class="stamp-card">' + img +

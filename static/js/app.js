@@ -4,8 +4,6 @@
 
   const { api, AXES, state, toast, render, map } = window.ClearMap;
 
-  let currentItinerary = null;
-  let currentBudget = "full";
   let pendingCheckinPoi = "";
 
   /* 当前城市（地图底图 / POI / 行程均随之切换） */
@@ -176,30 +174,6 @@
     renderMap();
     renderSideNow();
     renderCheckinSelect();
-  }
-
-  // ---- 行程 ----
-  function generateItinerary() {
-    api.itinerary(currentBudget, cityActive()).then((r) => {
-      if (r.ok) {
-        currentItinerary = r;
-        render.renderItinerary(document.getElementById("planPanel"), r);
-        document.getElementById("savePlanBtn").disabled = !r.items.length;
-      }
-    });
-  }
-
-  function savePlan() {
-    if (!currentItinerary || !currentItinerary.items.length) return;
-    const items = currentItinerary.items.map((it) => ({
-      id: it.poi.id, name: it.poi.name, district: it.poi.district,
-    }));
-    api.savePlan({ title: "我的行程 · " + todayText(), budget: currentBudget, items }).then((r) => {
-      if (r.ok) {
-        toast("行程已存进本地");
-        loadProfile();
-      }
-    });
   }
 
   function loadProfile() {

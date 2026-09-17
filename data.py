@@ -107,15 +107,6 @@ def save_user(user_id, user):
         pass
 
 
-def update_profile(user_id, profile):
-    user = ensure_user(user_id)
-    merged = dict(config.DEFAULT_PROFILE)
-    merged.update({k: int(v) for k, v in (profile or {}).items() if k in config.PREFERENCE_AXES})
-    user["profile"] = merged
-    save_user(user_id, user)
-    return user
-
-
 def toggle_favorite(user_id, poi_id):
     user = ensure_user(user_id)
     favs = user.get("favorites", [])
@@ -128,17 +119,6 @@ def toggle_favorite(user_id, poi_id):
     user["favorites"] = favs
     save_user(user_id, user)
     return user, action
-
-
-def add_plan(user_id, plan):
-    """保存一段行程到用户数据。plan 为 dict，补充 id 与时间戳。"""
-    user = ensure_user(user_id)
-    plan = dict(plan)
-    plan["id"] = uuid.uuid4().hex[:10]
-    plan["saved_at"] = int(time.time())
-    user.setdefault("plans", []).append(plan)
-    save_user(user_id, user)
-    return plan
 
 
 # ---- 个人资料 / 打卡 / 路线 / MBTI ----

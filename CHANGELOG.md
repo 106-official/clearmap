@@ -2,6 +2,28 @@
 
 记录每次功能迭代的详细内容。格式遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.04 修复] · 2026-09-17（不升级版本号，覆盖 cloud-app-preview-1.04）
+
+### 修复
+
+- **行程「相册/邮戳」打卡照片仍不显示**：`renderAlbum` 的打卡照片 `c.img` 由后端返回 `/api/media?...` 相对路径，之前未拼 `API_BASE` 导致 WebView 相对本地资源 404。已改经 `avatarUrl()` 统一补全，行程相册/邮戳卡片照片恢复显示；随笔配图、发现流他人配图与头像沿用同一归一化逻辑，一并确认可用。
+
+### 精简
+
+- **后端无用代码整理**：按「前端已不再调用」为据审慎清理已死的端点与函数——
+  - `api.py`：移除 `GET /api/meta`、`GET /api/recommend`、`GET /api/itinerary/{budget}`、`GET /api/transit`、`POST /api/profile`、`POST /api/plan` 六条路由及其函数 `meta / recommend_api / itinerary / save_plan / update_profile / transit_meta`；`GET /api/profile`（读偏好）、`POST /api/route-plan`、`/api/essay`、`/api/feed` 等仍被前端使用的接口原样保留。
+  - `data.py`：删除仅为上述死接口服务的 `update_profile`、`add_plan`。
+  - `store.js`：删除无调用的 `meta / itinerary / savePlan / saveProfile / transit` 方法（保留 `profile` 读、`me`、`health`、`auth`、`essay`、`feed` 等）。
+  - `app.js`：删除死函数 `generateItinerary` / `savePlan` 及闲置变量 `currentItinerary` / `currentBudget`；保留仍在用的 `loadProfile`。
+
+### 核验（无损害）
+
+- `api.py`、`data.py` 通过 `python -m py_compile`；`tests/selftest.py` 已同步移除对已删端点的用例（改为断言 404）、token 鉴权改测存活接口，整跑 `ALL GREEN — 验收通过`。
+- `store.js / app.js / render.js / map.js` 通过 `node --check`；全库检索确认已删端点/函数无残留引用。
+- `docs/API.md`、`README.md` 接口速查表同步移除已删端点。
+- `assembleRelease`（`-x lint`）构建成功，内置云后端 `http://47.99.131.169:9100/`、签名 `clearmap2026`。
+- 成品：`dist/ClearMap-cloud-preview-1.04.apk`（覆盖旧 1.04，版本号不变）。
+
 ## [cloud-app-preview-1.04] · 2026-09-16
 
 ### 修复

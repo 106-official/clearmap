@@ -44,13 +44,6 @@ def _path_id(segments, idx):
 
 # ---- 各接口 ----------------------------------------------------------------
 
-def meta():
-    return {"ok": True, "city": "长沙", "city_en": "Changsha",
-            "axes": config.PREFERENCE_AXES,
-            "budgets": {k: f"{v} 小时" for k, v in config.ITINERARY_BUDGETS.items()},
-            "poi_count": len(data.load_pois())}
-
-
 def pois(user_id="guest", city="changsha"):
     user = data.ensure_user(user_id)
     profile = user.get("profile", {})
@@ -74,47 +67,11 @@ def pois(user_id="guest", city="changsha"):
     return {"ok": True, "pois": out}
 
 
-def recommend_api(user_id="guest", limit=None, city="changsha"):
-    profile = data.ensure_user(user_id).get("profile", {})
-    sc = recommend.recommend(profile, limit=limit, city=city)
-    return {"ok": True, "recommended": [
-        {"poi": {k: r["poi"][k] for k in ("id", "name", "district", "type", "x", "y")},
-         "affinity": r["affinity"]} for r in sc]}
-
-
-def itinerary(user_id="guest", budget="full", city="changsha"):
-    profile = data.ensure_user(user_id).get("profile", {})
-    it = recommend.build_itinerary(profile, budget_key=budget, city=city)
-    return {"ok": True, **it}
-
-
-def save_plan(user_id, body):
-    items = body.get("items", [])
-    if not isinstance(items, list) or not items:
-        raise ApiError("行程为空")
-    # 保留每个站点的 {id, name, district, ...}，丢弃无 id 的杂项
-    items = [dict(i) for i in items if isinstance(i, dict) and i.get("id")]
-    if not items:
-        raise ApiError("行程站点缺少 ID")
-    plan = {
-        "title": str(body.get("title", "我的行程")).strip()[:60] or "我的行程",
-        "budget": body.get("budget", "full"),
-        "items": items,
-    }
-    created = data.add_plan(user_id, plan)
-    return {"ok": True, "plan": created}
-
-
 def get_profile(user_id):
     user = data.ensure_user(user_id)
     return {"ok": True, "profile": user["profile"],
             "favorites": user.get("favorites", []),
             "plans": user.get("plans", [])}
-
-
-def update_profile(user_id, body):
-    user = data.update_profile(user_id, body.get("profile"))
-    return {"ok": True, "profile": user["profile"]}
 
 
 def favorite(user_id, poi_id):
@@ -307,10 +264,6 @@ def route_plan(user_id, body):
             "legs": result["legs"], "coords": result["coords"]}
 
 
-def transit_meta():
-    return {"ok": True, "available": route_mod.available(), "stats": route_mod.stats()}
-
-
 # ---- 认证 / 账号 ------------------------------------------------------------
 
 def send_code(phone):
@@ -404,13 +357,8 @@ def route(method, path, body_raw=None, query=None):
         if method == "GET":
             if path == "/api/health":
                 return 200, {"ok": True, "status": "up"}
-            if path == "/api/meta":
-                return 200, meta()
             if path == "/api/pois":
                 return 200, pois(query_id(query), _query_city(query))
-            if path.startswith("/api/recommend"):
-                return 200, recommend_api(query_id(query),
-                                          limit=_query_int(query, "limit"), city=_query_city(query))
             if path == "/api/profile":
                 return 200, get_profile(query_id(query))
             if path == "/api/me":
@@ -419,21 +367,13 @@ def route(method, path, body_raw=None, query=None):
                 return 200, mbti_recommendations(query_id(query),
                                                  limit=_query_int(query, "limit") or 6,
                                                  city=_query_city(query))
-            if path == "/api/transit":
-                return 200, transit_meta()
             if path == "/api/feed":
                 return 200, discover_feed(query_id(query), _query_int(query, "limit") or 30)
             if path == "/api/auth/me":
                 return auth_me(query)
-            if path.startswith("/api/itinerary"):
-                seg = path.split("/")  # /api/itinerary[/{budget}]
-                budget = seg[3] if len(seg) > 3 and seg[3] in config.ITINERARY_BUDGETS else "full"
-                return 200, itinerary(query_id(query), budget, _query_city(query))
 
         elif method == "POST":
             body = _json_body(body_raw)
-            if path == "/api/profile":
-                return 200, update_profile(query_id(query), body)
             if path == "/api/me":
                 return 200, update_me(query_id(query), body)
             if path == "/api/avatar":
@@ -442,8 +382,6 @@ def route(method, path, body_raw=None, query=None):
                 return 200, add_checkin(query_id(query), body)
             if path == "/api/route":
                 return 200, add_route(query_id(query), body)
-            if path == "/api/plan":
-                return 200, save_plan(query_id(query), body)
             if path.startswith("/api/favorite/"):
                 seg = path.split("/")[3:]
                 return 200, favorite(query_id(query), _path_id(seg, 0))

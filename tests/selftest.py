@@ -48,28 +48,23 @@ def call(m, p, body=None, q=None):
     return c, d
 
 c,d = call("GET","/api/health"); check("GET /api/health", c==200 and d.get("status")=="up")
-c,d = call("GET","/api/meta"); check("GET /api/meta 城市长沙", c==200 and d.get("city")=="长沙")
 c,d = call("GET","/api/pois"); check("GET /api/pois 返回点", c==200 and len(d.get("pois",[]))>=1, len(d.get("pois",[])))
 c,d = call("GET","/api/pois")
 ap = d.get("pois",[{}])[0]
 check("GET /api/pois 含真实经纬度", c==200 and isinstance(ap.get("lat"),(int,float)) and isinstance(ap.get("lon"),(int,float)), (ap.get("id"), ap.get("lat"), ap.get("lon")))
-c,d = call("GET","/api/itinerary/full"); check("GET /api/itinerary/full", c==200 and d["ok"] and len(d["items"])>=1)
 c,d = call("GET","/api/profile"); check("GET /api/profile 默认档案", c==200 and d["ok"] and len(d["profile"])==7)
-c,d = call("POST","/api/profile",body='{"profile":{"nature":5,"log":"x"}}'); check("POST /api/profile 过滤非法键", c==200 and "log" not in d["profile"])
-# 持久性：写入后能读回（query 与 path 分离，遵从真实 HTTP urlparse 行为）
-c,d = call("GET","/api/profile",q="user=test"); check("读回自定义用户", c==200 and d["ok"])
-c,d = call("POST","/api/profile",body='{"profile":{"food":5}}',q="user=test"); check("写自定义用户", c==200 and d["profile"]["food"]==5)
-c,d = call("GET","/api/profile",q="user=test"); check("自定义用户已持久化", c==200 and d["profile"]["food"]==5)
+# 已移除旧端点：应返回 404，避免前端报错路径被静默吞掉
+c,d = call("GET","/api/meta"); check("GET /api/meta 已移除 -> 404", c==404)
+c,d = call("GET","/api/itinerary/full"); check("GET /api/itinerary 已移除 -> 404", c==404)
+c,d = call("GET","/api/transit"); check("GET /api/transit 已移除 -> 404", c==404)
+c,d = call("POST","/api/profile",body='{"profile":{"nature":5}}'); check("POST /api/profile 已移除 -> 404", c==404)
+c,d = call("POST","/api/plan",body='{"title":"测试行程","budget":"full","items":[{"id":"x"}]}'); check("POST /api/plan 已移除 -> 404", c==404)
 pid = pois[0]["id"]
 c,d = call("POST","/api/favorite/"+pid, body="{}", q="user=test"); check("收藏写入", c==200 and d["action"]=="added")
 c,d = call("POST","/api/favorite/"+pid, body="{}", q="user=test"); check("重复收藏返回removed", c==200 and d["action"]=="removed")
-c,d = call("POST","/api/plan",body='{"title":"测试行程","budget":"full","items":[{"id":"x"},{"id":"y"}]}',q="user=test"); check("保存行程", c==200 and d["ok"] and d["plan"].get("id"))
-c,d = call("GET","/api/profile",q="user=test"); check("行程已入档", c==200 and len(d["plans"])>=1)
-c,d = call("POST","/api/plan", body="{bad json", q="user=test"); check("坏 JSON -> 400", c==400)
 c,d = call("GET","/api/nope"); check("未知路由 -> 404", c==404)
 
 print("== 换乘路线（公交/地铁）==")
-c,d = call("GET","/api/transit"); check("GET /api/transit 可用", c==200 and d.get("available")==True, d.get("stats"))
 import route
 check("换乘数据：地铁可用", route.available() and route.stats().get("subway_lines",0)>=1, route.stats())
 check("换乘数据：公交可用", route.stats().get("bus_lines",0)>=1, route.stats())
@@ -97,8 +92,8 @@ check("session 绑定手机号", c==200 and sess.get("phone")==phone)
 c,d = call("GET","/api/auth/me",q="token="+tok)
 check("token 可解析出登录用户", c==200 and d["ok"] and d["me"]["signed_in"] is True and d["me"]["phone"]==phone)
 # token 鉴权：用 token 访问受保护资源，写入应落在该 user
-c,d = call("POST","/api/profile",body='{"profile":{"nature":5}}',q="token="+tok)
-check("token 鉴权写个人资料", c==200 and d["ok"] and d["profile"]["nature"]==5)
+c,d = call("POST","/api/me",body='{"nickname":"鉴权测试","signature":"x"}',q="token="+tok)
+check("token 鉴权写个人资料", c==200 and d["ok"] and d["me"]["nickname"]=="鉴权测试")
 # 错误验证码
 c,d = call("POST","/api/auth/login",body=json.dumps({"phone":phone,"code":"000000"}))
 check("错误验证码拒绝", c==400 or (c==200 and not d.get("ok")))

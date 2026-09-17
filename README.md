@@ -222,12 +222,8 @@ python tests/selftest.py
 | 方法 | 路径 | 说明 |
 |---|---|---|
 | GET | `/api/health` | 健康检查 |
-| GET | `/api/meta` | 城市元信息 |
 | GET | `/api/pois` | 全部景点（含推荐打分） |
-| GET | `/api/recommend` | 推荐景点 |
-| GET | `/api/itinerary/{budget}` | 行程编排 |
 | GET | `/api/profile` | 用户偏好 |
-| POST | `/api/profile` | 更新偏好 |
 | GET | `/api/me` | 个人资料 |
 | POST | `/api/me` | 更新资料 |
 | POST | `/api/avatar` | 上传头像 |
@@ -235,11 +231,12 @@ python tests/selftest.py
 | DELETE | `/api/checkin/{id}` | 删除打卡 |
 | POST | `/api/route` | 保存 GPS 路线 |
 | DELETE | `/api/route/{id}` | 删除路线 |
-| POST | `/api/plan` | 保存行程 |
 | POST | `/api/favorite/{poi_id}` | 收藏/取消收藏 |
 | GET | `/api/mbti-recs` | MBTI 专属推荐 |
-| GET | `/api/transit` | 公交/地铁数据概况 |
 | POST | `/api/route-plan` | 换乘路线规划 |
+| POST | `/api/essay` | 发布旅游随笔 |
+| DELETE | `/api/essay/{id}` | 删除随笔 |
+| GET | `/api/feed` | 发现流 |
 | POST | `/api/sms` | 发送手机验证码 |
 | POST | `/api/auth/login` | 手机号验证码登录/注册 |
 | POST | `/api/auth/logout` | 退出登录 |
