@@ -42,6 +42,8 @@
 
   var roadBB = {};          // tier -> [ [pathIdx, bbox] ] 惰性 bbox
   var roadCache = {};       // tier -> 解析后的道路数组（含 bbox）
+  var staticBuilt = false;  // 静态底图（区界+水系+主干道）是否已构建
+  var bldCellCache = {};    // cellKey -> 型号化建筑元数据（zoom 不变）
 
   var MIN_S = 0.04, MAX_S = 90;
   var raf = null;
@@ -90,6 +92,11 @@
     activeCity = c;
     dataPromise = null;   // 强制重新装载新城市数据
     initDone = false;     // 走初始化适应
+    // 清空按城市缓存的解析/构建结果，避免跨城市串用
+    roadCache = {};
+    bldCellCache = {};
+    districtCache = null;
+    staticBuilt = false;
     if (svg) {
       loadData().then(function () {
         fitToBox();
@@ -413,16 +420,24 @@
   }
 
   function renderBase() {
-    if (!DATA) return;
+    // 静态底图：区界 + 水系 + 主干道 tier1，仅构建一次后常驻。
+    // 它们都在相机层 .map-view 内，随 CSS transform 走 GPU；平移/缩放期间永不再重建，
+    // 从而把原先“每次越阈都整组重塞 6738 条主干道 + 3536 条水系”的抖动降到零。
+    if (!DATA || staticBuilt) return;
+    staticBuilt = true;
     var baseG = svg.querySelector(".base-layer");
-    var html = "";
+    var parts = [];
     (DATA.districts || []).forEach(function (d) {
-      html += '<path class="map-district" d="' + esc(d.path) + '"></path>';
+      parts.push('<path class="map-district" d="' + esc(d.path) + '"></path>');
     });
     (DATA.water || []).forEach(function (w) {
-      html += '<path class="map-water ' + (w.kind === "river" ? "is-river" : "") + '" d="' + esc(w.path) + '"></path>';
+      parts.push('<path class="map-water ' + (w.kind === "river" ? "is-river" : "") + '" d="' + esc(w.path) + '"></path>');
     });
-    baseG.innerHTML = html;
+    // 主干道整城常驻：任何视野都可见，直接并入静态层（无需 bbox，整城全量）
+    (DATA.roads.tier1 || []).forEach(function (r) {
+      parts.push('<path class="road-t1" d="' + esc(r.path) + '"></path>');
+    });
+    baseG.innerHTML = parts.join("");
   }
 
   function renderRoads() {
@@ -432,10 +447,9 @@
     var html = "";
 
     // LOD 分级（preview-1.02）：默认整城视野只显示最深的干道(road-t1)，
-    // 较浅的颜色(road-t2)与更细分的路(road-t3/t4)需放大到相应尺度才浮现，
-    // 避免初始视野道路堆叠显得杂乱。
+    // 较浅的颜色(road-t2)与更细分的路(road-t3/t4)需放大到相应尺度才浮现。
+    // tier1 已并入静态底图（整城常驻，永不重建）；这里只处理随相机变化的细分路。
     var tiers = [
-      { t: "tier1", max: 130, cls: "road-t1" },    // 深色主干道：任何视野都可见
       { t: "tier2", max: 18,  cls: "road-t2" },    // 浅色次干道：放大后出现
       { t: "tier3", max: 6.5, cls: "road-t3" },    // 更细道路：进一步放大
       { t: "tier4", max: 1.6, cls: "road-t4" },    // 最细街巷：接近街区级才显
@@ -468,22 +482,19 @@
       var parts = [];
       for (var gx = c0x; gx <= c1x; gx++) {
         for (var gy = c0y; gy <= c1y; gy++) {
-          var cell = grid[gx + "_" + gy];
+          var key = gx + "_" + gy;
+          var cell = grid[key];
           if (!cell) continue;
-          for (var i = 0; i < cell.length; i++) {
-            var b = cell[i];
+          // 单元格元数据（包围盒 + path 字符串）只解析一次并缓存：
+          // 缩放不变，平移只做数值剔除，避免每帧对整城 35035 幢建筑重复扫描。
+          var meta = bldCellCache[key];
+          if (!meta) { meta = buildCellMeta(cell); bldCellCache[key] = meta; }
+          for (var i = 0; i < meta.length; i++) {
+            var b = meta[i];
             if (b.area < minArea) continue;
-            var p = b.pts;
-            // 粗略包围盒剔除
-            var bx0 = p[0], by0 = p[1], bx1 = p[0], by1 = p[1];
-            for (var j = 2; j < p.length; j += 2) {
-              if (p[j] < bx0) bx0 = p[j]; if (p[j] > bx1) bx1 = p[j];
-              if (p[j + 1] < by0) by0 = p[j + 1]; if (p[j + 1] > by1) by1 = p[j + 1];
-            }
-            if (bx1 < v[0] - pad || bx0 > v[2] + pad || by1 < v[1] - pad || by0 > v[3] + pad) continue;
-            var d = "M" + b.pts[0] + " " + b.pts[1];
-            for (var k = 2; k < p.length; k += 2) d += "L" + p[k] + " " + p[k + 1];
-            parts.push(d + "Z");
+            if (b.b[0] > v[2] + pad || b.b[2] < v[0] - pad ||
+                b.b[1] > v[3] + pad || b.b[3] < v[1] - pad) continue;
+            parts.push(b.d);
           }
         }
       }
@@ -491,6 +502,24 @@
       if (html) layer.innerHTML = '<path class="map-building" d="' + html + '"></path>';
     }
     if (!html) layer.innerHTML = "";
+  }
+
+  // 单元格建筑 → 预解析 [ {area, b:[x0,y0,x1,y1], d:"…"} ]（坐标与缩放无关，可缓存）
+  function buildCellMeta(cell) {
+    var meta = [];
+    for (var i = 0; i < cell.length; i++) {
+      var b = cell[i];
+      var p = b.pts;
+      var bx0 = p[0], by0 = p[1], bx1 = p[0], by1 = p[1];
+      for (var j = 2; j < p.length; j += 2) {
+        if (p[j] < bx0) bx0 = p[j]; if (p[j] > bx1) bx1 = p[j];
+        if (p[j + 1] < by0) by0 = p[j + 1]; if (p[j + 1] > by1) by1 = p[j + 1];
+      }
+      var d = "M" + p[0] + " " + p[1];
+      for (var k = 2; k < p.length; k += 2) d += "L" + p[k] + " " + p[k + 1];
+      meta.push({ area: (bx1 - bx0) * (by1 - by0), b: [bx0, by0, bx1, by1], d: d + "Z" });
+    }
+    return meta;
   }
 
   var districtCache = null;
