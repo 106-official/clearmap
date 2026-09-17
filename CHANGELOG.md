@@ -16,13 +16,14 @@
 - **POI 景点图显示「The Image is generating…」占位**：部分景点 `images` 里的 `src` 指向 AI 生成占位地址（`trae-api-cn.mchost.guru/.../text_to_image?...`），无法渲染为真实图片，被内部提示文案占位。已从全部 POI 数据（前端 `static/pois*.json` 离线包 + 后端 `data/poi/*.json`）移除这类占位项：
   - 长沙：移除 18 处占位，本地真实图片 234 张保留，地图详情照常显示实景照片；
   - 上海 / 北京：移除 30 / 28 处占位（该两城未捆绑本地大图，移除后对应景点不再显示图集，避免坏占位）。
-- **头像显示链路复查**：逐项核对上传→落盘→回读→`avatarUrl()` 拼接→`renderProfile`/`renderFeed` 渲染，代码逻辑无误；根因仍是旧 APK 未含修复，本次经 `cap sync` + 注入云后端重建，确保进入安装包。
+- **头像显示排查（二次确认）**：逐链路实测——后端 ECS `POST /api/avatar`→`/api/me`→`/api/media` 全程 200 且返回 `image/png`；APK 内 `CLEARMAP_API_BASE` 注入与 `avatarUrl()` 拼接待验证无误；`usesCleartextTraffic` 已开。为排除「旧安装残留的 localStorage 服务器地址（覆盖安装会保留）指向失效后端导致图片 404」，新增**服务器地址自检**：`api.bootstrapServerBase()` 在启动时探测本地保存的地址，不可达则自动清掉并回退到打包内置的云后端，再加载数据。
 
 ### 核验
 
 - `app.js / render.js / store.js` 通过 `node --check`。
 - 4 份 POI JSON 过滤后移除数量核验：长沙 18、上海 30、北京 28。
-- 成品：`dist/ClearMap-cloud-preview-1.05.apk`（覆盖同名文件，内置云后端 `http://47.99.131.169:9100/`，签名 `clearmap2026`，证书 SHA-256 `e0a3fbbc…`）。
+- APK 内 `index.html` 注入、`store.js` 自检回退逻辑实测存在。
+- 成品：`dist/ClearMap-cloud-preview-1.05.apk`（覆盖同名文件，内置云后端 `http://47.99.131.169:9100/`，签名 `clearmap2026`）。
 
 ## [cloud-app-preview-1.05] · 2026-09-17
 

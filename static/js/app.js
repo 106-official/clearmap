@@ -845,10 +845,12 @@
     }
 
     // 拉取数据
-    showView("home");          // 打开 App 先落在首页，登录态由「进入地图」时判定
-    loadProfile();
-    loadMe();
-    refreshAffinities();   // 无后端也初始化地图（走离线包），避免地图空白
+    api.bootstrapServerBase().then(() => {
+      showView("home");          // 打开 App 先落在首页，登录态由「进入地图」时判定
+      loadProfile();
+      loadMe();
+      refreshAffinities();   // 无后端也初始化地图（走离线包），避免地图空白
+    });
   }
 
   if (document.readyState === "loading") {

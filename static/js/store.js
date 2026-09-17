@@ -17,6 +17,22 @@
     token: localStorage.getItem("clearmap_token") || "",
     /* 当前后端地址（末尾带 /，同源为 ""） */
     serverBase() { return API_BASE; },
+    /* 服务器地址自检（preview-1.05-fix）：本地保存的地址若已失效，自动回退到打包内置地址，
+       避免旧安装残留的 localStorage 地址导致头像/随笔图片全部 404 */
+    async bootstrapServerBase() {
+      const builtin = win.CLEARMAP_API_BASE || "";
+      let stored = "";
+      try { stored = localStorage.getItem("clearmap_api_base") ?? ""; } catch (e) { /* ignore */ }
+      if (!stored || stored === builtin) return;
+      try {
+        const ctl = new AbortController();
+        const timer = setTimeout(() => ctl.abort(), 3500);
+        const r = await fetch(stored.replace(/\/+$/, "") + "/api/health", { signal: ctl.signal });
+        clearTimeout(timer);
+        if (r.ok && (await r.json()).ok) return;   // 本地地址可用，保留
+      } catch (e) { /* 不可达，回退 */ }
+      this.setServerBase(builtin);   // 清掉旧地址并切回内置（通常即云后端）
+    },
     /* 修改后端地址并持久化到本地，返回规范化后的地址 */
     setServerBase(url) {
       const v = String(url || "").trim();
