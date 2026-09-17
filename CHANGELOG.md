@@ -2,6 +2,25 @@
 
 记录每次功能迭代的详细内容。格式遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [ClearMap-cloud-preview-1.06] · 2026-09-17
+
+### 修复
+
+- **随笔配图显示恢复正常**：随笔配图（个人页「我的随笔」与「发现」流）与头像一致改用 `fetch→Blob→对象URL` 通道加载，规避 WebView 直连 http 图片偶发失败；失败时移除破图，不再显示损坏框。
+- **POI 景点图不再空白**：上海 15 个、北京 13 个景点（天安门因内容合规限制无法生成）新增实景风配图，随 APK 内置离线加载；长沙 3 个无图景点保持原样。所有景点图引用统一改为**相对路径**（`media/pois/<id>/img1.jpg`），Web 预览与 APK 内 `file://` 环境均可正确解析（此前 `/media/pois/...` 前导斜杠在 APK 内会解析到错误位置）。
+
+### 界面
+
+- **地图左上角布局互换**：城市选择胶囊与 MBTI 推荐条互换位置——MBTI 条移至地图顶部（`top:8px`），城市选择器下移（`top:64px`），展开的城市列表不再与 MBTI 互叠；地图视图隐藏顶部标题栏实现全屏沉浸。
+- **提示风格统一（告别黑框）**：Toast 从深黑底改为纸墨风浅色毛玻璃卡（河绿描边、柔和投影、衬线排版），支持多行；MBTI 认证成功提示改为两行「已认证 MBTI / 系统为你换了一批风景」；发布随笔提示改为「发布成功^-^」。
+- **行程按钮排版**：「开始记录行程 / 加一张打卡」并排等宽、不换行，小屏不再中间折行。
+
+### 核验
+
+- `app.js / render.js / store.js` 通过 `node --check`；后端 `py_compile` 通过。
+- 图片清单核验：上海 15 张、北京 13 张、长沙 234 处引用已相对化；JSON 全部有效。
+- 成品：`dist/ClearMap-cloud-preview-1.06.apk`（116.5MB，`versionCode 2 / versionName 1.06`，签名 `clearmap2026`，证书 SHA-256 `e0a3fbbc…`）。
+
 ## [1.05 二次修复] · 2026-09-17（不升级版本号，覆盖 ClearMap-cloud-preview-1.05）
 
 ### 界面

@@ -292,9 +292,9 @@ button { font-family: inherit; color: inherit; }
 }
 .map-btn:hover { color: var(--clay); border-color: rgba(194,104,71,.5); transform: translateY(-1px); }
 
-/* 城市选择器：左上角固定，自定义胶囊 + 展开动效（preview-1.05-fix） */
+/* 城市选择器：左上角固定，自定义胶囊 + 展开动效（preview-1.05-fix / 1.06 移至 MBTI 条下方互不遮挡） */
 .map-citywrap {
-  position: absolute; left: 14px; top: 16px; z-index: 5;
+  position: absolute; left: 14px; top: 64px; z-index: 9;
 }
 .map-city-btn {
   display: flex; align-items: center; gap: 7px;
@@ -492,9 +492,15 @@ input[type="range"]::-moz-range-thumb {
 
 .toast {
   position: fixed; left: 50%; bottom: 34px; transform: translateX(-50%) translateY(20px);
-  background: var(--ink); color: var(--paper); padding: 11px 22px; border-radius: 30px;
-  font-size: 13.5px; opacity: 0; pointer-events: none; transition: all .35s var(--ease);
-  box-shadow: 0 12px 30px -14px rgba(36,34,27,.5); z-index: 60;
+  background: color-mix(in srgb, var(--paper) 94%, white);
+  border: 1px solid color-mix(in srgb, var(--river) 40%, transparent);
+  color: var(--ink);
+  padding: 11px 22px; border-radius: 30px;
+  font-size: 13.5px; white-space: pre-line; text-align: center; line-height: 1.6;
+  opacity: 0; pointer-events: none; transition: all .35s var(--ease);
+  box-shadow: 0 14px 38px -18px rgba(54,80,74,.6), 0 1px 0 rgba(255,255,255,.7) inset;
+  backdrop-filter: blur(10px);
+  z-index: 60;
 }
 .toast.is-visible { opacity: 1; transform: translateX(-50%) translateY(0); }
 
@@ -853,6 +859,8 @@ body[data-view="home"] .stage { padding-bottom: 60px; }
 
 /* --- 地图全屏沉浸：覆盖上下栏以外的全部区域（非卡片）--- */
 body[data-view="map"] .stage { max-width: none; margin: 0; padding: 0; }
+/* 地图沉浸：隐藏顶部标题栏，地图接管全屏（preview-1.06） */
+body[data-view="map"] .titlebar { display: none; }
 body[data-view="map"] .map-panel {
   position: fixed; inset: 0; z-index: 5;
   min-height: 0; height: auto;
@@ -861,9 +869,9 @@ body[data-view="map"] .map-panel {
 body[data-view="map"] .view-map { min-height: 100vh; }
 .map-panel .map--frame { touch-action: none; cursor: grab; }
 
-/* MBTI 推荐条悬浮在地图上方（顶栏之下） */
+/* MBTI 推荐条悬浮在地图上方（preview-1.06：移至左上角，与城市选择器互换位置） */
 body[data-view="map"] .mbti-strip {
-  position: fixed; left: 12px; right: 12px; top: 64px; z-index: 8;
+  position: fixed; left: 12px; right: 12px; top: 8px; z-index: 8;
   margin: 0;
 }
 body[data-view="map"] .mbti-cards { overflow-x: auto; }
@@ -1005,7 +1013,8 @@ body[data-view="plan"] .view-plan {
   overflow: hidden;
 }
 .plan-head { flex: none; }
-.plan-toolbar { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+.plan-toolbar { display: flex; gap: 10px; margin-top: 12px; flex-wrap: nowrap; align-items: stretch; }
+.plan-toolbar button { flex: 1 1 0; min-width: 0; white-space: nowrap; }
 .checkin-sheet {
   flex: none; display: flex; flex-direction: column; gap: 10px;
   border: 1px solid var(--line); border-radius: 16px; padding: 14px;

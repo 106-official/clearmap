@@ -36,27 +36,27 @@
       "ticket": "免费",
       "images": [
         {
-          "src": "/media/pois/yuelu-mountain/img1.jpg",
+          "src": "media/pois/yuelu-mountain/img1.jpg",
           "alt": "岳麓山风景名胜区",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuelu-mountain/img2.jpg",
+          "src": "media/pois/yuelu-mountain/img2.jpg",
           "alt": "岳麓山风景名胜区",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuelu-mountain/img3.jpg",
+          "src": "media/pois/yuelu-mountain/img3.jpg",
           "alt": "岳麓山风景名胜区",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuelu-mountain/img4.jpg",
+          "src": "media/pois/yuelu-mountain/img4.jpg",
           "alt": "岳麓山风景名胜区",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuelu-mountain/img5.jpg",
+          "src": "media/pois/yuelu-mountain/img5.jpg",
           "alt": "岳麓山风景名胜区",
           "ext": ".jpg"
         }
@@ -99,27 +99,27 @@
       "ticket": "¥50",
       "images": [
         {
-          "src": "/media/pois/yuelu-academy/img1.jpg",
+          "src": "media/pois/yuelu-academy/img1.jpg",
           "alt": "岳麓书院",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuelu-academy/img2.jpg",
+          "src": "media/pois/yuelu-academy/img2.jpg",
           "alt": "岳麓书院",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuelu-academy/img3.jpg",
+          "src": "media/pois/yuelu-academy/img3.jpg",
           "alt": "岳麓书院",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuelu-academy/img4.jpg",
+          "src": "media/pois/yuelu-academy/img4.jpg",
           "alt": "岳麓书院",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuelu-academy/img5.jpg",
+          "src": "media/pois/yuelu-academy/img5.jpg",
           "alt": "岳麓书院",
           "ext": ".jpg"
         }
@@ -163,27 +163,27 @@
       "ticket": "免费",
       "images": [
         {
-          "src": "/media/pois/yuhu-wetland/img1.jpg",
+          "src": "media/pois/yuhu-wetland/img1.jpg",
           "alt": "洋湖湿地公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuhu-wetland/img2.jpg",
+          "src": "media/pois/yuhu-wetland/img2.jpg",
           "alt": "洋湖湿地公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuhu-wetland/img3.jpg",
+          "src": "media/pois/yuhu-wetland/img3.jpg",
           "alt": "洋湖湿地公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuhu-wetland/img4.jpg",
+          "src": "media/pois/yuhu-wetland/img4.jpg",
           "alt": "洋湖湿地公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuhu-wetland/img5.jpg",
+          "src": "media/pois/yuhu-wetland/img5.jpg",
           "alt": "洋湖湿地公园",
           "ext": ".jpg"
         }
@@ -227,27 +227,27 @@
       "ticket": "免费",
       "images": [
         {
-          "src": "/media/pois/juzizhou/img1.jpg",
+          "src": "media/pois/juzizhou/img1.jpg",
           "alt": "橘子洲",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/juzizhou/img2.jpg",
+          "src": "media/pois/juzizhou/img2.jpg",
           "alt": "橘子洲",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/juzizhou/img3.jpg",
+          "src": "media/pois/juzizhou/img3.jpg",
           "alt": "橘子洲",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/juzizhou/img4.jpg",
+          "src": "media/pois/juzizhou/img4.jpg",
           "alt": "橘子洲",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/juzizhou/img5.jpg",
+          "src": "media/pois/juzizhou/img5.jpg",
           "alt": "橘子洲",
           "ext": ".jpg"
         }
@@ -291,27 +291,27 @@
       "ticket": "免费",
       "images": [
         {
-          "src": "/media/pois/xiangjiang-view/img1.jpg",
+          "src": "media/pois/xiangjiang-view/img1.jpg",
           "alt": "湘江风光带",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/xiangjiang-view/img2.jpg",
+          "src": "media/pois/xiangjiang-view/img2.jpg",
           "alt": "湘江风光带",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/xiangjiang-view/img3.jpg",
+          "src": "media/pois/xiangjiang-view/img3.jpg",
           "alt": "湘江风光带",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/xiangjiang-view/img4.jpg",
+          "src": "media/pois/xiangjiang-view/img4.jpg",
           "alt": "湘江风光带",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/xiangjiang-view/img5.jpg",
+          "src": "media/pois/xiangjiang-view/img5.jpg",
           "alt": "湘江风光带",
           "ext": ".jpg"
         }
@@ -355,27 +355,27 @@
       "ticket": "免费",
       "images": [
         {
-          "src": "/media/pois/taiping-street/img1.jpg",
+          "src": "media/pois/taiping-street/img1.jpg",
           "alt": "太平老街",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/taiping-street/img2.jpg",
+          "src": "media/pois/taiping-street/img2.jpg",
           "alt": "太平老街",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/taiping-street/img3.jpg",
+          "src": "media/pois/taiping-street/img3.jpg",
           "alt": "太平老街",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/taiping-street/img4.jpg",
+          "src": "media/pois/taiping-street/img4.jpg",
           "alt": "太平老街",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/taiping-street/img5.jpg",
+          "src": "media/pois/taiping-street/img5.jpg",
           "alt": "太平老街",
           "ext": ".jpg"
         }
@@ -419,27 +419,27 @@
       "ticket": "免费",
       "images": [
         {
-          "src": "/media/pois/pozi-street/img1.jpg",
+          "src": "media/pois/pozi-street/img1.jpg",
           "alt": "坡子街",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/pozi-street/img2.jpg",
+          "src": "media/pois/pozi-street/img2.jpg",
           "alt": "坡子街",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/pozi-street/img3.jpg",
+          "src": "media/pois/pozi-street/img3.jpg",
           "alt": "坡子街",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/pozi-street/img4.jpg",
+          "src": "media/pois/pozi-street/img4.jpg",
           "alt": "坡子街",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/pozi-street/img5.jpg",
+          "src": "media/pois/pozi-street/img5.jpg",
           "alt": "坡子街",
           "ext": ".jpg"
         }
@@ -482,27 +482,27 @@
       "ticket": "免费",
       "images": [
         {
-          "src": "/media/pois/huogongdian/img1.jpg",
+          "src": "media/pois/huogongdian/img1.jpg",
           "alt": "火宫殿",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/huogongdian/img2.jpg",
+          "src": "media/pois/huogongdian/img2.jpg",
           "alt": "火宫殿",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/huogongdian/img3.jpg",
+          "src": "media/pois/huogongdian/img3.jpg",
           "alt": "火宫殿",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/huogongdian/img4.jpg",
+          "src": "media/pois/huogongdian/img4.jpg",
           "alt": "火宫殿",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/huogongdian/img5.jpg",
+          "src": "media/pois/huogongdian/img5.jpg",
           "alt": "火宫殿",
           "ext": ".jpg"
         }
@@ -546,27 +546,27 @@
       "ticket": "免费",
       "images": [
         {
-          "src": "/media/pois/wenheyou/img1.jpg",
+          "src": "media/pois/wenheyou/img1.jpg",
           "alt": "文和友超级文和友",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/wenheyou/img2.jpg",
+          "src": "media/pois/wenheyou/img2.jpg",
           "alt": "文和友超级文和友",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/wenheyou/img3.jpg",
+          "src": "media/pois/wenheyou/img3.jpg",
           "alt": "文和友超级文和友",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/wenheyou/img4.jpg",
+          "src": "media/pois/wenheyou/img4.jpg",
           "alt": "文和友超级文和友",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/wenheyou/img5.jpg",
+          "src": "media/pois/wenheyou/img5.jpg",
           "alt": "文和友超级文和友",
           "ext": ".jpg"
         }
@@ -609,27 +609,27 @@
       "ticket": "免费",
       "images": [
         {
-          "src": "/media/pois/wuyi-square/img1.jpg",
+          "src": "media/pois/wuyi-square/img1.jpg",
           "alt": "五一广场",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/wuyi-square/img2.jpg",
+          "src": "media/pois/wuyi-square/img2.jpg",
           "alt": "五一广场",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/wuyi-square/img3.jpg",
+          "src": "media/pois/wuyi-square/img3.jpg",
           "alt": "五一广场",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/wuyi-square/img4.jpg",
+          "src": "media/pois/wuyi-square/img4.jpg",
           "alt": "五一广场",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/wuyi-square/img5.jpg",
+          "src": "media/pois/wuyi-square/img5.jpg",
           "alt": "五一广场",
           "ext": ".jpg"
         }
@@ -672,27 +672,27 @@
       "ticket": "免费",
       "images": [
         {
-          "src": "/media/pois/ifs-changsha/img1.jpg",
+          "src": "media/pois/ifs-changsha/img1.jpg",
           "alt": "长沙国金中心 IFS",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/ifs-changsha/img2.jpg",
+          "src": "media/pois/ifs-changsha/img2.jpg",
           "alt": "长沙国金中心 IFS",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/ifs-changsha/img3.jpg",
+          "src": "media/pois/ifs-changsha/img3.jpg",
           "alt": "长沙国金中心 IFS",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/ifs-changsha/img4.jpg",
+          "src": "media/pois/ifs-changsha/img4.jpg",
           "alt": "长沙国金中心 IFS",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/ifs-changsha/img5.jpg",
+          "src": "media/pois/ifs-changsha/img5.jpg",
           "alt": "长沙国金中心 IFS",
           "ext": ".jpg"
         }
@@ -736,27 +736,27 @@
       "ticket": "免费",
       "images": [
         {
-          "src": "/media/pois/huangxing-walk/img1.jpg",
+          "src": "media/pois/huangxing-walk/img1.jpg",
           "alt": "黄兴路步行街",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/huangxing-walk/img2.jpg",
+          "src": "media/pois/huangxing-walk/img2.jpg",
           "alt": "黄兴路步行街",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/huangxing-walk/img3.jpg",
+          "src": "media/pois/huangxing-walk/img3.jpg",
           "alt": "黄兴路步行街",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/huangxing-walk/img4.jpg",
+          "src": "media/pois/huangxing-walk/img4.jpg",
           "alt": "黄兴路步行街",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/huangxing-walk/img5.jpg",
+          "src": "media/pois/huangxing-walk/img5.jpg",
           "alt": "黄兴路步行街",
           "ext": ".jpg"
         }
@@ -799,27 +799,27 @@
       "ticket": "免费",
       "images": [
         {
-          "src": "/media/pois/jiayi-guju/img1.jpg",
+          "src": "media/pois/jiayi-guju/img1.jpg",
           "alt": "贾谊故居",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/jiayi-guju/img2.jpg",
+          "src": "media/pois/jiayi-guju/img2.jpg",
           "alt": "贾谊故居",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/jiayi-guju/img3.jpg",
+          "src": "media/pois/jiayi-guju/img3.jpg",
           "alt": "贾谊故居",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/jiayi-guju/img4.jpg",
+          "src": "media/pois/jiayi-guju/img4.jpg",
           "alt": "贾谊故居",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/jiayi-guju/img5.jpg",
+          "src": "media/pois/jiayi-guju/img5.jpg",
           "alt": "贾谊故居",
           "ext": ".jpg"
         }
@@ -862,27 +862,27 @@
       "ticket": "免费预约",
       "images": [
         {
-          "src": "/media/pois/hun-museum/img1.jpg",
+          "src": "media/pois/hun-museum/img1.jpg",
           "alt": "湖南省博物馆",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/hun-museum/img2.jpg",
+          "src": "media/pois/hun-museum/img2.jpg",
           "alt": "湖南省博物馆",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/hun-museum/img3.jpg",
+          "src": "media/pois/hun-museum/img3.jpg",
           "alt": "湖南省博物馆",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/hun-museum/img4.jpg",
+          "src": "media/pois/hun-museum/img4.jpg",
           "alt": "湖南省博物馆",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/hun-museum/img5.jpg",
+          "src": "media/pois/hun-museum/img5.jpg",
           "alt": "湖南省博物馆",
           "ext": ".jpg"
         }
@@ -925,27 +925,27 @@
       "ticket": "¥32",
       "images": [
         {
-          "src": "/media/pois/tianxin-pavilion/img1.jpg",
+          "src": "media/pois/tianxin-pavilion/img1.jpg",
           "alt": "天心阁",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/tianxin-pavilion/img2.jpg",
+          "src": "media/pois/tianxin-pavilion/img2.jpg",
           "alt": "天心阁",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/tianxin-pavilion/img3.jpg",
+          "src": "media/pois/tianxin-pavilion/img3.jpg",
           "alt": "天心阁",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/tianxin-pavilion/img4.jpg",
+          "src": "media/pois/tianxin-pavilion/img4.jpg",
           "alt": "天心阁",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/tianxin-pavilion/img5.jpg",
+          "src": "media/pois/tianxin-pavilion/img5.jpg",
           "alt": "天心阁",
           "ext": ".jpg"
         }
@@ -989,27 +989,27 @@
       "ticket": "¥11",
       "images": [
         {
-          "src": "/media/pois/dufu-jiangge/img1.jpg",
+          "src": "media/pois/dufu-jiangge/img1.jpg",
           "alt": "杜甫江阁",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/dufu-jiangge/img2.jpg",
+          "src": "media/pois/dufu-jiangge/img2.jpg",
           "alt": "杜甫江阁",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/dufu-jiangge/img3.jpg",
+          "src": "media/pois/dufu-jiangge/img3.jpg",
           "alt": "杜甫江阁",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/dufu-jiangge/img4.jpg",
+          "src": "media/pois/dufu-jiangge/img4.jpg",
           "alt": "杜甫江阁",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/dufu-jiangge/img5.jpg",
+          "src": "media/pois/dufu-jiangge/img5.jpg",
           "alt": "杜甫江阁",
           "ext": ".jpg"
         }
@@ -1053,27 +1053,27 @@
       "ticket": "免费",
       "images": [
         {
-          "src": "/media/pois/jiefangxi/img1.jpg",
+          "src": "media/pois/jiefangxi/img1.jpg",
           "alt": "解放西路",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/jiefangxi/img2.jpg",
+          "src": "media/pois/jiefangxi/img2.jpg",
           "alt": "解放西路",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/jiefangxi/img3.jpg",
+          "src": "media/pois/jiefangxi/img3.jpg",
           "alt": "解放西路",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/jiefangxi/img4.jpg",
+          "src": "media/pois/jiefangxi/img4.jpg",
           "alt": "解放西路",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/jiefangxi/img5.jpg",
+          "src": "media/pois/jiefangxi/img5.jpg",
           "alt": "解放西路",
           "ext": ".jpg"
         }
@@ -1117,12 +1117,12 @@
       "ticket": "免费",
       "images": [
         {
-          "src": "/media/pois/orange-ride/img1.jpg",
+          "src": "media/pois/orange-ride/img1.jpg",
           "alt": "环湘江骑行道",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/orange-ride/img2.jpg",
+          "src": "media/pois/orange-ride/img2.jpg",
           "alt": "环湘江骑行道",
           "ext": ".jpg"
         }
@@ -1165,27 +1165,27 @@
       "y": 593,
       "images": [
         {
-          "src": "/media/pois/meixihu-island/img1.jpg",
+          "src": "media/pois/meixihu-island/img1.jpg",
           "alt": "梅溪湖城市岛",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/meixihu-island/img2.jpg",
+          "src": "media/pois/meixihu-island/img2.jpg",
           "alt": "梅溪湖城市岛",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/meixihu-island/img3.jpg",
+          "src": "media/pois/meixihu-island/img3.jpg",
           "alt": "梅溪湖城市岛",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/meixihu-island/img4.jpg",
+          "src": "media/pois/meixihu-island/img4.jpg",
           "alt": "梅溪湖城市岛",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/meixihu-island/img5.jpg",
+          "src": "media/pois/meixihu-island/img5.jpg",
           "alt": "梅溪湖城市岛",
           "ext": ".jpg"
         }
@@ -1228,27 +1228,27 @@
       "y": 619,
       "images": [
         {
-          "src": "/media/pois/aiwanting/img1.jpg",
+          "src": "media/pois/aiwanting/img1.jpg",
           "alt": "爱晚亭",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/aiwanting/img2.jpg",
+          "src": "media/pois/aiwanting/img2.jpg",
           "alt": "爱晚亭",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/aiwanting/img3.jpg",
+          "src": "media/pois/aiwanting/img3.jpg",
           "alt": "爱晚亭",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/aiwanting/img4.jpg",
+          "src": "media/pois/aiwanting/img4.jpg",
           "alt": "爱晚亭",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/aiwanting/img5.jpg",
+          "src": "media/pois/aiwanting/img5.jpg",
           "alt": "爱晚亭",
           "ext": ".jpg"
         }
@@ -1291,27 +1291,27 @@
       "y": 629,
       "images": [
         {
-          "src": "/media/pois/hunan-university/img1.jpg",
+          "src": "media/pois/hunan-university/img1.jpg",
           "alt": "湖南大学",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/hunan-university/img2.jpg",
+          "src": "media/pois/hunan-university/img2.jpg",
           "alt": "湖南大学",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/hunan-university/img3.jpg",
+          "src": "media/pois/hunan-university/img3.jpg",
           "alt": "湖南大学",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/hunan-university/img4.jpg",
+          "src": "media/pois/hunan-university/img4.jpg",
           "alt": "湖南大学",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/hunan-university/img5.jpg",
+          "src": "media/pois/hunan-university/img5.jpg",
           "alt": "湖南大学",
           "ext": ".jpg"
         }
@@ -1354,27 +1354,27 @@
       "y": 463,
       "images": [
         {
-          "src": "/media/pois/yuren-pier/img1.jpg",
+          "src": "media/pois/yuren-pier/img1.jpg",
           "alt": "渔人码头",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuren-pier/img2.jpg",
+          "src": "media/pois/yuren-pier/img2.jpg",
           "alt": "渔人码头",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuren-pier/img3.jpg",
+          "src": "media/pois/yuren-pier/img3.jpg",
           "alt": "渔人码头",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuren-pier/img4.jpg",
+          "src": "media/pois/yuren-pier/img4.jpg",
           "alt": "渔人码头",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuren-pier/img5.jpg",
+          "src": "media/pois/yuren-pier/img5.jpg",
           "alt": "渔人码头",
           "ext": ".jpg"
         }
@@ -1417,27 +1417,27 @@
       "y": 540,
       "images": [
         {
-          "src": "/media/pois/xihu-park/img1.jpg",
+          "src": "media/pois/xihu-park/img1.jpg",
           "alt": "西湖公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/xihu-park/img2.jpg",
+          "src": "media/pois/xihu-park/img2.jpg",
           "alt": "西湖公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/xihu-park/img3.jpg",
+          "src": "media/pois/xihu-park/img3.jpg",
           "alt": "西湖公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/xihu-park/img4.jpg",
+          "src": "media/pois/xihu-park/img4.jpg",
           "alt": "西湖公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/xihu-park/img5.jpg",
+          "src": "media/pois/xihu-park/img5.jpg",
           "alt": "西湖公园",
           "ext": ".jpg"
         }
@@ -1480,27 +1480,27 @@
       "y": 766,
       "images": [
         {
-          "src": "/media/pois/lizijian-gallery/img1.jpg",
+          "src": "media/pois/lizijian-gallery/img1.jpg",
           "alt": "李自健美术馆",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/lizijian-gallery/img2.jpg",
+          "src": "media/pois/lizijian-gallery/img2.jpg",
           "alt": "李自健美术馆",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/lizijian-gallery/img3.jpg",
+          "src": "media/pois/lizijian-gallery/img3.jpg",
           "alt": "李自健美术馆",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/lizijian-gallery/img4.jpg",
+          "src": "media/pois/lizijian-gallery/img4.jpg",
           "alt": "李自健美术馆",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/lizijian-gallery/img5.jpg",
+          "src": "media/pois/lizijian-gallery/img5.jpg",
           "alt": "李自健美术馆",
           "ext": ".jpg"
         }
@@ -1580,27 +1580,27 @@
       "y": 606,
       "images": [
         {
-          "src": "/media/pois/baisha-well/img1.jpg",
+          "src": "media/pois/baisha-well/img1.jpg",
           "alt": "白沙古井",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/baisha-well/img2.jpg",
+          "src": "media/pois/baisha-well/img2.jpg",
           "alt": "白沙古井",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/baisha-well/img3.jpg",
+          "src": "media/pois/baisha-well/img3.jpg",
           "alt": "白沙古井",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/baisha-well/img4.jpg",
+          "src": "media/pois/baisha-well/img4.jpg",
           "alt": "白沙古井",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/baisha-well/img5.jpg",
+          "src": "media/pois/baisha-well/img5.jpg",
           "alt": "白沙古井",
           "ext": ".jpg"
         }
@@ -1643,27 +1643,27 @@
       "y": 627,
       "images": [
         {
-          "src": "/media/pois/nanmenkou/img1.jpg",
+          "src": "media/pois/nanmenkou/img1.jpg",
           "alt": "南门口",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/nanmenkou/img2.jpg",
+          "src": "media/pois/nanmenkou/img2.jpg",
           "alt": "南门口",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/nanmenkou/img3.jpg",
+          "src": "media/pois/nanmenkou/img3.jpg",
           "alt": "南门口",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/nanmenkou/img4.jpg",
+          "src": "media/pois/nanmenkou/img4.jpg",
           "alt": "南门口",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/nanmenkou/img5.jpg",
+          "src": "media/pois/nanmenkou/img5.jpg",
           "alt": "南门口",
           "ext": ".jpg"
         }
@@ -1706,12 +1706,12 @@
       "y": 671,
       "images": [
         {
-          "src": "/media/pois/train-park/img1.jpg",
+          "src": "media/pois/train-park/img1.jpg",
           "alt": "火车头公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/train-park/img2.jpg",
+          "src": "media/pois/train-park/img2.jpg",
           "alt": "火车头公园",
           "ext": ".jpg"
         }
@@ -1754,27 +1754,27 @@
       "y": 611,
       "images": [
         {
-          "src": "/media/pois/duzheng-street/img1.jpg",
+          "src": "media/pois/duzheng-street/img1.jpg",
           "alt": "都正街",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/duzheng-street/img2.jpg",
+          "src": "media/pois/duzheng-street/img2.jpg",
           "alt": "都正街",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/duzheng-street/img3.jpg",
+          "src": "media/pois/duzheng-street/img3.jpg",
           "alt": "都正街",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/duzheng-street/img4.jpg",
+          "src": "media/pois/duzheng-street/img4.jpg",
           "alt": "都正街",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/duzheng-street/img5.jpg",
+          "src": "media/pois/duzheng-street/img5.jpg",
           "alt": "都正街",
           "ext": ".jpg"
         }
@@ -1817,27 +1817,27 @@
       "y": 617,
       "images": [
         {
-          "src": "/media/pois/hualongchi/img1.jpg",
+          "src": "media/pois/hualongchi/img1.jpg",
           "alt": "化龙池",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/hualongchi/img2.jpg",
+          "src": "media/pois/hualongchi/img2.jpg",
           "alt": "化龙池",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/hualongchi/img3.jpg",
+          "src": "media/pois/hualongchi/img3.jpg",
           "alt": "化龙池",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/hualongchi/img4.jpg",
+          "src": "media/pois/hualongchi/img4.jpg",
           "alt": "化龙池",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/hualongchi/img5.jpg",
+          "src": "media/pois/hualongchi/img5.jpg",
           "alt": "化龙池",
           "ext": ".jpg"
         }
@@ -1880,27 +1880,27 @@
       "y": 571,
       "images": [
         {
-          "src": "/media/pois/mifen-street/img1.jpg",
+          "src": "media/pois/mifen-street/img1.jpg",
           "alt": "湖南米粉街",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/mifen-street/img2.jpg",
+          "src": "media/pois/mifen-street/img2.jpg",
           "alt": "湖南米粉街",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/mifen-street/img3.jpg",
+          "src": "media/pois/mifen-street/img3.jpg",
           "alt": "湖南米粉街",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/mifen-street/img4.jpg",
+          "src": "media/pois/mifen-street/img4.jpg",
           "alt": "湖南米粉街",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/mifen-street/img5.jpg",
+          "src": "media/pois/mifen-street/img5.jpg",
           "alt": "湖南米粉街",
           "ext": ".jpg"
         }
@@ -1943,27 +1943,27 @@
       "y": 591,
       "images": [
         {
-          "src": "/media/pois/baiguoyuan/img1.jpg",
+          "src": "media/pois/baiguoyuan/img1.jpg",
           "alt": "白果园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/baiguoyuan/img2.jpg",
+          "src": "media/pois/baiguoyuan/img2.jpg",
           "alt": "白果园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/baiguoyuan/img3.jpg",
+          "src": "media/pois/baiguoyuan/img3.jpg",
           "alt": "白果园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/baiguoyuan/img4.jpg",
+          "src": "media/pois/baiguoyuan/img4.jpg",
           "alt": "白果园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/baiguoyuan/img5.jpg",
+          "src": "media/pois/baiguoyuan/img5.jpg",
           "alt": "白果园",
           "ext": ".jpg"
         }
@@ -2006,7 +2006,7 @@
       "y": 597,
       "images": [
         {
-          "src": "/media/pois/dingwangtai/img1.jpg",
+          "src": "media/pois/dingwangtai/img1.jpg",
           "alt": "定王台",
           "ext": ".jpg"
         }
@@ -2049,7 +2049,7 @@
       "y": 577,
       "images": [
         {
-          "src": "/media/pois/wanjiali/img1.jpg",
+          "src": "media/pois/wanjiali/img1.jpg",
           "alt": "万家丽国际购物中心",
           "ext": ".jpg"
         }
@@ -2129,27 +2129,27 @@
       "y": 577,
       "images": [
         {
-          "src": "/media/pois/library/img1.jpg",
+          "src": "media/pois/library/img1.jpg",
           "alt": "湖南省图书馆",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/library/img2.jpg",
+          "src": "media/pois/library/img2.jpg",
           "alt": "湖南省图书馆",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/library/img3.jpg",
+          "src": "media/pois/library/img3.jpg",
           "alt": "湖南省图书馆",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/library/img4.jpg",
+          "src": "media/pois/library/img4.jpg",
           "alt": "湖南省图书馆",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/library/img5.jpg",
+          "src": "media/pois/library/img5.jpg",
           "alt": "湖南省图书馆",
           "ext": ".jpg"
         }
@@ -2192,27 +2192,27 @@
       "y": 420,
       "images": [
         {
-          "src": "/media/pois/window-of-world/img1.jpg",
+          "src": "media/pois/window-of-world/img1.jpg",
           "alt": "长沙世界之窗",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/window-of-world/img2.jpg",
+          "src": "media/pois/window-of-world/img2.jpg",
           "alt": "长沙世界之窗",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/window-of-world/img3.jpg",
+          "src": "media/pois/window-of-world/img3.jpg",
           "alt": "长沙世界之窗",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/window-of-world/img4.jpg",
+          "src": "media/pois/window-of-world/img4.jpg",
           "alt": "长沙世界之窗",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/window-of-world/img5.jpg",
+          "src": "media/pois/window-of-world/img5.jpg",
           "alt": "长沙世界之窗",
           "ext": ".jpg"
         }
@@ -2255,27 +2255,27 @@
       "y": 429,
       "images": [
         {
-          "src": "/media/pois/underwater-world/img1.jpg",
+          "src": "media/pois/underwater-world/img1.jpg",
           "alt": "长沙海底世界",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/underwater-world/img2.jpg",
+          "src": "media/pois/underwater-world/img2.jpg",
           "alt": "长沙海底世界",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/underwater-world/img3.jpg",
+          "src": "media/pois/underwater-world/img3.jpg",
           "alt": "长沙海底世界",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/underwater-world/img4.jpg",
+          "src": "media/pois/underwater-world/img4.jpg",
           "alt": "长沙海底世界",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/underwater-world/img5.jpg",
+          "src": "media/pois/underwater-world/img5.jpg",
           "alt": "长沙海底世界",
           "ext": ".jpg"
         }
@@ -2318,27 +2318,27 @@
       "y": 526,
       "images": [
         {
-          "src": "/media/pois/martyrs-park/img1.jpg",
+          "src": "media/pois/martyrs-park/img1.jpg",
           "alt": "烈士公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/martyrs-park/img2.jpg",
+          "src": "media/pois/martyrs-park/img2.jpg",
           "alt": "烈士公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/martyrs-park/img3.jpg",
+          "src": "media/pois/martyrs-park/img3.jpg",
           "alt": "烈士公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/martyrs-park/img4.jpg",
+          "src": "media/pois/martyrs-park/img4.jpg",
           "alt": "烈士公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/martyrs-park/img5.jpg",
+          "src": "media/pois/martyrs-park/img5.jpg",
           "alt": "烈士公园",
           "ext": ".jpg"
         }
@@ -2381,27 +2381,27 @@
       "y": 486,
       "images": [
         {
-          "src": "/media/pois/changsha-museum/img1.jpg",
+          "src": "media/pois/changsha-museum/img1.jpg",
           "alt": "长沙博物馆",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/changsha-museum/img2.jpg",
+          "src": "media/pois/changsha-museum/img2.jpg",
           "alt": "长沙博物馆",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/changsha-museum/img3.jpg",
+          "src": "media/pois/changsha-museum/img3.jpg",
           "alt": "长沙博物馆",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/changsha-museum/img4.jpg",
+          "src": "media/pois/changsha-museum/img4.jpg",
           "alt": "长沙博物馆",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/changsha-museum/img5.jpg",
+          "src": "media/pois/changsha-museum/img5.jpg",
           "alt": "长沙博物馆",
           "ext": ".jpg"
         }
@@ -2444,7 +2444,7 @@
       "y": 409,
       "images": [
         {
-          "src": "/media/pois/jiangtan-park/img1.jpg",
+          "src": "media/pois/jiangtan-park/img1.jpg",
           "alt": "湘江江滩公园",
           "ext": ".jpg"
         }
@@ -2487,12 +2487,12 @@
       "y": 569,
       "images": [
         {
-          "src": "/media/pois/chaozong-street/img1.jpg",
+          "src": "media/pois/chaozong-street/img1.jpg",
           "alt": "潮宗街",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/chaozong-street/img2.jpg",
+          "src": "media/pois/chaozong-street/img2.jpg",
           "alt": "潮宗街",
           "ext": ".jpg"
         }
@@ -2535,27 +2535,27 @@
       "y": 491,
       "images": [
         {
-          "src": "/media/pois/binjiang-culture/img1.jpg",
+          "src": "media/pois/binjiang-culture/img1.jpg",
           "alt": "滨江文化园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/binjiang-culture/img2.jpg",
+          "src": "media/pois/binjiang-culture/img2.jpg",
           "alt": "滨江文化园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/binjiang-culture/img3.jpg",
+          "src": "media/pois/binjiang-culture/img3.jpg",
           "alt": "滨江文化园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/binjiang-culture/img4.jpg",
+          "src": "media/pois/binjiang-culture/img4.jpg",
           "alt": "滨江文化园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/binjiang-culture/img5.jpg",
+          "src": "media/pois/binjiang-culture/img5.jpg",
           "alt": "滨江文化园",
           "ext": ".jpg"
         }
@@ -2598,17 +2598,17 @@
       "y": 446,
       "images": [
         {
-          "src": "/media/pois/hunan-tv/img1.jpg",
+          "src": "media/pois/hunan-tv/img1.jpg",
           "alt": "湖南广电",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/hunan-tv/img2.png",
+          "src": "media/pois/hunan-tv/img2.png",
           "alt": "湖南广电",
           "ext": ".png"
         },
         {
-          "src": "/media/pois/hunan-tv/img3.jpg",
+          "src": "media/pois/hunan-tv/img3.jpg",
           "alt": "湖南广电",
           "ext": ".jpg"
         }
@@ -2651,27 +2651,27 @@
       "y": 480,
       "images": [
         {
-          "src": "/media/pois/yuehu-park/img1.jpg",
+          "src": "media/pois/yuehu-park/img1.jpg",
           "alt": "月湖公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuehu-park/img2.jpg",
+          "src": "media/pois/yuehu-park/img2.jpg",
           "alt": "月湖公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuehu-park/img3.jpg",
+          "src": "media/pois/yuehu-park/img3.jpg",
           "alt": "月湖公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuehu-park/img4.jpg",
+          "src": "media/pois/yuehu-park/img4.jpg",
           "alt": "月湖公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuehu-park/img5.jpg",
+          "src": "media/pois/yuehu-park/img5.jpg",
           "alt": "月湖公园",
           "ext": ".jpg"
         }
@@ -2714,27 +2714,27 @@
       "y": 794,
       "images": [
         {
-          "src": "/media/pois/botanical-garden/img1.jpg",
+          "src": "media/pois/botanical-garden/img1.jpg",
           "alt": "湖南省森林植物园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/botanical-garden/img2.jpg",
+          "src": "media/pois/botanical-garden/img2.jpg",
           "alt": "湖南省森林植物园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/botanical-garden/img3.jpg",
+          "src": "media/pois/botanical-garden/img3.jpg",
           "alt": "湖南省森林植物园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/botanical-garden/img4.jpg",
+          "src": "media/pois/botanical-garden/img4.jpg",
           "alt": "湖南省森林植物园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/botanical-garden/img5.jpg",
+          "src": "media/pois/botanical-garden/img5.jpg",
           "alt": "湖南省森林植物园",
           "ext": ".jpg"
         }
@@ -2777,22 +2777,22 @@
       "y": 729,
       "images": [
         {
-          "src": "/media/pois/guitang-river/img1.jpg",
+          "src": "media/pois/guitang-river/img1.jpg",
           "alt": "圭塘河风光带",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/guitang-river/img2.jpg",
+          "src": "media/pois/guitang-river/img2.jpg",
           "alt": "圭塘河风光带",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/guitang-river/img3.jpg",
+          "src": "media/pois/guitang-river/img3.jpg",
           "alt": "圭塘河风光带",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/guitang-river/img4.jpg",
+          "src": "media/pois/guitang-river/img4.jpg",
           "alt": "圭塘河风光带",
           "ext": ".jpg"
         }
@@ -2835,27 +2835,27 @@
       "y": 814,
       "images": [
         {
-          "src": "/media/pois/desiqin/img1.jpg",
+          "src": "media/pois/desiqin/img1.jpg",
           "alt": "德思勤城市广场",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/desiqin/img2.jpg",
+          "src": "media/pois/desiqin/img2.jpg",
           "alt": "德思勤城市广场",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/desiqin/img3.jpg",
+          "src": "media/pois/desiqin/img3.jpg",
           "alt": "德思勤城市广场",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/desiqin/img4.jpg",
+          "src": "media/pois/desiqin/img4.jpg",
           "alt": "德思勤城市广场",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/desiqin/img5.jpg",
+          "src": "media/pois/desiqin/img5.jpg",
           "alt": "德思勤城市广场",
           "ext": ".jpg"
         }
@@ -2935,27 +2935,27 @@
       "y": 671,
       "images": [
         {
-          "src": "/media/pois/dongtang/img1.jpg",
+          "src": "media/pois/dongtang/img1.jpg",
           "alt": "东塘商圈",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/dongtang/img2.jpg",
+          "src": "media/pois/dongtang/img2.jpg",
           "alt": "东塘商圈",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/dongtang/img3.jpg",
+          "src": "media/pois/dongtang/img3.jpg",
           "alt": "东塘商圈",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/dongtang/img4.jpg",
+          "src": "media/pois/dongtang/img4.jpg",
           "alt": "东塘商圈",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/dongtang/img5.jpg",
+          "src": "media/pois/dongtang/img5.jpg",
           "alt": "东塘商圈",
           "ext": ".jpg"
         }
@@ -2998,27 +2998,27 @@
       "y": 714,
       "images": [
         {
-          "src": "/media/pois/yuhua-feiwei/img1.jpg",
+          "src": "media/pois/yuhua-feiwei/img1.jpg",
           "alt": "雨花非遗馆",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuhua-feiwei/img2.jpg",
+          "src": "media/pois/yuhua-feiwei/img2.jpg",
           "alt": "雨花非遗馆",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuhua-feiwei/img3.jpg",
+          "src": "media/pois/yuhua-feiwei/img3.jpg",
           "alt": "雨花非遗馆",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuhua-feiwei/img4.jpg",
+          "src": "media/pois/yuhua-feiwei/img4.jpg",
           "alt": "雨花非遗馆",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/yuhua-feiwei/img5.jpg",
+          "src": "media/pois/yuhua-feiwei/img5.jpg",
           "alt": "雨花非遗馆",
           "ext": ".jpg"
         }
@@ -3061,17 +3061,17 @@
       "y": 826,
       "images": [
         {
-          "src": "/media/pois/xiangfu-park/img1.jpg",
+          "src": "media/pois/xiangfu-park/img1.jpg",
           "alt": "湘府文化公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/xiangfu-park/img2.jpg",
+          "src": "media/pois/xiangfu-park/img2.jpg",
           "alt": "湘府文化公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/xiangfu-park/img3.jpg",
+          "src": "media/pois/xiangfu-park/img3.jpg",
           "alt": "湘府文化公园",
           "ext": ".jpg"
         }
@@ -3114,27 +3114,27 @@
       "y": 634,
       "images": [
         {
-          "src": "/media/pois/gaoqiao-market/img1.jpg",
+          "src": "media/pois/gaoqiao-market/img1.jpg",
           "alt": "高桥大市场",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/gaoqiao-market/img2.jpg",
+          "src": "media/pois/gaoqiao-market/img2.jpg",
           "alt": "高桥大市场",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/gaoqiao-market/img3.jpg",
+          "src": "media/pois/gaoqiao-market/img3.jpg",
           "alt": "高桥大市场",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/gaoqiao-market/img4.jpg",
+          "src": "media/pois/gaoqiao-market/img4.jpg",
           "alt": "高桥大市场",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/gaoqiao-market/img5.jpg",
+          "src": "media/pois/gaoqiao-market/img5.jpg",
           "alt": "高桥大市场",
           "ext": ".jpg"
         }
@@ -3177,27 +3177,27 @@
       "y": 700,
       "images": [
         {
-          "src": "/media/pois/shawan-park/img1.jpg",
+          "src": "media/pois/shawan-park/img1.jpg",
           "alt": "沙湾公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/shawan-park/img2.jpg",
+          "src": "media/pois/shawan-park/img2.jpg",
           "alt": "沙湾公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/shawan-park/img3.jpg",
+          "src": "media/pois/shawan-park/img3.jpg",
           "alt": "沙湾公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/shawan-park/img4.jpg",
+          "src": "media/pois/shawan-park/img4.jpg",
           "alt": "沙湾公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/shawan-park/img5.jpg",
+          "src": "media/pois/shawan-park/img5.jpg",
           "alt": "沙湾公园",
           "ext": ".jpg"
         }
@@ -3240,27 +3240,27 @@
       "y": 720,
       "images": [
         {
-          "src": "/media/pois/guihua-park/img1.jpg",
+          "src": "media/pois/guihua-park/img1.jpg",
           "alt": "桂花公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/guihua-park/img2.jpg",
+          "src": "media/pois/guihua-park/img2.jpg",
           "alt": "桂花公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/guihua-park/img3.jpg",
+          "src": "media/pois/guihua-park/img3.jpg",
           "alt": "桂花公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/guihua-park/img4.jpg",
+          "src": "media/pois/guihua-park/img4.jpg",
           "alt": "桂花公园",
           "ext": ".jpg"
         },
         {
-          "src": "/media/pois/guihua-park/img5.jpg",
+          "src": "media/pois/guihua-park/img5.jpg",
           "alt": "桂花公园",
           "ext": ".jpg"
         }

@@ -286,7 +286,7 @@
     api.updateMe({ mbti: code }).then((r) => {
       if (r.ok) {
         closeMbtiModal();
-        toast("已认证 " + code + "，地图为你换了一批风景");
+        toast("已认证 MBTI\n系统为你换了一批风景");
         loadMe();
         refreshAffinities();
       } else {
@@ -549,7 +549,7 @@
     if (!api.token) { toast("请先登录后再发布随笔"); showView("me"); openAuthModal(); return; }
     api.publishEssay({ text, imgs: essayImgs }).then((r) => {
       if (r.ok) {
-        toast("已发布，快去「发现」围观");
+        toast("发布成功^-^");
         document.getElementById("essayText").value = "";
         essayImgs = [];
         renderEssayImgs();

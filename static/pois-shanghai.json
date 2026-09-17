@@ -35,7 +35,12 @@
       "ticket": "免费",
       "x": 528,
       "y": 414,
-      "images": []
+      "images": [
+        {
+          "src": "media/pois/the-bund/img1.jpg",
+          "alt": "外滩 景致"
+        }
+      ]
     },
     {
       "id": "yu-garden",
@@ -72,7 +77,12 @@
       "ticket": "¥40",
       "x": 539,
       "y": 488,
-      "images": []
+      "images": [
+        {
+          "src": "media/pois/yu-garden/img1.jpg",
+          "alt": "豫园 景致"
+        }
+      ]
     },
     {
       "id": "nanjing-road",
@@ -109,7 +119,12 @@
       "ticket": "免费",
       "x": 461,
       "y": 432,
-      "images": []
+      "images": [
+        {
+          "src": "media/pois/nanjing-road/img1.jpg",
+          "alt": "南京路步行街 景致"
+        }
+      ]
     },
     {
       "id": "people-square",
@@ -145,7 +160,12 @@
       "ticket": "免费",
       "x": 405,
       "y": 461,
-      "images": []
+      "images": [
+        {
+          "src": "media/pois/people-square/img1.jpg",
+          "alt": "上海人民广场 景致"
+        }
+      ]
     },
     {
       "id": "xintiandi",
@@ -182,7 +202,12 @@
       "ticket": "免费",
       "x": 450,
       "y": 549,
-      "images": []
+      "images": [
+        {
+          "src": "media/pois/xintiandi/img1.jpg",
+          "alt": "新天地 景致"
+        }
+      ]
     },
     {
       "id": "tianzifang",
@@ -218,7 +243,12 @@
       "ticket": "免费",
       "x": 406,
       "y": 600,
-      "images": []
+      "images": [
+        {
+          "src": "media/pois/tianzifang/img1.jpg",
+          "alt": "田子坊 景致"
+        }
+      ]
     },
     {
       "id": "jingan-temple",
@@ -254,7 +284,12 @@
       "ticket": "¥50",
       "x": 278,
       "y": 512,
-      "images": []
+      "images": [
+        {
+          "src": "media/pois/jingan-temple/img1.jpg",
+          "alt": "静安寺 景致"
+        }
+      ]
     },
     {
       "id": "wukang-building",
@@ -291,7 +326,12 @@
       "ticket": "免费",
       "x": 256,
       "y": 588,
-      "images": []
+      "images": [
+        {
+          "src": "media/pois/wukang-building/img1.jpg",
+          "alt": "武康大楼 景致"
+        }
+      ]
     },
     {
       "id": "hengshan-road",
@@ -328,7 +368,12 @@
       "ticket": "免费",
       "x": 278,
       "y": 624,
-      "images": []
+      "images": [
+        {
+          "src": "media/pois/hengshan-road/img1.jpg",
+          "alt": "衡山路 景致"
+        }
+      ]
     },
     {
       "id": "century-park",
@@ -365,7 +410,12 @@
       "ticket": "免费",
       "x": 833,
       "y": 529,
-      "images": []
+      "images": [
+        {
+          "src": "media/pois/century-park/img1.jpg",
+          "alt": "世纪公园 景致"
+        }
+      ]
     },
     {
       "id": "oriental-pearl",
@@ -402,7 +452,12 @@
       "ticket": "¥199 起",
       "x": 582,
       "y": 414,
-      "images": []
+      "images": [
+        {
+          "src": "media/pois/oriental-pearl/img1.jpg",
+          "alt": "东方明珠塔 景致"
+        }
+      ]
     },
     {
       "id": "lujiazui",
@@ -439,7 +494,12 @@
       "ticket": "免费",
       "x": 589,
       "y": 418,
-      "images": []
+      "images": [
+        {
+          "src": "media/pois/lujiazui/img1.jpg",
+          "alt": "陆家嘴金融城 景致"
+        }
+      ]
     },
     {
       "id": "xuhui-bible",
@@ -475,7 +535,12 @@
       "ticket": "免费",
       "x": 250,
       "y": 700,
-      "images": []
+      "images": [
+        {
+          "src": "media/pois/xuhui-bible/img1.jpg",
+          "alt": "徐家汇天主堂 景致"
+        }
+      ]
     },
     {
       "id": "m50-art",
@@ -511,7 +576,12 @@
       "ticket": "免费",
       "x": 61,
       "y": 412,
-      "images": []
+      "images": [
+        {
+          "src": "media/pois/m50-art/img1.jpg",
+          "alt": "M50 创意园 景致"
+        }
+      ]
     },
     {
       "id": "changfeng-park",
@@ -548,7 +618,12 @@
       "ticket": "¥180 起",
       "x": 39,
       "y": 500,
-      "images": []
+      "images": [
+        {
+          "src": "media/pois/changfeng-park/img1.jpg",
+          "alt": "长风公园 景致"
+        }
+      ]
     }
   ]
 }

@@ -380,7 +380,7 @@
     }
     const cards = essays.slice().reverse().map((e) => {
       const imgs = (e.imgs || []).map((src) =>
-        '<img class="es-photo" src="' + escapeHTML(avatarUrl(src)) + '" alt="随笔配图" loading="lazy">').join("");
+        '<img class="es-photo" data-src="' + escapeHTML(avatarUrl(src)) + '" alt="随笔配图" loading="lazy">').join("");
       return '<div class="essay-card">' +
         '<div class="essay-text">' + escapeHTML(e.text) + "</div>" +
         (imgs ? '<div class="essay-photos">' + imgs + "</div>" : "") +
@@ -389,6 +389,7 @@
         "</div>";
     }).join("");
     listEl.innerHTML = cards;
+    loadEssayImages(listEl);
   }
 
   function renderFeed(listEl, items, myId) {
@@ -402,7 +403,7 @@
         ? '<img class="feed-av" data-src="' + escapeHTML(avatarUrl(e.avatar)) + '" alt="">'
         : '<span class="feed-av feed-av--ph">' + escapeHTML((e.author || "旅").slice(0, 1)) + "</span>";
       const imgs = (e.imgs || []).map((src) =>
-        '<img class="es-photo" src="' + escapeHTML(avatarUrl(src)) + '" alt="随笔配图" loading="lazy">').join("");
+        '<img class="es-photo" data-src="' + escapeHTML(avatarUrl(src)) + '" alt="随笔配图" loading="lazy">').join("");
       return '<article class="feed-card">' +
         '<div class="feed-head">' + av +
         '<div class="feed-author"><b>' + escapeHTML(e.author) + "</b>" +
@@ -414,6 +415,7 @@
         "</article>";
     }).join("");
     listEl.innerHTML = cards;
+    loadEssayImages(listEl);
     // 发现流头像同样走 fetch→Blob 通道（preview-1.05-fix）
     listEl.querySelectorAll("img.feed-av[data-src]").forEach((el) => {
       loadRemoteImg(el, el.getAttribute("data-src"), () => {
@@ -422,6 +424,17 @@
         ph.textContent = "旅";
         el.replaceWith(ph);
       });
+    });
+  }
+
+  // 随笔配图统一走 fetch→Blob 通道加载（preview-1.06），不再直连 <img>
+  function loadEssayImages(root) {
+    if (!root) return;
+    root.querySelectorAll("img.es-photo[data-src]").forEach((el) => {
+      const url = el.getAttribute("data-src");
+      el.removeAttribute("data-src");
+      if (!/^https?:\/\//i.test(url)) { el.src = url; return; }   // 本地/相对图片直显
+      loadRemoteImg(el, url, () => { el.remove(); });             // 失败则移除破图
     });
   }
 
