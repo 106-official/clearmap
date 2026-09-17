@@ -2,6 +2,34 @@
 
 记录每次功能迭代的详细内容。格式遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [cloud-app-preview-1.05] · 2026-09-17
+
+### 界面
+
+- **地图城市选择器改置左上角**：将原来挤在右下缩放控件列的 `<select>`（长沙/上海/北京）独立为左上角固定胶囊，避免与缩放/定位按钮堆叠。
+
+### 排查结论 · 头像与相册显示
+
+逐一核对图像上传→落盘→回读→展示整条链路后确认**当前代码本身已可用**（对本地模块与线上 ECS `47.99.131.169:9100` 均实测验证）：
+
+- 后端 `_save_image` 落盘 `data/uploads/<user>/avatar-xxxx.png` → `media()` 回读成功；
+- 线上 ECS `POST /api/avatar` 返回 `/api/media?...` 且该 URL `200` 可取回图片字节；
+- 前端上传后更新 `state.me.avatar` 并重渲染，`avatarUrl()` 自动把相对 `/api/media` 拼上 `API_BASE`；
+- WebView `allowMixedContent:true` 允许 http 图片加载。
+
+**此前「仍无法显示」的根因是已装的旧 APK 未包含 `compressImage` / `avatarUrl` 修复**，本次重新 `cap sync` 并注入云后端 `http://47.99.131.169:9100/` 后重建，确保修复真正进入安装包。
+
+### 修复
+
+- **随笔多图发布触碰 1MB 请求体上限**：`/api/essay` 最多可带 6 张图，单张 base64 最长约 0.9MB，合计常超后端默认 1MB 上限被拒（表现为「随笔配图无法上传/显示」）。已将 `/api/essay` 的请求体上限放宽到 7MB，其余接口仍保持 1MB。
+
+### 核验
+
+- `api.py / data.py / server.py / config.py` 通过 `python -m py_compile`。
+- `app.js / render.js / store.js / map.js` 通过 `node --check`。
+- 线上 ECS 完成头像上传→media 回读实测（`200`）。
+- 成品：`dist/ClearMap-cloud-preview-1.05.apk`（内置云后端 `http://47.99.131.169:9100/`，签名 `clearmap2026`）。
+
 ## [1.04 修复] · 2026-09-17（不升级版本号，覆盖 cloud-app-preview-1.04）
 
 ### 地图流畅度 · 近零延迟

@@ -291,15 +291,18 @@ button { font-family: inherit; color: inherit; }
 }
 .map-btn:hover { color: var(--clay); border-color: rgba(194,104,71,.5); transform: translateY(-1px); }
 
-/* 城市选择器 */
+/* 城市选择器：左上角固定（preview-1.05） */
+.map-citywrap {
+  position: absolute; left: 14px; top: 16px; z-index: 3;
+}
 .map-city {
   appearance: none; -webkit-appearance: none;
-  width: 64px; height: 30px; margin-top: 2px;
+  width: 64px; height: 30px;
   border: 1px solid var(--line);
   border-radius: 16px;
   background: color-mix(in srgb, var(--paper) 88%, transparent);
   color: var(--ink-soft); font-size: 13px; cursor: pointer;
-  padding: 0 12px; text-align: center;
+  padding: 0 8px; text-align: center;
   font-family: var(--serif); letter-spacing: .06em;
   transition: border-color .2s var(--ease), color .2s var(--ease);
 }

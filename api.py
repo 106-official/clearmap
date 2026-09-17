@@ -373,7 +373,8 @@ def route(method, path, body_raw=None, query=None):
                 return auth_me(query)
 
         elif method == "POST":
-            body = _json_body(body_raw)
+            # 随笔可带多图（≤6 张 × ≤0.9MB base64），放行更大请求体，其余仍限 1MB
+            body = _json_body(body_raw, (7 << 20) if path == "/api/essay" else (1 << 20))
             if path == "/api/me":
                 return 200, update_me(query_id(query), body)
             if path == "/api/avatar":
